@@ -14,13 +14,13 @@ export default async function (req: any, res: any) {
     salt: new Buffer(process.env.HASH_SALT as string),
   })
 
-  if (db.users.has(username)) {
+  if (db.users.some((data) => data.username === username)) {
     return res.render("pages/error", {
       message: "Username already used...",
     })
   }
 
-  const id = Date.now()
+  const id = String(Date.now())
 
   db.users.set(id, {
     id,

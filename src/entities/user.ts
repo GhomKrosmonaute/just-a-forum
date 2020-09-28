@@ -3,7 +3,7 @@ import * as like from "./like"
 import * as link from "./link"
 
 export interface UserData {
-  id: number
+  id: string
   username: string
   password: string
 }

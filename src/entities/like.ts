@@ -2,8 +2,8 @@ import * as post from "./post"
 import * as user from "./user"
 
 export interface LikeData {
-  user_id: number
-  post_id: number
+  user_id: string
+  post_id: string
 }
 
 export interface Like {

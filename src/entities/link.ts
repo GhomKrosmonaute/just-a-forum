@@ -1,8 +1,8 @@
 import * as user from "./user"
 
 export interface LinkData {
-  author_id: number
-  target_id: number
+  author_id: string
+  target_id: string
 }
 
 export interface Link {

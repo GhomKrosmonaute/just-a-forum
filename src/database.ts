@@ -5,18 +5,18 @@ import * as post from "./entities/post"
 import * as like from "./entities/like"
 import * as link from "./entities/link"
 
-const users = new Enmap<number, user.UserData>({ name: "users" })
-const posts = new Enmap<number, post.PostData>({ name: "posts" })
-const likes = new Enmap<number, like.LikeData>({ name: "likes" })
-const links = new Enmap<number, link.LinkData>({ name: "links" })
+const users = new Enmap<string, user.UserData>({ name: "users" })
+const posts = new Enmap<string, post.PostData>({ name: "posts" })
+const likes = new Enmap<string, like.LikeData>({ name: "likes" })
+const links = new Enmap<string, link.LinkData>({ name: "links" })
 
-function getUser(id: number): user.User | undefined {
+function getUser(id: string): user.User | undefined {
   const user = users.get(id)
   if (!user) return undefined
   return user
 }
 
-function getPost(id: number | null): post.Post | undefined {
+function getPost(id: string | null): post.Post | undefined {
   if (!id) return undefined
   const post = posts.get(id)
   if (!post) return undefined
@@ -28,7 +28,7 @@ function getPost(id: number | null): post.Post | undefined {
   }
 }
 
-function getLike(user_id: number, post_id: number): like.Like | undefined {
+function getLike(user_id: string, post_id: string): like.Like | undefined {
   const like = likes.find(
     (data) => data.post_id === post_id && data.user_id === user_id
   )
@@ -39,7 +39,7 @@ function getLike(user_id: number, post_id: number): like.Like | undefined {
   }
 }
 
-function getLink(author_id: number, target_id: number): link.Link | undefined {
+function getLink(author_id: string, target_id: string): link.Link | undefined {
   const link = links.find(
     (data) => data.author_id === author_id && data.target_id === target_id
   )
