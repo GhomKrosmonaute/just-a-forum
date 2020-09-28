@@ -20,7 +20,7 @@ export default async function (req: any, res: any) {
     })
   }
 
-  const id = String(Date.now())
+  const id = String(Date.now().toString(64) + ":" + Math.random().toString(64))
 
   db.users.set(id, {
     id,

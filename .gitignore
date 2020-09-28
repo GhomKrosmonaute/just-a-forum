@@ -3,3 +3,5 @@ node_modules
 data
 save
 dist
+.idea
+.vscode
