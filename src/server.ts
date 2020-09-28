@@ -6,6 +6,7 @@ import path from "path"
 require("dotenv").config()
 
 import root from "./routes/root"
+import wall from "./routes/wall"
 import login from "./routes/login"
 import subscribe from "./routes/subscribe"
 
@@ -15,6 +16,7 @@ app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "..", "views"))
 
 app.use(
+  express.static(path.join(__dirname, "..", "assets")),
   session({
     secret: process.env.SESSION_SECRET as string,
     resave: true,
@@ -25,6 +27,7 @@ app.use(
 )
 
 app.get("/", root)
+app.get("/wall", wall)
 app.post("/login", login)
 app.post("/subscribe", subscribe)
 

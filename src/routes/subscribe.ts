@@ -11,7 +11,7 @@ export default async function (req: any, res: any) {
   }
 
   const hash = await argon.hash(password as string, {
-    salt: new Buffer(process.env.HASH_SALT as string),
+    salt: Buffer.from(process.env.HASH_SALT as string),
   })
 
   if (db.users.some((data) => data.username === username)) {
@@ -20,7 +20,9 @@ export default async function (req: any, res: any) {
     })
   }
 
-  const id = String(Date.now().toString(64) + ":" + Math.random().toString(64))
+  const id = String(Date.now().toString(16) + ":" + Math.random().toString(16))
+
+  console.log(id)
 
   db.users.set(id, {
     id,
@@ -28,5 +30,13 @@ export default async function (req: any, res: any) {
     password: hash,
   })
 
-  return res.redirect("/wall")
+  if (req.session) {
+    req.session.logged = true
+    req.session.username = username
+    return res.redirect("/wall")
+  } else {
+    return res.render("pages/error", {
+      message: "Session system error...",
+    })
+  }
 }
