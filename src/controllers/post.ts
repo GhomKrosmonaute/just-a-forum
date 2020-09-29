@@ -32,6 +32,7 @@ export function getPostChildren(post: post.Post): post.Post[] {
   return posts
     .filterArray((data) => !!data.parent_id && data.parent_id === post.id)
     .map((data) => getPost(data.id) as post.Post)
+    .sort((a, b) => b.date - a.date)
 }
 
 export function getFullPost(post: post.Post): post.FullPost {
