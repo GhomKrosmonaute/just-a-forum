@@ -11,6 +11,7 @@ export interface UserData {
 export type User = UserData
 
 export interface FullUser extends User {
+  wall: post.Post[]
   posts: post.Post[]
   friends: User[]
   ownLikes: like.Like[]
