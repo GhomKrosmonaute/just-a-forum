@@ -46,5 +46,5 @@ function cleaner() {
 exports.start = start
 exports.clean = cleaner
 exports.build = build
-exports.watch = watching
+exports.watch = gulp.series(cleaner, build, watching)
 exports.default = watching
