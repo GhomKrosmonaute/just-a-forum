@@ -1,5 +1,6 @@
 {
   "name": "just-a-chat",
+  "main": "dist/server",
   "scripts": {
     "prettier": "prettier --write src",
     "start": "npm run build && nodemon dist/server",

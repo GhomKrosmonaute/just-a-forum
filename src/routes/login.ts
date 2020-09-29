@@ -11,7 +11,7 @@ export default async function (req: any, res: any) {
   }
 
   const hash = await argon.hash(password as string, {
-    salt: new Buffer(process.env.HASH_SALT as string),
+    salt: Buffer.from(process.env.HASH_SALT as string),
   })
 
   const data = db.users.find((data) => data.username === username)
@@ -24,7 +24,7 @@ export default async function (req: any, res: any) {
 
   if (req.session) {
     req.session.logged = true
-    req.session.username = data.username
+    req.session.username = username
     return res.redirect("/wall")
   } else {
     return res.render("pages/error", {
