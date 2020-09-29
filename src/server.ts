@@ -3,7 +3,7 @@ import session from "express-session"
 import parser from "body-parser"
 import path from "path"
 
-require("dotenv").config()
+require("dotenv").config({})
 
 import root from "./routes/root"
 import wall from "./routes/wall"
