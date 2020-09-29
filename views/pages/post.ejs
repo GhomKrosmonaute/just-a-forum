@@ -1,13 +1,31 @@
 <%- include('../partials/header') %>
 
 <div class="col-md-9">
-    <nav aria-label="breadcrumb" role="navigation">
-        <ol class="breadcrumb">
-            <% for(const part of post.path){ %>
-                <li class="breadcrumb-item"><a href="/post/<%= part.id %>"><%= part.content.trim().slice(0.10) + "..." %></a></li>
-            <% } %>
-        </ol>
-    </nav>
+    <%
+    if(post.path.length > 1){
+        let path = post.path
+        if(post.path.length > 5) {
+            path = post.path.slice(post.path.length - 6)
+            path.unshift({
+                ...post.path[0],
+                content: "..."
+            })
+        }
+    %>
+        <nav aria-label="breadcrumb" role="navigation">
+            <ol class="breadcrumb">
+                <% path.forEach((part, i) => { %>
+                    <li class="breadcrumb-item <%= (i === path.length - 1) ? "active" : "" %>">
+                        <% if (i !== path.length - 1){ %><a href="/post/<%= part.id %>"><% } %>
+                            <%= part.content.trim().slice(0,10) + (part.content.trim().length > 10 ? "..." : "") %>
+                        <% if (i !== path.length - 1){ %></a><% } %>
+                    </li>
+                <% }) %>
+            </ol>
+        </nav>
+    <% } %>
+
+    <h3 class="m-0"> Topic </h3>
 
     <div class="d-flex">
         <%- include('../partials/post', { user, post, getFullPost, redirect: '/post/' + post.id }) %>
@@ -15,14 +33,14 @@
 
     <hr>
 
-    <h3> Reactions </h3>
+    <h3 class="m-0"> Reactions </h3>
 
     <form action="/post" method="POST" id="post">
         <input type="hidden" name="redirect" value="/post/<%= post.id %>">
         <input type="hidden" name="author_id" value="<%= user.id %>">
         <input type="hidden" name="parent_id" value="<%= post.id %>">
         <div class="form-group">
-            <textarea name="content" class="form-control" form="post"></textarea>
+            <textarea name="content" class="form-control" placeholder="Reply to post..." form="post"></textarea>
         </div>
         <input type="submit" class="btn btn-primary btn-round">
     </form>

@@ -11,8 +11,8 @@
     </form>
 
     <div class="d-flex flex-wrap">
-        <% for(const data of posts){ const post = getFullPost(data); %>
-        <%- include('../partials/post', { post, user, redirect: '/wall' }) %>
+        <% for(const data of user.wall){ const post = getFullPost(data); %>
+            <%- include('../partials/post', { post, user, redirect: '/wall' }) %>
         <% } %>
     </div>
 </div>

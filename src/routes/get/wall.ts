@@ -7,8 +7,7 @@ export default function (req: any, res: any) {
     const user = db.getFullUser(
       db.getUser(utils.loggedUserId(req)) as user.User
     )
-    const posts = db.getUserWallPosts(user)
-    res.render("pages/wall", { user, posts, getFullPost: db.getFullPost })
+    res.render("pages/wall", { user, getFullPost: db.getFullPost })
   } else {
     res.redirect("/")
   }
