@@ -1,4 +1,4 @@
-import db from "../database"
+import * as db from "../database"
 import * as post from "../entities/post"
 import * as utils from "../utils"
 
@@ -8,9 +8,10 @@ export default function (req: any, res: any) {
     author_id: req.body.author_id,
     parent_id: req.body.parent_id,
     content: req.body.content,
+    date: Date.now(),
   }
 
-  if (!data.author_id || !data.parent_id || !data.content) {
+  if (!data.author_id) {
     return res.render("pages/error", {
       message: "Invalid request body!",
     })
@@ -21,6 +22,12 @@ export default function (req: any, res: any) {
   if (data.author_id !== loggedUserId) {
     return res.render("pages/error", {
       message: "Permission error.",
+    })
+  }
+
+  if (!data.content.trim()) {
+    return res.render("pages/error", {
+      message: "Your post is empty...",
     })
   }
 

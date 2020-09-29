@@ -1,5 +1,5 @@
 import argon from "argon2"
-import db from "../database"
+import * as db from "../database"
 import * as utils from "../utils"
 
 export default async function (req: any, res: any) {

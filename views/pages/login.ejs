@@ -1,21 +1,26 @@
-<head>
-    <%- include('../partials/styles'); %>
-</head>
+<%- include('../partials/header') %>
 
-<div class="login-form">
-    <h1>Login</h1>
-    <form action="login" method="POST">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="submit">
-    </form>
-    <hr>
-    <h1>Subscribe</h1>
-    <form action="subscribe" method="POST">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="submit">
-    </form>
-</div>
+<form action="login" method="POST">
+    <h2> Login </h2>
+    <div class="form-group">
+        <input type="text" class="form-control" name="username" placeholder="Username" required>
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control" name="password" placeholder="Password" required>
+    </div>
+    <input type="submit" class="btn btn-primary">
+</form>
+<hr>
+<form action="subscribe" method="POST">
+    <h2> Subscribe </h2>
+    <div class="form-group">
+        <input type="text" class="form-control" name="username" placeholder="Username" required>
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control" name="password" placeholder="Password" required>
+    </div>
+    <input type="submit" class="btn btn-primary">
+</form>
 
-<%- include('../partials/scripts'); %>
+<%- include('../partials/footer'); %>
+

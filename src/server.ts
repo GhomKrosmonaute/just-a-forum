@@ -8,6 +8,7 @@ require("dotenv").config({})
 import root from "./routes/root"
 import wall from "./routes/wall"
 import post from "./routes/post"
+import like from "./routes/like"
 import login from "./routes/login"
 import subscribe from "./routes/subscribe"
 
@@ -29,6 +30,7 @@ app.use(
 
 app.get("/", root)
 app.get("/wall", wall)
+app.post("/like", like)
 app.post("/post", post)
 app.post("/login", login)
 app.post("/subscribe", subscribe)
