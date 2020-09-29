@@ -1,6 +1,8 @@
 <%- include('../partials/header') %>
 
-<%- include('../partials/post', { user, post, getFullPost, redirect: '/post/' + post.id }) %>
+<div class="d-flex">
+    <%- include('../partials/post', { user, post, getFullPost, redirect: '/post/' + post.id }) %>
+</div>
 
 <hr>
 
@@ -16,8 +18,10 @@
     <input type="submit" class="btn btn-primary btn-round">
 </form>
 
-<% for(const child of post.children) { %>
-    <%- include('../partials/post', { user, child, getFullPost, redirect: '/post/' + post.id }) %>
-<% } %>
+<div class="d-flex flex-column align-items-start">
+    <% for(const child of post.children) { %>
+        <%- include('../partials/post', { user, child, getFullPost, redirect: '/post/' + post.id }) %>
+    <% } %>
+</div>
 
 <%- include('../partials/footer') %>

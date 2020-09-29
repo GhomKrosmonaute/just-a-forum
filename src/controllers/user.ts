@@ -89,8 +89,8 @@ export function getFullUser(user: user.User): user.FullUser {
 }
 
 export function areFriends(a: user.User, b: user.User): boolean {
-  const a_links = getUserLinks(a),
-    b_links = getUserLinks(b)
+  const a_links = getUserLinks(a)
+  const b_links = getUserLinks(b)
   return a_links.some((a_link) => {
     return b_links.some((b_link) => {
       return (

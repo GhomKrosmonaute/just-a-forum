@@ -27,7 +27,16 @@ export default function (req: any, res: any) {
     })
   }
 
-  db.likes.set(id, data)
+  const similarLike = db.likes.find(
+    (d) => d.post_id === data.post_id && d.user_id === data.user_id
+  )
+
+  // if already liked
+  if (similarLike) {
+    db.likes.delete(similarLike.id)
+  } else {
+    db.likes.set(id, data)
+  }
 
   res.redirect(redirect)
 }
