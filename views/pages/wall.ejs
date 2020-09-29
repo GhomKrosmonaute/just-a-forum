@@ -1,11 +1,14 @@
 <%- include('../partials/header'); %>
 
 <div class="col-md-9">
+
+    <h3 class="m-0"> Feed </h3>
+
     <form action="post" method="POST" id="post">
         <input type="hidden" name="redirect" value="/wall">
         <input type="hidden" name="author_id" value="<%= user.id %>">
         <div class="form-group">
-            <textarea name="content" placeholder="Try to post your advice..." class="form-control" form="post"></textarea>
+            <textarea name="content" placeholder="Post your advice..." class="form-control" autofocus form="post"></textarea>
         </div>
         <input type="submit" class="btn btn-dark btn-round">
     </form>

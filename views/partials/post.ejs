@@ -1,5 +1,5 @@
-<div class="m-4 px-4 pt-2 shadow rounded" style="min-width: 300px; min-height: 100px">
-    <%- include('user-field', { user: post.author }) %>
+<div class="m-4 px-4 pt-2 shadow rounded <%= post.author.id === user.id ? 'border-top border-dark' : '' %>" style="min-width: 300px; min-height: 100px">
+    <%- include('user-field', { target: post.author, user }) %>
     <%
     const date = new Date()
     date.setTime(post.date)
@@ -12,11 +12,11 @@
                 <input type="hidden" name="redirect" value="<%= redirect %>">
                 <input type="hidden" name="user_id" value="<%= user.id %>">
                 <input type="hidden" name="post_id" value="<%= post.id %>">
-                <button type="submit" class="btn <%= post.likes.some(like => like.user.id === user.id) ? "btn-primary" : "btn-dark" %> btn-icon btn-round text-nowrap">
+                <button type="submit" class="btn <%= post.likes.some(like => like.user.id === user.id) ? 'btn-primary' : 'btn-dark' %> btn-icon btn-round text-nowrap">
                     <i class="now-ui-icons ui-2_favourite-28"></i>
                 </button>
             </form>
-            <a href="/post/<%= post.id %>" class="btn <%= post.children.some(post => post.author.id === user.id) ? "btn-primary" : "btn-dark" %> btn-icon btn-round text-nowrap">
+            <a href="/post/<%= post.id %>" class="btn <%= post.children.some(post => post.author.id === user.id) ? 'btn-primary' : 'btn-dark' %> btn-icon btn-round text-nowrap">
                 <i class="now-ui-icons ui-2_chat-round"></i>
             </a>
         </div>
