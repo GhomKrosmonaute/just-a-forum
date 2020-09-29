@@ -5,12 +5,13 @@ import path from "path"
 
 require("dotenv").config({})
 
-import root from "./routes/root"
-import wall from "./routes/wall"
-import post from "./routes/post"
-import like from "./routes/like"
-import login from "./routes/login"
-import subscribe from "./routes/subscribe"
+import root from "./routes/get/root"
+import wall from "./routes/get/wall"
+import getPost from "./routes/get/post"
+import sendPost from "./routes/post/post"
+import like from "./routes/post/like"
+import login from "./routes/post/login"
+import subscribe from "./routes/post/subscribe"
 
 const app = express()
 
@@ -30,8 +31,9 @@ app.use(
 
 app.get("/", root)
 app.get("/wall", wall)
+app.get("/post/:post_id", getPost)
 app.post("/like", like)
-app.post("/post", post)
+app.post("/post", sendPost)
 app.post("/login", login)
 app.post("/subscribe", subscribe)
 

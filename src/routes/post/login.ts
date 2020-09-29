@@ -1,6 +1,6 @@
 import argon from "argon2"
-import * as db from "../database"
-import * as utils from "../utils"
+import * as db from "../../database"
+import * as utils from "../../utils"
 
 export default async function (req: any, res: any) {
   const username: string = req.body.username

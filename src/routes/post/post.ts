@@ -1,8 +1,10 @@
-import * as db from "../database"
-import * as post from "../entities/post"
-import * as utils from "../utils"
+import * as db from "../../database"
+import * as post from "../../entities/post"
+import * as utils from "../../utils"
 
 export default function (req: any, res: any) {
+  const redirect = req.body.redirect ?? "/wall"
+
   const data: post.PostData = {
     id: utils.makeId(),
     author_id: req.body.author_id,
@@ -33,5 +35,5 @@ export default function (req: any, res: any) {
 
   db.posts.set(data.id, data)
 
-  res.redirect("/wall")
+  res.redirect(redirect)
 }

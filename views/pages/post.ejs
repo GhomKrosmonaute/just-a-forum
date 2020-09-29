@@ -1,0 +1,23 @@
+<%- include('../partials/header') %>
+
+<%- include('../partials/post', { user, post, getFullPost, redirect: '/post/' + post.id }) %>
+
+<hr>
+
+<h2> Reactions </h2>
+
+<form action="/post" method="POST" id="post">
+    <input type="hidden" name="redirect" value="/post/<%= post.id %>">
+    <input type="hidden" name="author_id" value="<%= user.id %>">
+    <input type="hidden" name="parent_id" value="<%= post.id %>">
+    <div class="form-group">
+        <textarea name="content" class="form-control" form="post"></textarea>
+    </div>
+    <input type="submit" class="btn btn-primary btn-round">
+</form>
+
+<% for(const child of post.children) { %>
+    <%- include('../partials/post', { user, child, getFullPost, redirect: '/post/' + post.id }) %>
+<% } %>
+
+<%- include('../partials/footer') %>

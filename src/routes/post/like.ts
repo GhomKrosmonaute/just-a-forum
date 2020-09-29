@@ -1,8 +1,10 @@
-import * as like from "../entities/like"
-import * as utils from "../utils"
-import * as db from "../database"
+import * as like from "../../entities/like"
+import * as utils from "../../utils"
+import * as db from "../../database"
 
 export default function (req: any, res: any) {
+  const redirect = req.body.redirect ?? "/wall"
+
   const id = utils.makeId()
 
   const data: like.LikeData = {
@@ -27,5 +29,5 @@ export default function (req: any, res: any) {
 
   db.likes.set(id, data)
 
-  res.redirect("/wall")
+  res.redirect(redirect)
 }

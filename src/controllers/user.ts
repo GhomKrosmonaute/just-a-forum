@@ -66,10 +66,13 @@ export function getUserFriends(user: user.User): user.User[] {
 }
 
 export function getUserWallPosts(user: user.User): post.Post[] {
-  return getUserFriends(user)
-    .map((user) => getUserPosts(user))
-    .flat()
-    .sort((a, b) => a.date - b.date)
+  return getUserPosts(user)
+    .concat(
+      getUserFriends(user)
+        .map((user) => getUserPosts(user))
+        .flat()
+    )
+    .sort((a, b) => b.date - a.date)
 }
 
 export function getFullUser(user: user.User): user.FullUser {

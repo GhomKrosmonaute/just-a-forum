@@ -1,11 +1,34 @@
 <div class="m-2 p-2 shadow" style="min-width: 200px; min-height: 200px">
-    <h2> user. </h2>
+    <h2><%= post.author.username %></h2>
+    <%
+    const date = new Date()
+    date.setTime(post.date)
+    %>
+    <small><%= new Intl.DateTimeFormat("fr").format(date) %></small>
     <p><%= post.content %></p>
-    <form action="like" method="post">
-        <input type="hidden" name="user_id" value="<%= user.id %>">
-        <input type="hidden" name="post_id" value="<%= post.id %>">
-        <button type="submit" class="btn btn-primary btn-icon btn-round">
-            <i class="now-ui-icons ui-2_favourite-28"></i>
-        </button>
-    </form>
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex">
+            <form action="/like" method="post">
+                <input type="hidden" name="redirect" value="<%= redirect %>">
+                <input type="hidden" name="user_id" value="<%= user.id %>">
+                <input type="hidden" name="post_id" value="<%= post.id %>">
+                <button type="submit" class="btn btn-primary btn-icon btn-round text-nowrap">
+                    <i class="now-ui-icons ui-2_favourite-28"></i>
+                </button>
+            </form>
+            <a href="/post/<%= post.id %>" class="btn btn-primary btn-icon btn-round text-nowrap">
+                <i class="now-ui-icons ui-2_chat-round"></i>
+            </a>
+        </div>
+        <div>
+            <% if(post.likes.length > 0){ %>
+                <%= String(post.likes.length) + " likes" %>
+            <% } %>
+        </div>
+        <div>
+            <% if(post.children.length > 0){ %>
+                <%= String(post.children.length) + " reacts" %>
+            <% } %>
+        </div>
+    </div>
 </div>
