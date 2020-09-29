@@ -1,20 +1,16 @@
-import argon from "argon2"
 import * as db from "../../database"
 import * as utils from "../../utils"
 
 export default async function (req: any, res: any) {
-  const username: string = req.body.username
-  const password: string = req.body.password
+  const body = await utils.parseLogin(req)
 
-  if (!username || !password) {
+  if (!body) {
     return res.render("pages/error", {
-      message: "Please enter a username and a password",
+      message: "Please enter an username and a password",
     })
   }
 
-  const hash = await argon.hash(password, {
-    salt: Buffer.from(process.env.HASH_SALT as string),
-  })
+  const { username, hash } = body
 
   if (db.users.some((data) => data.username === username)) {
     return res.render("pages/error", {
