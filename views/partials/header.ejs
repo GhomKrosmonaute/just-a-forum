@@ -4,12 +4,14 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center pt-4">
             <h1 class="text-nowrap"> Just a chat... </h1>
-            <div class="input-group d-none d-md-flex col-5">
-                <input type="text" class="form-control bg-white" placeholder="Search a user or a post">
+            <form method="post" action="/search" class="input-group d-none d-md-flex col-5">
+                <input type="text" name="search" class="form-control bg-white" placeholder="Search a user or a post">
                 <div class="input-group-append">
-                    <a href="#" class="input-group-text"><i class="now-ui-icons ui-1_zoom-bold"></i></a>
+                    <button type="submit" class="input-group-text">
+                        <i class="now-ui-icons ui-1_zoom-bold"></i>
+                    </button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </header>
