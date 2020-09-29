@@ -1,11 +1,15 @@
 <div class="m-4 px-4 pt-2 shadow rounded <%= post.author.id === user.id ? 'border-top border-dark' : '' %>" style="min-width: 300px; min-height: 100px">
-    <%- include('user-field', { target: post.author, user }) %>
     <%
-    const date = new Date()
-    date.setTime(post.date)
+        const date = new Date()
+        date.setTime(post.date)
     %>
-    <small><%= new Intl.DateTimeFormat("fr").format(date) %></small>
-    <p><%= post.content %></p>
+    <div class="d-flex justify-content-between align-items-center">
+        <%- include('user-field', { target: post.author, user }) %>
+        <div class="text-secondary"><%= new Intl.DateTimeFormat("fr").format(date) %></div>
+    </div>
+
+    <p class="p-2 m-0"><%= post.content %></p>
+
     <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex">
             <form action="/like" method="post">

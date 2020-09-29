@@ -1,4 +1,3 @@
-import escape from "escape-html"
 import * as db from "../../database"
 import * as post from "../../entities/post"
 import * as utils from "../../utils"
@@ -10,7 +9,7 @@ export default function (req: any, res: any) {
     id: utils.makeId(),
     author_id: req.body.author_id,
     parent_id: req.body.parent_id,
-    content: escape(req.body.content),
+    content: req.body.content,
     date: Date.now(),
   }
 
