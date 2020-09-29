@@ -5,7 +5,9 @@
     "prettier": "prettier --write src gulpfile.js",
     "start": "gulp start",
     "watch": "gulp watch",
-    "build": "tsc"
+    "clean": "gulp clean",
+    "build": "npm run prettier && gulp build",
+    "build.force": "npm run clean && npm run build"
   },
   "prettier": {
     "semi": false
@@ -19,6 +21,7 @@
     "@types/jsonwebtoken": "^8.5.0",
     "@types/node": "^14.11.2",
     "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
     "gulp-cli": "^2.3.0",
     "nodemon": "^2.0.4",
     "prettier": "^2.1.2",

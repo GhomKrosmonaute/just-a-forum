@@ -1,4 +1,5 @@
 const gulp = require("gulp")
+const clean = require("gulp-clean")
 const tsc = require("gulp-typescript")
 const cp = require("child_process")
 
@@ -27,7 +28,7 @@ function build() {
         target: "es2020",
         lib: ["es2020"],
         module: "commonjs",
-        declaration: true,
+        declaration: false,
         strict: true,
         esModuleInterop: true,
         forceConsistentCasingInFileNames: true,
@@ -36,6 +37,12 @@ function build() {
     .pipe(gulp.dest("dist"))
 }
 
+function cleaner() {
+  return gulp.src("dist", { read: false }).pipe(clean({ force: true }))
+}
+
 exports.start = start
+exports.clean = cleaner
+exports.build = build
 exports.watch = watching
 exports.default = watching
