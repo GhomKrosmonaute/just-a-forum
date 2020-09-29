@@ -68,16 +68,39 @@ function getUserLinks(user: user.User): link.Link[] {
     .map((data) => getLink(data.author_id, data.target_id) as link.Link)
 }
 
+function getUserLikesFromPeople(user: user.User): like.Like[] {
+  return likes
+    .filterArray((data) => getPost(data.post_id)?.author.id === user.id)
+    .map((data) => getLike(data.user_id, data.post_id) as like.Like)
+}
+
+function getUserFriendRequests(user: user.User): link.Link[] {
+  return links
+    .filterArray((data) => data.author_id === user.id)
+    .map((data) => getLink(data.author_id, data.target_id) as link.Link)
+    .filter((link) => !areFriends(user, link.target))
+}
+
+function getUserFriendRequestsFromPeople(user: user.User): link.Link[] {
+  return links
+    .filterArray((data) => data.target_id === user.id)
+    .map((data) => getLink(data.target_id, data.author_id) as link.Link)
+    .filter((link) => !areFriends(link.author, user))
+}
+
 function getFullUser(user: user.User): user.FullUser {
   return {
     ...user,
-    posts: getUserPosts(user) as post.Post[],
-    likes: getUserLikes(user) as like.Like[],
-    links: getUserLinks(user) as link.Link[],
+    posts: getUserPosts(user),
+    friends: getUserFriends(user),
+    ownLikes: getUserLikes(user),
+    likesFromPeople: getUserLikesFromPeople(user),
+    ownFriendRequests: getUserFriendRequests(user),
+    friendRequestsFromPeople: getUserFriendRequestsFromPeople(user),
   }
 }
 
-function getFriends(user: user.User): user.User[] {
+function getUserFriends(user: user.User): user.User[] {
   return users.filterArray((data) => {
     const otherUser = getUser(data.id)
     if (!otherUser) return false
@@ -110,7 +133,10 @@ export default {
   getUserPosts,
   getUserLikes,
   getUserLinks,
+  getUserFriends,
+  getUserFriendRequests,
+  getUserFriendRequestsFromPeople,
+  getUserLikesFromPeople,
   areFriends,
-  getFriends,
   getFullUser,
 }
