@@ -35,10 +35,21 @@ export function getPostChildren(post: post.Post): post.Post[] {
     .sort((a, b) => b.date - a.date)
 }
 
+export function getPostPath(post: post.Post): post.Post[] {
+  const path: post.Post[] = []
+  let current: post.Post | undefined = post
+  while (current) {
+    path.push(current)
+    current = current.parent
+  }
+  return path.reverse()
+}
+
 export function getFullPost(post: post.Post): post.FullPost {
   return {
     ...post,
     likes: getPostLikes(post),
     children: getPostChildren(post),
+    path: getPostPath(post),
   }
 }

@@ -1,5 +1,13 @@
 <%- include('../partials/header') %>
 
+<nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+        <% for(const part of post.path){ %>
+            <li class="breadcrumb-item"><a href="/post/<%= part.id %>"><%= part.content.slice(0.20) + "..." %></a></li>
+        <% } %>
+    </ol>
+</nav>
+
 <div class="d-flex">
     <%- include('../partials/post', { user, post, getFullPost, redirect: '/post/' + post.id }) %>
 </div>
