@@ -1,8 +1,10 @@
 import argon from "argon2"
 import db from "../database"
+import * as utils from "../utils"
 
 export default async function (req: any, res: any) {
-  const { username, password } = req.body
+  const username: string = req.body.username
+  const password: string = req.body.password
 
   if (!username || !password) {
     return res.render("pages/error", {
@@ -10,7 +12,7 @@ export default async function (req: any, res: any) {
     })
   }
 
-  const hash = await argon.hash(password as string, {
+  const hash = await argon.hash(password, {
     salt: Buffer.from(process.env.HASH_SALT as string),
   })
 
@@ -20,7 +22,7 @@ export default async function (req: any, res: any) {
     })
   }
 
-  const id = String(Date.now().toString(16) + ":" + Math.random().toString(16))
+  const id = utils.makeId()
 
   console.log(id)
 
@@ -31,8 +33,7 @@ export default async function (req: any, res: any) {
   })
 
   if (req.session) {
-    req.session.logged = true
-    req.session.username = username
+    utils.logUser(req, id)
     return res.redirect("/wall")
   } else {
     return res.render("pages/error", {
