@@ -38,7 +38,9 @@ function build() {
 }
 
 function cleaner() {
-  return gulp.src("dist", { read: false }).pipe(clean({ force: true }))
+  return gulp
+    .src(["dist", "data"], { read: false })
+    .pipe(clean({ force: true }))
 }
 
 exports.start = start
