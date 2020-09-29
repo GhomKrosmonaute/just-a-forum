@@ -1,6 +1,8 @@
 <%- include('../partials/header') %>
 
 <div class="col-md-9">
+    <h3 class="m-0"> Topic </h3>
+
     <%
     if(post.path.length > 1){
         let path = post.path
@@ -24,8 +26,6 @@
             </ol>
         </nav>
     <% } %>
-
-    <h3 class="m-0"> Topic </h3>
 
     <div class="d-flex">
         <%- include('../partials/post', { user, post, getFullPost, redirect: '/post/' + post.id }) %>
