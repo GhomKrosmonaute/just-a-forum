@@ -1,18 +1,23 @@
 <%- include('../partials/header'); %>
 
-<form action="post" method="POST" id="post">
-    <input type="hidden" name="redirect" value="/wall">
-    <input type="hidden" name="author_id" value="<%= user.id %>">
-    <div class="form-group">
-        <textarea name="content" class="form-control" form="post"></textarea>
-    </div>
-    <input type="submit" class="btn btn-primary btn-round">
-</form>
+<div class="col-md-9">
+    <form action="post" method="POST" id="post">
+        <input type="hidden" name="redirect" value="/wall">
+        <input type="hidden" name="author_id" value="<%= user.id %>">
+        <div class="form-group">
+            <textarea name="content" class="form-control" form="post"></textarea>
+        </div>
+        <input type="submit" class="btn btn-primary btn-round">
+    </form>
 
-<div class="d-flex flex-wrap">
-    <% for(const data of posts){ const post = getFullPost(data); %>
+    <div class="d-flex flex-wrap">
+        <% for(const data of posts){ const post = getFullPost(data); %>
         <%- include('../partials/post', { post, user, redirect: '/wall' }) %>
-    <% } %>
+        <% } %>
+    </div>
+</div>
+<div class="col-md-3 d-none d-md-block">
+    <%- include('../partials/friends', { user }); %>
 </div>
 
 <%- include('../partials/footer'); %>

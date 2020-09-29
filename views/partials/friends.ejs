@@ -1,0 +1,8 @@
+<h3> Friends </h3>
+<ul>
+    <% for (const friend of user.friends) { %>
+        <li>
+            <%- include('user-field', { user: friend }) %>
+        </li>
+    <% } %>
+</ul>
