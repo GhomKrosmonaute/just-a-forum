@@ -1,14 +1,9 @@
+import app from "../../server"
 import * as db from "../../database"
 import * as utils from "../../utils"
-import * as user from "../../entities/user"
-import * as post from "../../entities/post"
 
-export default function (req: any, res: any) {
-  if (req.session?.logged) {
-    const user = db.getFullUser(
-      db.getUser(utils.loggedUserId(req)) as user.User
-    )
-
+app.get("/post/:post_id", function (req, res) {
+  utils.checkoutSession(req, res, (user) => {
     const post_id = req.params.post_id
 
     if (!post_id) {
@@ -17,10 +12,16 @@ export default function (req: any, res: any) {
       })
     }
 
-    const post = db.getFullPost(db.getPost(post_id) as post.Post)
+    const data = db.getPost(post_id)
+
+    if (!data) {
+      return res.render("pages/error", {
+        message: "Ce post n'existe pas.",
+      })
+    }
+
+    const post = db.getFullPost(data)
 
     res.render("pages/post", { user, post, getFullPost: db.getFullPost })
-  } else {
-    res.redirect("/")
-  }
-}
+  })
+})

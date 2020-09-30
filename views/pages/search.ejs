@@ -1,0 +1,33 @@
+<%- include('../partials/header', { logged: true }); %>
+
+<div class="col-md-9">
+
+    <div class="d-flex align-items-center">
+        <h3 class="m-0"> Results - <span class="text-secondary text-monospace"><%= results.users.length %> <i class="now-ui-icons users_single-02"></i> - <%= results.posts.length %> <i class="now-ui-icons ui-1_email-85"></i></span></h3>
+        <form method="post" action="/search" class="input-group d-none d-md-flex col-5">
+            <input type="text" required name="search" value="<%= search %>" class="form-control bg-white" placeholder="Search a user or a post">
+            <div class="input-group-append">
+                <button type="submit" class="input-group-text">
+                    <i class="now-ui-icons ui-1_zoom-bold"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="d-flex flex-wrap">
+        <% for(const target of results.users){ %>
+            <%- include('../partials/user-field', { target, user }) %>
+        <% } %>
+    </div>
+
+    <div class="d-flex flex-wrap">
+        <% for(const post of results.posts){ %>
+            <%- include('../partials/post', { post, user }) %>
+        <% } %>
+    </div>
+</div>
+<div class="col-md-3 d-none d-md-block">
+    <%- include('../partials/friends', { user }); %>
+</div>
+
+<%- include('../partials/footer'); %>

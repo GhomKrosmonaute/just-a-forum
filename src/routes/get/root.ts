@@ -1,7 +1,10 @@
-export default function (req: any, res: any) {
-  if (req.session?.logged) {
+import app from "../../server"
+import * as utils from "../../utils"
+
+app.get("/", function (req, res) {
+  if (utils.isUserLogged(req)) {
     res.redirect("/wall")
   } else {
-    res.render("pages/login", {})
+    res.render("pages/login")
   }
-}
+})

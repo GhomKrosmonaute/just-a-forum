@@ -88,6 +88,10 @@ export function getFullUser(user: user.User): user.FullUser {
   }
 }
 
+export function getFullUserById(id: string): user.FullUser {
+  return getFullUser(getUser(id) as user.User)
+}
+
 export function areFriends(a: user.User, b: user.User): boolean {
   const a_links = getUserLinks(a)
   const b_links = getUserLinks(b)

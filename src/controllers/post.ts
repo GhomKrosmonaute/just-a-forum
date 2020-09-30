@@ -53,3 +53,7 @@ export function getFullPost(post: post.Post): post.FullPost {
     path: getPostPath(post),
   }
 }
+
+export function getFullPostById(id: string): post.FullPost {
+  return getFullPost(getPost(id) as post.Post)
+}

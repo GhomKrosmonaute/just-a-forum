@@ -3,15 +3,9 @@ import session from "express-session"
 import parser from "body-parser"
 import path from "path"
 
-require("dotenv").config({})
+import * as utils from "./utils"
 
-import root from "./routes/get/root"
-import wall from "./routes/get/wall"
-import getPost from "./routes/get/post"
-import sendPost from "./routes/post/post"
-import like from "./routes/post/like"
-import login from "./routes/post/login"
-import subscribe from "./routes/post/subscribe"
+require("dotenv").config()
 
 const app = express()
 
@@ -29,18 +23,23 @@ app.use(
   parser.json()
 )
 
-app.get("/", root)
-app.get("/wall", wall)
-app.get("/post/:post_id", getPost)
-app.post("/like", like)
-app.post("/post", sendPost)
-app.post("/login", login)
-app.post("/subscribe", subscribe)
-
-app.listen(2834)
+app.listen(process.env.PORT ?? 2834)
 
 console.table({
   SESSION_SECRET: process.env.SESSION_SECRET,
   JWT_SECRET: process.env.JWT_SECRET,
   HASH_SALT: process.env.HASH_SALT,
+  PORT: process.env.PORT ?? 2834,
 })
+
+export default app
+;(async function () {
+  try {
+    await utils.forEachFileInDirectories(
+      [path.join(__dirname, "routes")],
+      require
+    )
+  } catch (error) {
+    throw error
+  }
+})()

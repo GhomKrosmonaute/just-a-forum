@@ -39,7 +39,7 @@ function build() {
 
 function cleaner() {
   return gulp
-    .src(["dist", "data"], { read: false })
+    .src(["dist", "data"], { read: false, allowEmpty: true })
     .pipe(clean({ force: true }))
 }
 

@@ -1,7 +1,8 @@
 import * as db from "../../database"
 import * as utils from "../../utils"
+import app from "../../server"
 
-export default async function (req: any, res: any) {
+app.post("/login", async function (req, res) {
   const body = await utils.parseLogin(req)
 
   if (!body) {
@@ -28,4 +29,4 @@ export default async function (req: any, res: any) {
       message: "Session system error...",
     })
   }
-}
+})

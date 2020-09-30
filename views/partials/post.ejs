@@ -18,7 +18,6 @@
     <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex">
             <form action="/like" method="post">
-                <input type="hidden" name="redirect" value="<%= redirect %>">
                 <input type="hidden" name="user_id" value="<%= user.id %>">
                 <input type="hidden" name="post_id" value="<%= post.id %>">
                 <button type="submit" class="btn btn-sm <%= post.likes.some(like => like.user.id === user.id) ? 'btn-primary' : 'btn-dark' %> btn-icon btn-round text-nowrap">

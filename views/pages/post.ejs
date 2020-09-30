@@ -1,4 +1,4 @@
-<%- include('../partials/header') %>
+<%- include('../partials/header', { logged: true }) %>
 
 <div class="col-md-9">
     <h3 class="m-0"> Topic </h3>
@@ -28,7 +28,7 @@
     <% } %>
 
     <div class="d-flex">
-        <%- include('../partials/post', { user, post, getFullPost, redirect: '/post/' + post.id }) %>
+        <%- include('../partials/post', { user, post, getFullPost }) %>
     </div>
 
     <hr>
@@ -47,7 +47,7 @@
 
     <div class="d-flex flex-wrap">
         <% for(const data of post.children) { const child = getFullPost(data); %>
-        <%- include('../partials/post', { user, post: child, getFullPost, redirect: '/post/' + post.id }) %>
+        <%- include('../partials/post', { user, post: child, getFullPost }) %>
         <% } %>
     </div>
 </div>
