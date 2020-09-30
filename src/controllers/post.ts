@@ -1,4 +1,9 @@
 import Enmap from "enmap"
+import dayjs from "dayjs"
+
+import relativeTime from "dayjs/plugin/relativeTime"
+
+dayjs.extend(relativeTime)
 
 import * as post from "../entities/post"
 import * as user from "../entities/user"
@@ -51,6 +56,7 @@ export function getFullPost(post: post.Post): post.FullPost {
     likes: getPostLikes(post),
     children: getPostChildren(post),
     path: getPostPath(post),
+    since: dayjs(post.date).fromNow(),
   }
 }
 

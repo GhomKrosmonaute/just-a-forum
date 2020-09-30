@@ -21,4 +21,5 @@ export interface FullPost extends Post {
   likes: like.Like[]
   children: Post[]
   path: Post[]
+  since: string
 }
