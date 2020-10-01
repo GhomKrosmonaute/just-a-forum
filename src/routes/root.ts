@@ -1,5 +1,5 @@
-import app from "../../server"
-import * as utils from "../../utils"
+import app from "../server"
+import * as utils from "../utils"
 
 app.get("/", function (req, res) {
   if (utils.isUserLogged(req)) {

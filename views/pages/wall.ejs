@@ -13,16 +13,18 @@
     </form>
 
     <div class="d-flex flex-wrap">
-    <%
-    if(user.id === target.id){
-        for(const post of user.wall){
-            %><%- include('../partials/post', { post, user }) %><%
-        }
-    } else {
-        for(const post of target.posts){
-            %><%- include('../partials/post', { post, user }) %><%
-        }
-    } %>
+        <%
+            if(user.id === target.id){
+                for(const post of user.wall){
+                    %><%- include('../partials/post', { post, user }) %><%
+                }
+            } else {
+                for(const post of target.posts){
+                    %><%- include('../partials/post', { post, user }) %><%
+                }
+            }
+        %>
+    </div>
 </div>
 <div class="col-md-3 d-none d-md-block">
     <%- include('../partials/friends', { user }); %>

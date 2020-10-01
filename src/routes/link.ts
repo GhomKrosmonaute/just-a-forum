@@ -1,7 +1,7 @@
-import app from "../../server"
-import * as db from "../../database"
-import * as link from "../../entities/link"
-import * as utils from "../../utils"
+import app from "../server"
+import * as db from "../database"
+import * as link from "../entities/link"
+import * as utils from "../utils"
 
 app.get("/link/:user_id", function (req: any, res: any) {
   utils.checkoutSession(req, res, (user) => {
@@ -15,12 +15,18 @@ app.get("/link/:user_id", function (req: any, res: any) {
 
     const target = db.getFullUserById(target_id)
 
-    if (db.areFriends(user, target)) {
-      const link = db.links.find(
-        (data) => data.author_id === user.id && data.target_id === target.id
-      )
+    const userLink = db.links.find(
+      (data) => data.author_id === user.id && data.target_id === target.id
+    )
+    const targetLink = db.links.find(
+      (data) => data.author_id === target.id && data.target_id === user.id
+    )
 
-      if (link) db.links.delete(link.id)
+    if (userLink && targetLink) {
+      db.links.delete(userLink.id)
+      db.links.delete(targetLink.id)
+    } else if (userLink) {
+      db.links.delete(userLink.id)
     } else {
       const id = utils.makeId()
 

@@ -33,10 +33,15 @@ export function getPostLikes(post: post.Post): like.Like[] {
     .map((data) => _like.getLike(data.id) as like.Like)
 }
 
-export function getPostChildren(post: post.Post, full: boolean = false): post.Post[] {
+export function getPostChildren(
+  post: post.Post,
+  full: boolean = false
+): post.Post[] | post.FullPost[] {
   return posts
     .filterArray((data) => !!data.parent_id && data.parent_id === post.id)
-    .map((data) => full ? getFullPostById(data.id) : getPost(data.id) as post.Post)
+    .map((data) =>
+      full ? getFullPostById(data.id) : (getPost(data.id) as post.Post)
+    )
     .sort((a, b) => b.date - a.date)
 }
 
@@ -50,7 +55,10 @@ export function getPostPath(post: post.Post): post.Post[] {
   return path.reverse()
 }
 
-export function getFullPost(post: post.Post, fullChildren: boolean = false): post.FullPost {
+export function getFullPost(
+  post: post.Post,
+  fullChildren: boolean = false
+): post.FullPost {
   return {
     ...post,
     likes: getPostLikes(post),
@@ -60,6 +68,9 @@ export function getFullPost(post: post.Post, fullChildren: boolean = false): pos
   }
 }
 
-export function getFullPostById(id: string, fullChildren: boolean = false): post.FullPost {
+export function getFullPostById(
+  id: string,
+  fullChildren: boolean = false
+): post.FullPost {
   return getFullPost(getPost(id) as post.Post, fullChildren)
 }

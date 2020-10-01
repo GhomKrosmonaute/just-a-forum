@@ -1,0 +1,7 @@
+<ul class="list-group list-group-flush">
+    <% for (const u of users) { %>
+        <li class="list-group-item">
+            <%- include('user-field', { target: u, user }) %>
+        </li>
+    <% } %>
+</ul>

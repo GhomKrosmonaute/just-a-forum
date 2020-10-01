@@ -1,8 +1,8 @@
-import * as db from "../../database"
-import * as utils from "../../utils"
-import app from "../../server"
+import * as db from "../database"
+import * as utils from "../utils"
+import app from "../server"
 
-app.post("/login", async function (req, res) {
+app.post("/subscribe", async function (req, res) {
   const body = await utils.parseLogin(req)
 
   if (!body) {
@@ -13,16 +13,24 @@ app.post("/login", async function (req, res) {
 
   const { username, hash } = body
 
-  const data = db.users.find((data) => data.username === username)
-
-  if (!data || data.password !== hash) {
+  if (db.users.some((data) => data.username === username)) {
     return res.render("pages/error", {
-      message: "Incorrect Username and/or Password!",
+      message: "Username already used...",
     })
   }
 
+  const id = utils.makeId()
+
+  console.log(id)
+
+  db.users.set(id, {
+    id,
+    username,
+    password: hash,
+  })
+
   if (req.session) {
-    utils.logUser(req, data.id)
+    utils.logUser(req, id)
     return res.redirect("/wall")
   } else {
     return res.render("pages/error", {

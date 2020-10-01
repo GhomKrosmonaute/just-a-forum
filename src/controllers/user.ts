@@ -17,10 +17,17 @@ export function getUser(id: string): user.User | undefined {
   return user
 }
 
-export function getUserPosts(user: user.User, full: boolean = false): post.Post[] {
+export function getUserPosts(
+  user: user.User,
+  full: boolean = false
+): post.Post[] {
   return _post.posts
     .filterArray((data) => data.author_id === user.id && !data.parent_id)
-    .map((data) => full ? _post.getFullPostById(data.id) : _post.getPost(data.id) as post.Post)
+    .map((data) =>
+      full
+        ? _post.getFullPostById(data.id)
+        : (_post.getPost(data.id) as post.Post)
+    )
 }
 
 export function getUserLikes(user: user.User): like.Like[] {
@@ -41,18 +48,26 @@ export function getUserLikesFromPeople(user: user.User): like.Like[] {
     .map((data) => _like.getLike(data.id) as like.Like)
 }
 
-export function getUserFriendRequests(user: user.User): link.Link[] {
+export function getSentFriendRequests(
+  user: user.User,
+  full: boolean = false
+): user.User[] | user.FullUser[] {
   return _link.links
     .filterArray((data) => data.author_id === user.id)
     .map((data) => _link.getLink(data.id) as link.Link)
     .filter((link) => !areFriends(user, link.target))
+    .map((link) => (full ? getFullUser(link.target) : link.target))
 }
 
-export function getUserFriendRequestsFromPeople(user: user.User): link.Link[] {
+export function getGivenFriendRequests(
+  user: user.User,
+  full: boolean = false
+): user.User[] | user.FullUser[] {
   return _link.links
     .filterArray((data) => data.target_id === user.id)
     .map((data) => _link.getLink(data.id) as link.Link)
     .filter((link) => !areFriends(link.author, user))
+    .map((link) => (full ? getFullUser(link.author) : link.author))
 }
 
 export function getUserFriends(user: user.User): user.User[] {
@@ -65,31 +80,40 @@ export function getUserFriends(user: user.User): user.User[] {
     .map((data) => getUser(data.id) as user.User)
 }
 
-export function getUserWallPosts(user: user.User): post.Post[] {
-  return getUserPosts(user)
+export function getUserWallPosts(
+  user: user.User,
+  full: boolean = false
+): post.Post[] | post.FullPost[] {
+  return getUserPosts(user, full)
     .concat(
       getUserFriends(user)
-        .map((user) => getUserPosts(user))
+        .map((user) => getUserPosts(user, full))
         .flat()
     )
     .sort((a, b) => b.date - a.date)
 }
 
-export function getFullUser(user: user.User): user.FullUser {
+export function getFullUser(
+  user: user.User,
+  fullChildren: boolean = false
+): user.FullUser {
   return {
     ...user,
-    wall: getUserWallPosts(user),
-    posts: getUserPosts(user),
+    wall: getUserWallPosts(user, fullChildren),
+    posts: getUserPosts(user, fullChildren),
     friends: getUserFriends(user),
     ownLikes: getUserLikes(user),
     likesFromPeople: getUserLikesFromPeople(user),
-    ownFriendRequests: getUserFriendRequests(user),
-    friendRequestsFromPeople: getUserFriendRequestsFromPeople(user),
+    givenFriendRequests: getGivenFriendRequests(user),
+    sentFriendRequests: getSentFriendRequests(user),
   }
 }
 
-export function getFullUserById(id: string): user.FullUser {
-  return getFullUser(getUser(id) as user.User)
+export function getFullUserById(
+  id: string,
+  fullChildren: boolean = false
+): user.FullUser {
+  return getFullUser(getUser(id) as user.User, fullChildren)
 }
 
 export function areFriends(a: user.User, b: user.User): boolean {

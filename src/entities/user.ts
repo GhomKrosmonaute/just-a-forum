@@ -1,6 +1,5 @@
 import * as post from "./post"
 import * as like from "./like"
-import * as link from "./link"
 
 export interface UserData {
   id: string
@@ -11,11 +10,11 @@ export interface UserData {
 export type User = UserData
 
 export interface FullUser extends User {
-  wall: post.Post[]
-  posts: post.Post[]
-  friends: User[]
+  wall: post.Post[] | post.FullPost[]
+  posts: post.Post[] | post.FullPost[]
+  friends: User[] | FullUser[]
   ownLikes: like.Like[]
   likesFromPeople: like.Like[]
-  ownFriendRequests: link.Link[]
-  friendRequestsFromPeople: link.Link[]
+  givenFriendRequests: User[] | FullUser[]
+  sentFriendRequests: User[] | FullUser[]
 }

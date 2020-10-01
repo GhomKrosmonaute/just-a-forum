@@ -31,7 +31,7 @@ export function checkoutSession(
   callback: (user: user.FullUser) => any
 ) {
   if (isUserLogged(req)) {
-    const user = db.getFullUserById(loggedUserId(req))
+    const user = db.getFullUserById(loggedUserId(req), true)
     callback(user)
   } else {
     res.redirect("/")

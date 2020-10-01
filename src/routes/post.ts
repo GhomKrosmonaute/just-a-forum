@@ -1,7 +1,7 @@
-import * as db from "../../database"
-import * as post from "../../entities/post"
-import * as utils from "../../utils"
-import app from "../../server"
+import app from "../server"
+import * as db from "../database"
+import * as utils from "../utils"
+import * as post from "../entities/post"
 
 app.post("/post", function (req, res) {
   utils.checkoutSession(req, res, (user) => {
@@ -36,5 +36,29 @@ app.post("/post", function (req, res) {
     db.posts.set(data.id, data)
 
     utils.back(req, res)
+  })
+})
+
+app.get("/post/:post_id", function (req, res) {
+  utils.checkoutSession(req, res, (user) => {
+    const post_id = req.params.post_id
+
+    if (!post_id) {
+      return res.render("pages/error", {
+        message: "Ce post n'existe pas.",
+      })
+    }
+
+    const data = db.getPost(post_id)
+
+    if (!data) {
+      return res.render("pages/error", {
+        message: "Ce post n'existe pas.",
+      })
+    }
+
+    const post = db.getFullPost(data, true)
+
+    res.render("pages/post", { user, post })
   })
 })

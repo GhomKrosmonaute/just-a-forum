@@ -1,8 +1,35 @@
-<h3> Friends </h3>
-<ul>
-    <% for (const friend of user.friends) { %>
-        <li>
-            <%- include('user-field', { target: friend, user }) %>
-        </li>
-    <% } %>
-</ul>
+
+<div class="d-flex align-items-center">
+    <h3 class="m-0"> Friends </h3>
+
+    <span class="badge badge-primary ml-3">
+        <%= user.friends.length %>
+        <i class="now-ui-icons users_single-02"></i>
+    </span>
+</div>
+
+<%- include('user-list', { users: user.friends, user }) %>
+
+<div class="d-flex align-items-center">
+    <h3 class="m-0"> Requests </h3>
+
+    <span class="badge badge-primary ml-3">
+        <%= user.givenFriendRequests.length %>
+        <i class="now-ui-icons users_single-02"></i>
+    </span>
+</div>
+
+<%- include('user-list', { users: user.givenFriendRequests, user }) %>
+
+<div class="d-flex align-items-center">
+    <h3 class="m-0"> Pending </h3>
+
+    <span class="badge badge-primary ml-3">
+        <%= user.sentFriendRequests.length %>
+        <i class="now-ui-icons users_single-02"></i>
+    </span>
+</div>
+
+<%- include('user-list', { users: user.sentFriendRequests, user }) %>
+
+

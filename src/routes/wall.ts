@@ -1,12 +1,12 @@
-import app from "../../server"
-import * as utils from "../../utils"
-import * as db from "../../database"
+import app from "../server"
+import * as utils from "../utils"
+import * as db from "../database"
 
 app.get("/wall", function (req, res) {
   utils.checkoutSession(req, res, (user) => {
     res.render("pages/wall", {
       user,
-      target: user
+      target: user,
     })
   })
 })
@@ -29,7 +29,7 @@ app.get("/wall/:user_id", function (req, res) {
       })
     }
 
-    const target = db.getFullUser(data)
+    const target = db.getFullUser(data, true)
 
     res.render("pages/wall", { user, target })
   })

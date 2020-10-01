@@ -1,6 +1,10 @@
-import * as db from "../../database"
-import * as utils from "../../utils"
-import app from "../../server"
+import * as db from "../database"
+import * as utils from "../utils"
+import app from "../server"
+
+app.get("/search", function (req, res) {
+  res.redirect("/")
+})
 
 app.post("/search", function (req, res) {
   utils.checkoutSession(req, res, (user) => {
