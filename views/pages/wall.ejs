@@ -1,32 +1,42 @@
 <%- include('../partials/header', { logged: true }); %>
 
-<div class="col-md-9">
+<div class="col-md-9 p-4">
 
     <h3 class="m-0"> Feed </h3>
 
-    <form action="post" method="POST" id="post">
+    <form action="post" method="POST" id="post" class="p-0 m-0">
         <input type="hidden" name="author_id" value="<%= user.id %>">
         <div class="form-group">
             <textarea name="content" placeholder="Post your advice..." class="form-control" autofocus form="post"></textarea>
         </div>
-        <input type="submit" class="btn btn-dark btn-round">
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="d-md-none btn btn-dark btn-round btn-icon m-0">
+                <i class="now-ui-icons ui-1_send"></i>
+            </button>
+            <button type="submit" class="d-none d-md-block btn btn-dark btn-round m-0">
+                Send
+                <i class="now-ui-icons ui-1_send pl-2"></i>
+            </button>
+        </div>
     </form>
 
     <div class="d-flex flex-wrap">
         <%
             if(user.id === target.id){
                 for(const post of user.wall){
-                    %><%- include('../partials/post', { post, user }) %><%
+                    include('../partials/post', { post, user })
+                    %><%- include('../partials/post-card', { post, user }) %><%
                 }
             } else {
                 for(const post of target.posts){
-                    %><%- include('../partials/post', { post, user }) %><%
+                    %><%- include('../partials/post-card', { post, user }) %><%
                 }
             }
         %>
     </div>
 </div>
-<div class="col-md-3 d-none d-md-block">
+<hr class="d-md-none">
+<div class="col-md-3 p-4">
     <%- include('../partials/friends', { user }); %>
 </div>
 

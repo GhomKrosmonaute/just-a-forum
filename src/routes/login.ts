@@ -26,7 +26,7 @@ app.post("/login", async function (req, res) {
     return res.redirect("/wall")
   } else {
     return res.render("pages/error", {
-      message: "Session system error...",
+      message: "Session expired... Please login.",
     })
   }
 })

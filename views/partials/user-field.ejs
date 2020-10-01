@@ -3,11 +3,11 @@ const isAlreadyLinked = user.sentFriendRequests.some(u => u.id === target.id)
 const isFriend = user.friends.some(u => u.id === target.id)
 const isMe = target.id === user.id
 %>
-<div class="d-flex align-items-center px-2 py-0 <%= isMe ? 'text-primary' : '' %>">
+<div class="d-flex align-items-center px-2 py-0 m-0 <%= isMe ? 'text-primary' : '' %>">
     <i class="now-ui-icons users_single-02"></i>
-    <p class="text-align-center m-0 p-0 px-1 text-monospace  py-0"><%= target.username %></p>
+    <a class="text-align-center m-0 p-0 px-1 py-0 mx-2 text-monospace muted-anchor" href="/wall/<%= target.id %>"><%= target.username %></a>
     <% if (!isMe) { %>
-        <a href="/link/<%= target.id %>" class="btn btn-sm btn-icon btn-round <%= isFriend ? 'btn-primary' : 'btn-dark' %>">
+        <a href="/link/<%= target.id %>" class="btn btn-sm btn-icon btn-round m-0 <%= isFriend ? 'btn-primary' : (isAlreadyLinked ? 'btn-primary' : 'btn-dark') %>">
             <i class="now-ui-icons <%= isFriend ? 'ui-1_simple-delete' : (isAlreadyLinked ? 'ui-1_simple-delete' : 'ui-1_simple-add') %>"></i>
         </a>
     <% } %>

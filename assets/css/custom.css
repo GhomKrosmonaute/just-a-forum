@@ -7,9 +7,29 @@ body {
 }
 
 .muted-anchor {
-  color: var(--white) !important
+  color: initial !important
 }
 
 .muted-anchor:hover {
   text-decoration: none !important;
+}
+
+.pointer {
+  cursor: pointer !important;
+}
+
+.hover,
+.sub-hover {
+  display: none !important;
+}
+
+div:hover > .hover,
+div:hover > .sub-hover,
+div:hover > * > .sub-hover {
+  display: initial !important;
+}
+
+.adapt-icon-size,
+.adapt-icon-size i {
+  font-size: 10px !important;
 }

@@ -1,0 +1,29 @@
+<div class="d-flex justify-content-between">
+    <div class="d-flex align-items-center m-0 p-0">
+        <form action="/like" method="post" class="m-0 p-0">
+            <input type="hidden" name="user_id" value="<%= user.id %>">
+            <input type="hidden" name="post_id" value="<%= post.id %>">
+            <button type="submit" class="btn btn-sm <%= post.likes.length > 0 ? '' : 'btn-icon' %> <%= post.likes.some(like => like.user.id === user.id) ? 'btn-primary' : 'btn-dark' %> btn-round text-nowrap">
+                <% if(post.likes.length > 0){ %>
+                    <%= post.likes.length %>
+                <% } %>
+                <i class="now-ui-icons ui-2_favourite-28 adapt-icon-size"></i>
+            </button>
+        </form>
+        <a href="/post/<%= post.id %>" class="btn btn-sm <%= post.children.length > 0 ? '' : 'btn-icon' %> <%= post.children.some(post => post.author.id === user.id) ? 'btn-primary' : 'btn-dark' %> btn-round text-nowrap">
+            <% if(post.children.length > 0){ %>
+                <%= post.children.length %>
+            <% } %>
+            <i class="now-ui-icons ui-2_chat-round adapt-icon-size"></i>
+        </a>
+    </div>
+
+    <div class="d-flex align-items-center m-0 p-0 sub-hover">
+        <a href="/post/edit/<%= post.id %>" class="btn btn-sm btn-info btn-round">
+            Edit
+        </a>
+        <a href="/post/delete/<%= post.id %>" class="btn btn-sm btn-danger btn-icon btn-round">
+            <i class="now-ui-icons ui-1_simple-remove"></i>
+        </a>
+    </div>
+</div>

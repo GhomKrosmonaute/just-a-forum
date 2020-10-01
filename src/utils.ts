@@ -34,7 +34,9 @@ export function checkoutSession(
     const user = db.getFullUserById(loggedUserId(req), true)
     callback(user)
   } else {
-    res.redirect("/")
+    res.render("pages/error", {
+      message: "Session expired... Please <a href='/'>login</a>.",
+    })
   }
 }
 

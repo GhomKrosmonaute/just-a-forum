@@ -46,8 +46,8 @@
     </form>
 
     <div class="d-flex flex-wrap">
-        <% for(const data of post.children) { %>
-        <%- include('../partials/post', { user, post: child }) %>
+        <% for(const child of post.children) { %>
+        <%- include('../partials/post-card', { user, post: child }) %>
         <% } %>
     </div>
 </div>
