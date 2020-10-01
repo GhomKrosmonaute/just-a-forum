@@ -20,8 +20,8 @@ app.get("/post/:post_id", function (req, res) {
       })
     }
 
-    const post = db.getFullPost(data)
+    const post = db.getFullPost(data, true)
 
-    res.render("pages/post", { user, post, getFullPost: db.getFullPost })
+    res.render("pages/post", { user, post })
   })
 })

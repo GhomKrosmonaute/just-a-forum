@@ -17,10 +17,10 @@ export function getUser(id: string): user.User | undefined {
   return user
 }
 
-export function getUserPosts(user: user.User): post.Post[] {
+export function getUserPosts(user: user.User, full: boolean = false): post.Post[] {
   return _post.posts
     .filterArray((data) => data.author_id === user.id && !data.parent_id)
-    .map((data) => _post.getFullPostById(data.id))
+    .map((data) => full ? _post.getFullPostById(data.id) : _post.getPost(data.id) as post.Post)
 }
 
 export function getUserLikes(user: user.User): like.Like[] {

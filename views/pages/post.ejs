@@ -28,7 +28,7 @@
     <% } %>
 
     <div class="d-flex">
-        <%- include('../partials/post', { user, post, getFullPost }) %>
+        <%- include('../partials/post', { user, post }) %>
     </div>
 
     <hr>
@@ -46,8 +46,8 @@
     </form>
 
     <div class="d-flex flex-wrap">
-        <% for(const data of post.children) { const child = getFullPost(data); %>
-        <%- include('../partials/post', { user, post: child, getFullPost }) %>
+        <% for(const data of post.children) { %>
+        <%- include('../partials/post', { user, post: child }) %>
         <% } %>
     </div>
 </div>

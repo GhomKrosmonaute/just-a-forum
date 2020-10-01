@@ -15,7 +15,7 @@ app.post("/search", function (req, res) {
         .filterArray((data) => {
           return data.content.toLowerCase().includes(search.toLowerCase())
         })
-        .map((data) => db.getFullPostById(data.id)),
+        .map((data) => db.getFullPostById(data.id, true)),
 
       users: db.users
         .filterArray((data) => {

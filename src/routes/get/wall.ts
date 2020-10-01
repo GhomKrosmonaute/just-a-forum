@@ -6,8 +6,7 @@ app.get("/wall", function (req, res) {
   utils.checkoutSession(req, res, (user) => {
     res.render("pages/wall", {
       user,
-      target: user,
-      getFullPost: db.getFullPost,
+      target: user
     })
   })
 })
@@ -32,6 +31,6 @@ app.get("/wall/:user_id", function (req, res) {
 
     const target = db.getFullUser(data)
 
-    res.render("pages/wall", { user, target, getFullPost: db.getFullPost })
+    res.render("pages/wall", { user, target })
   })
 })
