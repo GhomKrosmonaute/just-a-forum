@@ -20,7 +20,7 @@ export function getUser(id: string): user.User | undefined {
 export function getUserPosts(user: user.User): post.Post[] {
   return _post.posts
     .filterArray((data) => data.author_id === user.id && !data.parent_id)
-    .map((data) => _post.getPost(data.id) as post.Post)
+    .map((data) => _post.getFullPostById(data.id))
 }
 
 export function getUserLikes(user: user.User): like.Like[] {

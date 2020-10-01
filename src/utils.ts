@@ -39,6 +39,8 @@ export function checkoutSession(
 }
 
 export function back(req: any, res: any) {
+  // todo: user session to redirect to last rendered page (or use an historque middleware)
+
   let redirect = "/"
 
   if (req.headers?.referer) {

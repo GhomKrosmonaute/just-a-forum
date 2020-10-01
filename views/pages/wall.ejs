@@ -5,7 +5,6 @@
     <h3 class="m-0"> Feed </h3>
 
     <form action="post" method="POST" id="post">
-        <input type="hidden" name="redirect" value="/wall">
         <input type="hidden" name="author_id" value="<%= user.id %>">
         <div class="form-group">
             <textarea name="content" placeholder="Post your advice..." class="form-control" autofocus form="post"></textarea>
@@ -14,10 +13,16 @@
     </form>
 
     <div class="d-flex flex-wrap">
-        <% for(const data of user.wall){ const post = getFullPost(data); %>
-            <%- include('../partials/post', { post, user }) %>
-        <% } %>
-    </div>
+    <%
+    if(user.id === target.id){
+        for(const post of user.wall){
+            %><%- include('../partials/post', { post, user }) %><%
+        }
+    } else {
+        for(const post of target.posts){
+            %><%- include('../partials/post', { post, user }) %><%
+        }
+    } %>
 </div>
 <div class="col-md-3 d-none d-md-block">
     <%- include('../partials/friends', { user }); %>
