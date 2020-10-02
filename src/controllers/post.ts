@@ -11,6 +11,7 @@ import * as like from "../entities/like"
 
 import * as _user from "./user"
 import * as _like from "./like"
+import { users } from "./user"
 
 export const posts = new Enmap<string, post.PostData>({ name: "posts" })
 
@@ -55,6 +56,12 @@ export function getPostPath(post: post.Post): post.Post[] {
   return path.reverse()
 }
 
+export function getPostMentions(post: post.Post): user.User[] {
+  return users
+    .filterArray((data) => post.content.includes("@" + data.username))
+    .map((data) => _user.getUser(data.id) as user.User)
+}
+
 export function getFullPost(
   post: post.Post,
   fullChildren: boolean = false
@@ -65,6 +72,7 @@ export function getFullPost(
     children: getPostChildren(post, fullChildren),
     path: getPostPath(post),
     since: dayjs(post.date).fromNow(),
+    mentions: getPostMentions(post),
   }
 }
 

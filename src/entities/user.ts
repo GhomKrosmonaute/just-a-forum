@@ -12,9 +12,10 @@ export type User = UserData
 export interface FullUser extends User {
   wall: post.Post[] | post.FullPost[]
   posts: post.Post[] | post.FullPost[]
-  friends: User[] | FullUser[]
+  friends: User[]
+  network: User[]
   ownLikes: like.Like[]
   likesFromPeople: like.Like[]
-  givenFriendRequests: User[] | FullUser[]
-  sentFriendRequests: User[] | FullUser[]
+  givenFriendRequests: User[]
+  sentFriendRequests: User[]
 }

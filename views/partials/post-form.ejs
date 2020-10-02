@@ -1,0 +1,39 @@
+
+<% const edit = action === "edit" %>
+<% const comment = action === "comment" %>
+<% const route = edit ? ("/post/edit/" + post.id) : "/post" %>
+
+<form action="<%= route %>" method="POST" id="post" class="p-0 m-0">
+
+    <% if (comment) { %>
+        <input type="hidden" name="parent_id" value="<%= post.id %>">
+    <% } %>
+
+    <div class="form-group">
+        <textarea
+                autofocus
+                id="text-area"
+                name="content"
+                class="form-control"
+                placeholder="<%= edit ? '' : (comment ? 'Reply to post...' : 'Post your advice...') %>"
+                form="post"><%= edit ? post.content : "" %></textarea>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-start">
+
+        <%- include('emoji-picker', { target: 'text-area' }) %>
+
+        <button type="submit" class="d-md-none btn btn-dark btn-round btn-icon m-0 text-nowrap">
+            <i class="now-ui-icons ui-1_<%= edit ? "check" : "send" %>"></i>
+        </button>
+        <button type="submit" class="d-none d-md-block btn btn-dark btn-round m-0 text-nowrap">
+            <% if(edit){ %>
+                Save
+                <i class="now-ui-icons ui-1_check pl-2"></i>
+            <% } else { %>
+                Send
+                <i class="now-ui-icons ui-1_send pl-2"></i>
+            <% } %>
+        </button>
+    </div>
+</form>

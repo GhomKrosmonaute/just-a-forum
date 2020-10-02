@@ -1,6 +1,7 @@
 import Enmap from "enmap"
 
 import * as user from "../entities/user"
+import { User } from "../entities/user"
 import * as post from "../entities/post"
 import * as like from "../entities/like"
 import * as link from "../entities/link"
@@ -48,7 +49,7 @@ export function getUserLikesFromPeople(user: user.User): like.Like[] {
     .map((data) => _like.getLike(data.id) as like.Like)
 }
 
-export function getSentFriendRequests(
+export function getUserSentFriendRequests(
   user: user.User,
   full: boolean = false
 ): user.User[] | user.FullUser[] {
@@ -59,7 +60,7 @@ export function getSentFriendRequests(
     .map((link) => (full ? getFullUser(link.target) : link.target))
 }
 
-export function getGivenFriendRequests(
+export function getUserGivenFriendRequests(
   user: user.User,
   full: boolean = false
 ): user.User[] | user.FullUser[] {
@@ -80,6 +81,10 @@ export function getUserFriends(user: user.User): user.User[] {
     .map((data) => getUser(data.id) as user.User)
 }
 
+export function getUserFriendsById(user_id: string): user.User[] {
+  return getUserFriends(getUser(user_id) as User)
+}
+
 export function getUserWallPosts(
   user: user.User,
   full: boolean = false
@@ -93,6 +98,16 @@ export function getUserWallPosts(
     .sort((a, b) => b.date - a.date)
 }
 
+export function getUserNetwork(user: user.User): User[] {
+  const friends = getUserFriends(user)
+  return users
+    .filterArray(
+      (data) => data.id !== user.id && friends.some((f) => f.id === data.id)
+    )
+    .map((data) => getUserFriendsById(data.id).filter((f) => f.id !== user.id))
+    .flat()
+}
+
 export function getFullUser(
   user: user.User,
   fullChildren: boolean = false
@@ -101,11 +116,12 @@ export function getFullUser(
     ...user,
     wall: getUserWallPosts(user, fullChildren),
     posts: getUserPosts(user, fullChildren),
+    network: getUserNetwork(user),
     friends: getUserFriends(user),
     ownLikes: getUserLikes(user),
     likesFromPeople: getUserLikesFromPeople(user),
-    givenFriendRequests: getGivenFriendRequests(user),
-    sentFriendRequests: getSentFriendRequests(user),
+    givenFriendRequests: getUserGivenFriendRequests(user),
+    sentFriendRequests: getUserSentFriendRequests(user),
   }
 }
 

@@ -1,0 +1,42 @@
+<%- include('../partials/header', { logged: true }) %>
+
+<div class="col-md-9">
+    <h3 class="m-0"> Post editor </h3>
+
+    <%
+    if(post.path.length > 1){
+        let path = post.path
+        if(post.path.length > 5) {
+            path = post.path.slice(post.path.length - 6)
+            path.unshift({
+                ...post.path[0],
+                content: "..."
+            })
+        }
+    %>
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb">
+            <% path.forEach((part, i) => { %>
+                <li class="breadcrumb-item <%= (i === path.length - 1) ? "active" : "" %>">
+                    <% if (i !== path.length - 1){ %><a href="/post/<%= part.id %>"><% } %>
+                        <%= part.content.trim().slice(0,10) + (part.content.trim().length > 10 ? "..." : "") %>
+                        <% if (i !== path.length - 1){ %></a><% } %>
+                </li>
+            <% }) %>
+        </ol>
+    </nav>
+    <% } %>
+
+    <%- include('../partials/post-form', { action: 'edit', post, user }) %>
+
+    <div class="d-flex flex-wrap">
+        <% for(const child of post.children) { %>
+            <%- include('../partials/post-card', { user, post: child }) %>
+        <% } %>
+    </div>
+</div>
+<div class="col-md-3 d-none d-md-block">
+    <%- include('../partials/friends', { user }); %>
+</div>
+
+<%- include('../partials/footer') %>

@@ -32,4 +32,13 @@
 
 <%- include('user-list', { users: user.sentFriendRequests, user }) %>
 
+<div class="d-flex align-items-center">
+    <h4 class="m-0"> Network </h4>
 
+    <span class="badge badge-primary ml-3">
+        <%= user.network.length %>
+        <i class="now-ui-icons users_single-02"></i>
+    </span>
+</div>
+
+<%- include('user-list', { users: user.network, user }) %>

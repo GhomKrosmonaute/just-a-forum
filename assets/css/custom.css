@@ -18,14 +18,14 @@ body {
   cursor: pointer !important;
 }
 
-.hover,
-.sub-hover {
+.d-hover,
+.d-sub-hover {
   display: none !important;
 }
 
-div:hover > .hover,
-div:hover > .sub-hover,
-div:hover > * > .sub-hover {
+div:hover > .d-hover,
+div:hover > .d-sub-hover,
+div:hover > * > .d-sub-hover {
   display: initial !important;
 }
 

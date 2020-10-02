@@ -21,12 +21,7 @@ app.post("/login", async function (req, res) {
     })
   }
 
-  if (req.session) {
-    utils.logUser(req, data.id)
-    return res.redirect("/wall")
-  } else {
-    return res.render("pages/error", {
-      message: "Session expired... Please login.",
-    })
-  }
+  utils.logUser(req, data.id)
+
+  res.redirect("/wall")
 })

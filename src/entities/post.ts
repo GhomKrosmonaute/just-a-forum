@@ -22,4 +22,5 @@ export interface FullPost extends Post {
   children: Post[]
   path: Post[]
   since: string
+  mentions: user.User[]
 }

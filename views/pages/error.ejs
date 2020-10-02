@@ -2,7 +2,12 @@
 
 <div class="align-self-center p-4 shadow-lg rounded">
     <h4 class="text-danger m-1">Error</h4>
-    <p class="m-0"><%- message %></p>
+    <p class="m-0">
+        <%- message %>
+        <% if(!message.includes('href')){ %>
+            <a href='/'>Back to home.</a>
+        <% } %>
+    </p>
 </div>
 
 <%- include('../partials/footer'); %>

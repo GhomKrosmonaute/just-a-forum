@@ -35,19 +35,11 @@
 
     <h3 class="m-0"> Reactions </h3>
 
-    <form action="/post" method="POST" id="post">
-        <input type="hidden" name="redirect" value="/post/<%= post.id %>">
-        <input type="hidden" name="author_id" value="<%= user.id %>">
-        <input type="hidden" name="parent_id" value="<%= post.id %>">
-        <div class="form-group">
-            <textarea name="content" class="form-control" placeholder="Reply to post..." autofocus form="post"></textarea>
-        </div>
-        <input type="submit" class="btn btn-dark btn-round">
-    </form>
+    <%- include('../partials/post-form', { action: 'comment', user, post }) %>
 
     <div class="d-flex flex-wrap">
         <% for(const child of post.children) { %>
-        <%- include('../partials/post-card', { user, post: child }) %>
+            <%- include('../partials/post-card', { user, post: child }) %>
         <% } %>
     </div>
 </div>
