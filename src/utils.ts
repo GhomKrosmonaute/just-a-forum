@@ -1,5 +1,4 @@
 import argon from "argon2"
-import url from "url"
 import fs from "fs/promises"
 import path from "path"
 
@@ -34,27 +33,30 @@ export function checkoutSession(
     const user = db.getFullUserById(loggedUserId(req), true)
     callback(user)
   } else {
-    res.render("pages/error", {
-      message: "Session expired... Please <a href='/'>login</a>.",
-    })
+    error(res, "Session expired... Please <a href='/'>login</a>.")
   }
 }
 
-export function back(req: any, res: any) {
-  // todo: user session to redirect to last rendered page (or use an historque middleware)
+export function error(res: any, message: string) {
+  res.render("pages/error", { message })
+}
 
-  let redirect = "/"
-
-  if (req.headers?.referer) {
-    const previousUrl = new url.URL(req.headers.referer)
-    redirect = previousUrl.pathname
+export function page(req: any, res: any, page: string, options?: any) {
+  if (isUserLogged(req)) {
+    req.session.lastPage = {
+      path: req.path,
+      method: req.method,
+    }
   }
 
-  for (const route of ["/like", "/login", "/post", "/search", "/subscribe"]) {
-    if (redirect.toLowerCase() === route) {
-      redirect = "/"
-      break
-    }
+  res.render("pages/" + page, options)
+}
+
+export function back(req: any, res: any) {
+  let redirect = "/"
+
+  if (req.session?.lastPage) {
+    redirect = req.session.lastPage.path
   }
 
   res.redirect(redirect)

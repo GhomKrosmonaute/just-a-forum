@@ -24,6 +24,6 @@ app.post("/search", function (req, res) {
         .map((data) => db.getFullUserById(data.id)),
     }
 
-    res.render("pages/search", { user, search, results })
+    utils.page(req, res, "search", { user, search, results })
   })
 })

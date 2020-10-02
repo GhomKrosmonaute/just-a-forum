@@ -6,9 +6,7 @@ app.post("/login", async function (req, res) {
   const body = await utils.parseLogin(req)
 
   if (!body) {
-    return res.render("pages/error", {
-      message: "Please enter an username and a password",
-    })
+    return utils.error(res, "Please enter an username and a password")
   }
 
   const { username, hash } = body
@@ -16,9 +14,7 @@ app.post("/login", async function (req, res) {
   const data = db.users.find((data) => data.username === username)
 
   if (!data || data.password !== hash) {
-    return res.render("pages/error", {
-      message: "Incorrect Username and/or Password!",
-    })
+    return utils.error(res, "Incorrect Username and/or Password!")
   }
 
   utils.logUser(req, data.id)

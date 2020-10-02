@@ -6,6 +6,7 @@ import path from "path"
 import * as utils from "./utils"
 
 require("dotenv").config()
+const uuid = require("uuid")
 
 const app = express()
 
@@ -15,6 +16,7 @@ app.set("views", path.join(__dirname, "..", "views"))
 app.use(
   express.static(path.join(__dirname, "..", "assets")),
   session({
+    genid: () => uuid.v4(),
     secret: process.env.SESSION_SECRET as string,
     resave: true,
     saveUninitialized: true,

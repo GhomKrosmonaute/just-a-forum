@@ -14,17 +14,13 @@ app.post("/like", function (req, res) {
     }
 
     if (!data.user_id || !data.post_id) {
-      return res.render("pages/error", {
-        message: "Invalid request body!",
-      })
+      return utils.error(res, "Invalid request body!")
     }
 
     const loggedUserId = utils.loggedUserId(req)
 
     if (data.user_id !== loggedUserId) {
-      return res.render("pages/error", {
-        message: "Permission error.",
-      })
+      return utils.error(res, "Permission error.")
     }
 
     const similarLike = db.likes.find(

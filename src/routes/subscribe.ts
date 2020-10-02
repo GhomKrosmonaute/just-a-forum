@@ -6,23 +6,17 @@ app.post("/subscribe", async function (req, res) {
   const body = await utils.parseLogin(req)
 
   if (!body) {
-    return res.render("pages/error", {
-      message: "Please enter an username and a password",
-    })
+    return utils.error(res, "Please enter an username and a password")
   }
 
   const { username, hash } = body
 
   if (/\s/.test(username)) {
-    return res.render("pages/error", {
-      message: "Username mustn't contains spaces.",
-    })
+    return utils.error(res, "Username mustn't contains spaces.")
   }
 
   if (db.users.some((data) => data.username === username)) {
-    return res.render("pages/error", {
-      message: "Username already used...",
-    })
+    return utils.error(res, "Username already used...")
   }
 
   const id = utils.makeId()
@@ -39,8 +33,6 @@ app.post("/subscribe", async function (req, res) {
     utils.logUser(req, id)
     return res.redirect("/wall")
   } else {
-    return res.render("pages/error", {
-      message: "Session system error...",
-    })
+    return utils.error(res, "Session system error...")
   }
 })

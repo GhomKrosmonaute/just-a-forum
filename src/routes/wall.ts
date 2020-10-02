@@ -16,21 +16,17 @@ app.get("/wall/:user_id", function (req, res) {
     const target_id = req.params.user_id
 
     if (!target_id) {
-      return res.render("pages/error", {
-        message: "Unknown user",
-      })
+      return utils.error(res, "Unknown user")
     }
 
     const data = db.getUser(target_id)
 
     if (!data) {
-      return res.render("pages/error", {
-        message: "Unknown user.",
-      })
+      return utils.error(res, "Unknown user.")
     }
 
     const target = db.getFullUser(data, true)
 
-    res.render("pages/wall", { user, target })
+    utils.page(req, res, "wall", { user, target })
   })
 })

@@ -8,9 +8,7 @@ app.get("/link/:user_id", function (req: any, res: any) {
     const target_id = req.params.user_id
 
     if (!db.users.has(target_id)) {
-      return res.render("pages/error", {
-        message: "Unknown user...",
-      })
+      return utils.error(res, "Unknown user...")
     }
 
     const target = db.getFullUserById(target_id)

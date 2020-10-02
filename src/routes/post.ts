@@ -16,9 +16,7 @@ app.post("/post", function (req, res) {
     }
 
     if (!data.content.trim()) {
-      return res.render("pages/error", {
-        message: "Your post is empty...",
-      })
+      return utils.error(res, "Your post is empty...")
     }
 
     db.posts.set(data.id, data)
@@ -32,18 +30,18 @@ app.get("/post/:post_id", function (req, res) {
     const post_id = req.params.post_id
 
     if (!post_id) {
-      return res.render("pages/error", { message })
+      return utils.page(req, res, "error", { message })
     }
 
     const data = db.getPost(post_id)
 
     if (!data) {
-      return res.render("pages/error", { message })
+      return utils.page(req, res, "error", { message })
     }
 
     const post = db.getFullPost(data, true)
 
-    res.render("pages/post", { user, post })
+    utils.page(req, res, "post", { user, post })
   })
 })
 
@@ -52,13 +50,13 @@ app.get("/post/delete/:post_id", function (req, res) {
     const post_id = req.params.post_id
 
     if (!post_id) {
-      return res.render("pages/error", { message })
+      return utils.page(req, res, "error", { message })
     }
 
     const data = db.posts.get(post_id)
 
     if (!data) {
-      return res.render("pages/error", { message })
+      return utils.page(req, res, "error", { message })
     }
 
     function deleteChildrenOf(d: post.PostData) {
@@ -81,18 +79,18 @@ app.get("/post/edit/:post_id", (req, res) => {
     const post_id = req.params.post_id
 
     if (!post_id) {
-      return res.render("pages/error", { message })
+      return utils.page(req, res, "error", { message })
     }
 
     const data = db.posts.get(post_id)
 
     if (!data) {
-      return res.render("pages/error", { message })
+      return utils.page(req, res, "error", { message })
     }
 
     const post = db.getFullPostById(data.id, true)
 
-    res.render("pages/post-editor", { post, user })
+    utils.page(req, res, "post-editor", { post, user })
   })
 })
 
@@ -101,27 +99,25 @@ app.post("/post/edit/:post_id", (req, res) => {
     const post_id = req.params.post_id
 
     if (!post_id) {
-      return res.render("pages/error", { message })
+      return utils.page(req, res, "error", { message })
     }
 
     const data = db.posts.get(post_id)
 
     if (!data) {
-      return res.render("pages/error", { message })
+      return utils.page(req, res, "error", { message })
     }
 
     data.content = req.body.content ?? ""
 
     if (!data.content.trim()) {
-      return res.render("pages/error", {
-        message: "Your post is empty...",
-      })
+      return utils.error(res, "Your post is empty...")
     }
 
     db.posts.set(data.id, data)
 
     const post = db.getFullPostById(data.id)
 
-    res.render("pages/post", { user, post })
+    utils.page(req, res, "post", { user, post })
   })
 })
