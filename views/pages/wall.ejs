@@ -2,7 +2,7 @@
 
 <% const own = user.id === target.id %>
 
-<div class="col-md-9 p-4">
+<div class="p-4">
 
     <h3 class="m-0"><%= own ? "Feed" : (target.username + " posts") %></h3>
 
@@ -25,9 +25,8 @@
         %>
     </div>
 </div>
-<hr class="d-md-none">
-<div class="col-md-3 p-4">
-    <%- include('../partials/friends', { user }); %>
-</div>
 
+<hr class="d-md-none">
+
+<%- include('../partials/friends', { user }); %>
 <%- include('../partials/footer'); %>

@@ -1,6 +1,6 @@
 <%- include('../partials/header', { logged: true }) %>
 
-<div class="col-md-9">
+<div class="p-4">
     <h3 class="m-0"> Post editor </h3>
 
     <%
@@ -35,8 +35,6 @@
         <% } %>
     </div>
 </div>
-<div class="col-md-3 d-none d-md-block">
-    <%- include('../partials/friends', { user }); %>
-</div>
 
+<%- include('../partials/friends', { user }); %>
 <%- include('../partials/footer') %>

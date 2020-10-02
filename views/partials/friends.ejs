@@ -1,44 +1,45 @@
+<div class="col-md-3 col-lg-2 col-xl-1 p-4">
+    <div class="d-flex align-items-center">
+        <h4 class="m-0"> Friends </h4>
 
-<div class="d-flex align-items-center">
-    <h4 class="m-0"> Friends </h4>
+        <span class="badge badge-primary ml-3">
+            <%= user.friends.length %>
+            <i class="now-ui-icons users_single-02"></i>
+        </span>
+    </div>
 
-    <span class="badge badge-primary ml-3">
-        <%= user.friends.length %>
-        <i class="now-ui-icons users_single-02"></i>
-    </span>
+    <%- include('user-list', { users: user.friends, user }) %>
+
+    <div class="d-flex align-items-center">
+        <h4 class="m-0"> Requests </h4>
+
+        <span class="badge badge-primary ml-3">
+            <%= user.givenFriendRequests.length %>
+            <i class="now-ui-icons users_single-02"></i>
+        </span>
+    </div>
+
+    <%- include('user-list', { users: user.givenFriendRequests, user }) %>
+
+    <div class="d-flex align-items-center">
+        <h4 class="m-0"> Pending </h4>
+
+        <span class="badge badge-primary ml-3">
+            <%= user.sentFriendRequests.length %>
+            <i class="now-ui-icons users_single-02"></i>
+        </span>
+    </div>
+
+    <%- include('user-list', { users: user.sentFriendRequests, user }) %>
+
+    <div class="d-flex align-items-center">
+        <h4 class="m-0"> Network </h4>
+
+        <span class="badge badge-primary ml-3">
+            <%= user.network.length %>
+            <i class="now-ui-icons users_single-02"></i>
+        </span>
+    </div>
+
+    <%- include('user-list', { users: user.network, user }) %>
 </div>
-
-<%- include('user-list', { users: user.friends, user }) %>
-
-<div class="d-flex align-items-center">
-    <h4 class="m-0"> Requests </h4>
-
-    <span class="badge badge-primary ml-3">
-        <%= user.givenFriendRequests.length %>
-        <i class="now-ui-icons users_single-02"></i>
-    </span>
-</div>
-
-<%- include('user-list', { users: user.givenFriendRequests, user }) %>
-
-<div class="d-flex align-items-center">
-    <h4 class="m-0"> Pending </h4>
-
-    <span class="badge badge-primary ml-3">
-        <%= user.sentFriendRequests.length %>
-        <i class="now-ui-icons users_single-02"></i>
-    </span>
-</div>
-
-<%- include('user-list', { users: user.sentFriendRequests, user }) %>
-
-<div class="d-flex align-items-center">
-    <h4 class="m-0"> Network </h4>
-
-    <span class="badge badge-primary ml-3">
-        <%= user.network.length %>
-        <i class="now-ui-icons users_single-02"></i>
-    </span>
-</div>
-
-<%- include('user-list', { users: user.network, user }) %>
