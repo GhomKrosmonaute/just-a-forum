@@ -2,7 +2,7 @@
   "name": "just-a-chat",
   "main": "dist/server",
   "scripts": {
-    "prettier": "prettier --write src gulpfile.js",
+    "prettier": "prettier --write src gulpfile.js assets/custom",
     "start": "gulp start",
     "watch": "gulp watch",
     "clean": "gulp clean",

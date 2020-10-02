@@ -1,5 +1,7 @@
 <p class="p-2 m-0 text-black" id="content-<%= post.id %>"><%= post.content %></p>
 <script>
-  const postContent = document.querySelector("#content-<%= post.id %>")
-  postContent.innerHTML = postContent.innerHTML.replace(/@(\S+)/g, '<span class=text-primary>@$1</span>')
+  {
+    const postContent = document.querySelector("#content-<%= post.id %>")
+    postContent.innerHTML = postContent.innerHTML.replace(/@(\S+)/g, '<span class=text-primary>@$1</span>')
+  }
 </script>

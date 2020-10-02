@@ -16,10 +16,3 @@
     <%- include('emoji-button', { emoji: '😰', target }) %>
     <%- include('emoji-button', { emoji: '🥰', target }) %>
 </div>
-<script>
-    function emojiOnClick(target, emoji){
-      const textArea = document.getElementById(target)
-      textArea.value = textArea.value + emoji
-      textArea.focus()
-    }
-</script>

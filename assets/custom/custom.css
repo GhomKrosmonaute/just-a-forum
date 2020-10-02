@@ -1,13 +1,13 @@
 body {
-  min-height: 100vh !important
+  min-height: 100vh !important;
 }
 
 #content {
-  height: 100% !important
+  height: 100% !important;
 }
 
 .muted-anchor {
-  color: initial !important
+  color: initial !important;
 }
 
 .muted-anchor:hover {
