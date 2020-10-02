@@ -1,4 +1,4 @@
-<div class="m-4 px-4 pt-2 flex-grow-1 shadow d-flex flex-md-column">
+<div class="m-4 px-4 pt-2 flex-grow-1 shadow d-flex flex-column flex-md-row">
     <div class="flex-grow-1">
         <div class="d-flex justify-content-between align-items-center">
             <%- include('user-field', { target: post.author, user }) %>
@@ -8,10 +8,10 @@
         <%- include('post-content', { post, user }) %>
         <%- include('post-footer', { post, user }) %>
     </div>
-    <div class="ml-4">
-        <h5> Mentions </h5>
-        <% if(post.mentions.length > 0){ %>
+    <% if(post.mentions.length > 0){ %>
+        <div class="ml-4">
+            <h5> Mentions </h5>
             <%- include('user-list', { users: post.mentions, user }) %>
-        <% } %>
-    </div>
+        </div>
+    <% } %>
 </div>
