@@ -1,6 +1,6 @@
-<div class="col-md-3 col-lg-2 col-xl-1 p-2">
+<div class="col-md-3 p-2">
     <div class="d-flex align-items-center">
-        <h4 class="m-0"> Friends </h4>
+        <h3 class="m-0"> Friends </h3>
 
         <span class="badge badge-primary ml-3">
             <%= user.friends.length %>
@@ -11,7 +11,7 @@
     <%- include('user-list', { users: user.friends, user }) %>
 
     <div class="d-flex align-items-center">
-        <h4 class="m-0"> Requests </h4>
+        <h4 class="m-0 mt-2"> Requests </h4>
 
         <span class="badge badge-primary ml-3">
             <%= user.givenFriendRequests.length %>
@@ -22,7 +22,7 @@
     <%- include('user-list', { users: user.givenFriendRequests, user }) %>
 
     <div class="d-flex align-items-center">
-        <h4 class="m-0"> Pending </h4>
+        <h4 class="m-0 mt-2"> Pending </h4>
 
         <span class="badge badge-primary ml-3">
             <%= user.sentFriendRequests.length %>
@@ -33,7 +33,7 @@
     <%- include('user-list', { users: user.sentFriendRequests, user }) %>
 
     <div class="d-flex align-items-center">
-        <h4 class="m-0"> Network </h4>
+        <h4 class="m-0 mt-2"> Network </h4>
 
         <span class="badge badge-primary ml-3">
             <%= user.network.length %>

@@ -20,13 +20,13 @@ body {
 
 .d-hover,
 .d-sub-hover {
-  display: none;
+  display: none !important;
 }
 
 div:hover > .d-hover,
 div:hover > .d-sub-hover,
 div:hover > * > .d-sub-hover {
-  display: block;
+  display: block !important;
 }
 
 .adapt-icon-size,
