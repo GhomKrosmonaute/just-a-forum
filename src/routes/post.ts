@@ -116,7 +116,7 @@ app.post("/post/edit/:post_id", (req, res) => {
 
     db.posts.set(data.id, data)
 
-    const post = db.getFullPostById(data.id)
+    const post = db.getFullPostById(data.id, true)
 
     utils.page(req, res, "post", { user, post })
   })
