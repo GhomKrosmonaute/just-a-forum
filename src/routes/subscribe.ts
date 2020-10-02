@@ -13,7 +13,7 @@ app.post("/subscribe", async function (req, res) {
 
   const { username, hash } = body
 
-  if (/\S/.test(username)) {
+  if (/\s/.test(username)) {
     return res.render("pages/error", {
       message: "Username mustn't contains spaces.",
     })
