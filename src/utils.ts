@@ -83,7 +83,7 @@ export async function parseLogin(
   username: string
   hash: string
 } | null> {
-  const username: string = escape(req.body.username)
+  const username: string = req.body.username.trim()
   const password: string = req.body.password
 
   if (!username || !password) return null

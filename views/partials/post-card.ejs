@@ -5,7 +5,7 @@
     </div>
 
     <a href="/post/<%= post.id %>" class="muted-anchor">
-        <p class="p-2 m-0 text-black"><%= post.content %></p>
+        <%- include('post-content', { post, user }) %>
     </a>
 
     <%- include('post-footer', { post, user }) %>

@@ -13,6 +13,12 @@ app.post("/subscribe", async function (req, res) {
 
   const { username, hash } = body
 
+  if (/\S/.test(username)) {
+    return res.render("pages/error", {
+      message: "Username mustn't contains spaces.",
+    })
+  }
+
   if (db.users.some((data) => data.username === username)) {
     return res.render("pages/error", {
       message: "Username already used...",

@@ -5,8 +5,7 @@
             <div class="text-secondary"><%= post.since %></div>
         </div>
 
-        <p class="p-2 m-0"><%= post.content %></p>
-
+        <%- include('post-content', { post, user }) %>
         <%- include('post-footer', { post, user }) %>
     </div>
     <div class="ml-4">
