@@ -19,7 +19,7 @@
                 <% path.forEach((part, i) => { %>
                     <li class="breadcrumb-item <%= (i === path.length - 1) ? "active" : "" %>">
                         <% if (i !== path.length - 1){ %><a href="/post/<%= part.id %>"><% } %>
-                            <%= part.content.trim().slice(0,10) + (part.content.trim().length > 10 ? "..." : "") %>
+                            <%= part.content.trim().slice(0,10).trim() + (part.content.trim().length > 10 ? "..." : "") %>
                         <% if (i !== path.length - 1){ %></a><% } %>
                     </li>
                 <% }) %>
