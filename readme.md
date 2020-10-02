@@ -1,4 +1,4 @@
-# Forॐ - Just forum
+# Forॐ - Just a recursive forum
 
 ## How to use it ?
 
