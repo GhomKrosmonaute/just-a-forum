@@ -3,6 +3,10 @@ import * as like from "../entities/like"
 import * as utils from "../utils"
 import * as db from "../database"
 
+app.get("/like", function (req, res) {
+  utils.back(req, res)
+})
+
 app.post("/like", function (req, res) {
   utils.checkoutSession(req, res, (user) => {
     const id = utils.makeId()

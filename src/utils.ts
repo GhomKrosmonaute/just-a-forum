@@ -43,23 +43,14 @@ export function error(res: any, message: string) {
 
 export function page(req: any, res: any, page: string, options?: any) {
   if (isUserLogged(req)) {
-    req.session.lastPage = {
-      path: req.path,
-      method: req.method,
-    }
+    req.session.lastPage = req.path
   }
 
   res.render("pages/" + page, options)
 }
 
 export function back(req: any, res: any) {
-  let redirect = "/"
-
-  if (req.session?.lastPage) {
-    redirect = req.session.lastPage.path
-  }
-
-  res.redirect(redirect)
+  res.redirect(req.session?.lastPage ?? "/")
 }
 
 export function makeId(): string {

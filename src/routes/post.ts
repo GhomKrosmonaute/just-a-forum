@@ -5,6 +5,10 @@ import * as post from "../entities/post"
 
 const message = "This post no longer exists or the given ID is incorrect."
 
+app.get("/post", function (req, res) {
+  utils.back(req, res)
+})
+
 app.post("/post", function (req, res) {
   utils.checkoutSession(req, res, (user) => {
     const data: post.PostData = {
