@@ -7,7 +7,7 @@ const isMe = target.id === user.id
     <i class="now-ui-icons users_single-02"></i>
     <a class="text-align-center m-0 p-0 px-1 py-0 mx-2 text-monospace muted-anchor" href="/wall/<%= target.id %>"><%= target.username %></a>
     <% if (!isMe) { %>
-        <a href="/link/<%= target.id %>" class="btn btn-sm btn-icon btn-round m-0 <%= isFriend ? 'btn-primary' : (isAlreadyLinked ? 'btn-primary' : 'btn-dark') %>">
+        <a href="/link/<%= target.id %>" class="btn btn-sm btn-icon btn-round m-0 <%= isFriend ? 'btn-dark' : (isAlreadyLinked ? 'btn-dark' : 'btn-primary') %>">
             <i class="now-ui-icons <%= isFriend ? 'ui-1_simple-delete' : (isAlreadyLinked ? 'ui-1_simple-delete' : 'ui-1_simple-add') %>"></i>
         </a>
     <% } %>
