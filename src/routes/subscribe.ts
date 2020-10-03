@@ -38,3 +38,22 @@ app.post("/subscribe", async function (req, res) {
     return utils.error(res, "Session system error...")
   }
 })
+
+app.get("/unsubscribe/:user_id", function (req, res) {
+  utils.checkoutSession(req, res, (user) => {
+    const target_id = req.params.user_id
+    const target = entities.User.fromId(target_id)
+
+    if (!target) {
+      return utils.error(res, "Unknown user...")
+    }
+
+    if (target.id !== user.id && !user.admin) {
+      return utils.error(res, "Permission error.")
+    }
+
+    target.delete()
+
+    utils.back(req, res)
+  })
+})

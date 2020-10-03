@@ -5,7 +5,7 @@
     const isMe = target.id === user.id
 %>
 <div
-        class="d-flex align-items-center justify-content-between px-2 py-0 m-0 <%= isMe ? 'text-primary' : '' %>"
+        class="d-flex align-items-center justify-content-between px-2 py-3 m-0 <%= isMe ? 'text-primary' : '' %>"
         style="height: 25px; min-width: 120px">
     <div class="text-nowrap d-flex align-items-center">
         <i class="now-ui-icons users_single-02"></i>
@@ -13,12 +13,12 @@
     </div>
     <div class="text-nowrap d-flex align-items-center">
         <% if(user.admin) { %>
-            <a href="/unsubscribe/<%= target.id %>" class="d-hover my-0 btn btn-sm btn-icon btn-round m-0 btn-danger">
+            <a href="/unsubscribe/<%= target.id %>" class="d-sub-hover btn btn-sm btn-icon btn-round m-0 btn-danger">
                 <i class="now-ui-icons ui-1_simple-remove"></i>
             </a>
         <% } %>
         <% if (!isMe) { %>
-            <a href="/link/<%= target.id %>" class="d-hover my-0 btn btn-sm btn-icon btn-round m-0 <%= isFriend ? 'btn-danger' : (isAlreadyLinked ? 'btn-dark' : 'btn-success') %>">
+            <a href="/link/<%= target.id %>" class="d-sub-hover my-0 btn btn-sm btn-icon btn-round m-0 <%= isFriend ? 'btn-danger' : (isAlreadyLinked ? 'btn-dark' : 'btn-success') %>">
                 <i class="now-ui-icons <%= isFriend ? 'ui-1_simple-delete' : (isAlreadyLinked ? 'ui-1_simple-delete' : 'ui-1_simple-add') %>"></i>
             </a>
         <% } %>

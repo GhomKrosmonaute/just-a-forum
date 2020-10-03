@@ -38,12 +38,16 @@ export async function forEachFileInDirectories(
 export function checkoutSession(
   req: any,
   res: any,
-  callback: (user: entities.User, admin: boolean) => any
+  callback: (user: entities.User) => any
 ) {
   if (isUserLogged(req)) {
     const user = entities.User.fromId(loggedUserId(req))
-    if (user) callback(user, isUserAdmin(req))
-    else error(res, "Internal error!")
+    if (user) {
+      user.admin = isUserAdmin(req)
+      callback(user)
+    } else {
+      error(res, "Internal error!")
+    }
   } else {
     error(res, "Session expired... Please <a href='/'>login</a>.")
   }
