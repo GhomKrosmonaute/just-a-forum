@@ -6,8 +6,9 @@
     "start": "gulp start",
     "watch": "gulp watch",
     "clean": "gulp clean",
-    "build": "npm run prettier && gulp build",
-    "build.force": "npm run clean && npm run build"
+    "build": "gulp build",
+    "build.force": "npm run clean && npm run build",
+    "deploy": "yarn build && pm2 restart forum && pm2 logs"
   },
   "prettier": {
     "semi": false
