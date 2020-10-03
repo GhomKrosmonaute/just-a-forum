@@ -13,7 +13,7 @@
 
         <%- include('user-list', { users: friends, user }) %>
     <% }{ %>
-        <% const requests = user.getGivenFriendRequests() %>
+        <% const requests = user.getRequests() %>
 
         <div class="d-flex align-items-center">
             <h4 class="m-0 mt-2"> Requests </h4>
@@ -26,7 +26,7 @@
 
         <%- include('user-list', { users: requests, user }) %>
     <% }{ %>
-        <% const pending = user.getSentFriendRequests() %>
+        <% const pending = user.getPending() %>
 
         <div class="d-flex align-items-center">
             <h4 class="m-0 mt-2"> Pending </h4>
