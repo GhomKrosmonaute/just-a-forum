@@ -61,6 +61,6 @@ export class Like implements LikeData {
   }
 
   delete() {
-    // todo
+    Like.db.delete(this.id)
   }
 }

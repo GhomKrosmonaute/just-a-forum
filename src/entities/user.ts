@@ -1,7 +1,6 @@
 import Enmap from "enmap"
 import * as entities from "../entities"
 import * as utils from "../utils"
-import { LinkData } from "../entities"
 
 export interface UserData {
   id: string
@@ -116,8 +115,7 @@ export class User implements UserData {
       .map((data) => new entities.Link(data))
   }
 
-  /** Pending */
-  getSentFriendRequests(): User[] {
+  getPending(): User[] {
     return entities.Link.db
       .filterArray((data) => {
         if (data.author_id !== this.id) return false
@@ -128,8 +126,7 @@ export class User implements UserData {
       .map((data) => User.fromId(data.target_id) as User)
   }
 
-  /** Requests */
-  getGivenFriendRequests(): User[] {
+  getRequests(): User[] {
     return entities.Link.db
       .filterArray((data) => {
         if (data.target_id !== this.id) return false
@@ -141,6 +138,13 @@ export class User implements UserData {
   }
 
   delete() {
-    // todo
+    entities.Link.forEach((link) => {
+      if (link.target_id === this.id || link.author_id === this.id) {
+        link.delete()
+      }
+    })
+    this.getLikes().forEach((like) => like.delete())
+    this.getPosts().forEach((post) => post.delete())
+    User.db.delete(this.id)
   }
 }

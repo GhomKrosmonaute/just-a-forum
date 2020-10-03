@@ -45,6 +45,10 @@ export class Link implements LinkData {
     return this.db.filterArray(filter).map((data) => new Link(data))
   }
 
+  static forEach(callback: (link: Link) => any) {
+    this.db.forEach((data) => callback(new Link(data)))
+  }
+
   static add(data: LinkData) {
     this.db.set(data.id, data)
   }
@@ -62,6 +66,6 @@ export class Link implements LinkData {
   }
 
   delete() {
-    // todo
+    Link.db.delete(this.id)
   }
 }

@@ -110,6 +110,8 @@ export class Post implements PostData {
   }
 
   delete() {
-    // todo
+    this.getLikes().forEach((like) => like.delete())
+    this.getChildren().forEach((child) => child.delete())
+    Post.db.delete(this.id)
   }
 }
