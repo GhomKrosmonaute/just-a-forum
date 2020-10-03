@@ -18,7 +18,7 @@
         </a>
     </div>
 
-    <% if(post.author.id === user.id){ %>
+    <% if(post.author.id === user.id || user.admin){ %>
         <div class="d-flex align-items-center m-0 p-0 d-sub-hover">
             <a href="/post/edit/<%= post.id %>" class="btn btn-sm btn-info btn-round">
                 Edit

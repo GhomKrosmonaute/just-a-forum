@@ -9,7 +9,7 @@ app.post("/subscribe", async function (req, res) {
     return utils.error(res, "Please enter an username and a password")
   }
 
-  const { username, hash } = body
+  const { username, hash, admin } = body
 
   if (/\s/.test(username)) {
     return utils.error(res, "Username mustn't contains spaces.")
@@ -30,7 +30,7 @@ app.post("/subscribe", async function (req, res) {
   })
 
   if (req.session) {
-    utils.logUser(req, id)
+    utils.logUser(req, id, admin)
     return res.redirect("/wall")
   } else {
     return utils.error(res, "Session system error...")

@@ -9,7 +9,7 @@ app.post("/login", async function (req, res) {
     return utils.error(res, "Please enter an username and a password")
   }
 
-  const { username, hash } = body
+  const { username, hash, admin } = body
 
   const data = db.users.find((data) => data.username === username)
 
@@ -17,7 +17,7 @@ app.post("/login", async function (req, res) {
     return utils.error(res, "Incorrect Username and/or Password!")
   }
 
-  utils.logUser(req, data.id)
+  utils.logUser(req, data.id, admin)
 
   res.redirect("/wall")
 })

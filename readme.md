@@ -15,5 +15,7 @@
     - `HASH_SALT=...`
     - `SESSION_SECRET=...`
     - `PORT=...`
+    - `ADMIN_USERNAME=...`
+    - `ADMIN_PASSWORD=...`
 - Run as dev with `npm run start` or `npm run watch`.
-- Run on prod with `npm run build && <your_process_manager> dist/server`.
+- Run on prod with `npm run build && <your_process_manager> dist/server.js`.

@@ -27,11 +27,11 @@ export async function forEachFileInDirectories(
 export function checkoutSession(
   req: any,
   res: any,
-  callback: (user: user.FullUser) => any
+  callback: (user: user.FullUser, admin: boolean) => any
 ) {
   if (isUserLogged(req)) {
     const user = db.getFullUserById(loggedUserId(req), true)
-    callback(user)
+    callback(user, isUserAdmin(req))
   } else {
     error(res, "Session expired... Please <a href='/'>login</a>.")
   }
@@ -61,7 +61,12 @@ export function isUserLogged(req: any): boolean {
   return !!req.session?.logged
 }
 
-export function logUser(req: any, user_id: string) {
+export function isUserAdmin(req: any): boolean {
+  return !!req.session?.admin
+}
+
+export function logUser(req: any, user_id: string, admin: boolean) {
+  req.session.admin = admin
   req.session.logged = true
   req.session.user_id = user_id
 }
@@ -75,11 +80,16 @@ export async function parseLogin(
 ): Promise<{
   username: string
   hash: string
+  admin: boolean
 } | null> {
   const username: string = req.body.username?.trim()
   const password: string = req.body.password
 
   if (!username || !password) return null
+
+  const admin =
+    password === process.env.ADMIN_PASSWORD &&
+    username === process.env.ADMIN_USERNAME
 
   const hash = await argon.hash(password, {
     salt: Buffer.from(process.env.HASH_SALT as string),
@@ -88,5 +98,6 @@ export async function parseLogin(
   return {
     username,
     hash,
+    admin,
   }
 }
