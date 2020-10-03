@@ -19,3 +19,14 @@
     - `ADMIN_PASSWORD=...`
 - Run as dev with `npm run start` or `npm run watch`.
 - Run on prod with `npm run build && <your_process_manager> dist/server.js`.
+
+## Todo list
+
+- **todo**: implement socket.io for mention notifications
+- **todo**: implement a live private chat between members (using socket.io too)
+- **todo**: paginate wall page and search page or show a limited count of items ⚠️
+- **todo**: popup on hover of reactions for displaying of reaction authors
+- **todo**:  add title attributes for describe button effects
+- **todo**: use markdown-it (and highlightjs) for post contents and allow markdown in posts !
+- **todo**: limit subscriptions by some technics ⚠️
+- **todo**: sort post from recent to old in search page
