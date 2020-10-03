@@ -1,4 +1,4 @@
-import * as db from "../database"
+import * as entities from "../entities"
 import * as utils from "../utils"
 import app from "../server"
 
@@ -15,22 +15,24 @@ app.post("/subscribe", async function (req, res) {
     return utils.error(res, "Username mustn't contains spaces.")
   }
 
-  if (db.users.some((data) => data.username === username)) {
+  if (username.length > 20) {
+    return utils.error(res, "Username is too large (20 char max)")
+  }
+
+  if (entities.User.db.some((data) => data.username === username)) {
     return utils.error(res, "Username already used...")
   }
 
-  const id = utils.makeId()
-
-  console.log(id)
-
-  db.users.set(id, {
-    id,
+  const data: entities.UserData = {
+    id: utils.makeId(),
     username,
     password: hash,
-  })
+  }
+
+  entities.User.add(data)
 
   if (req.session) {
-    utils.logUser(req, id, admin)
+    utils.logUser(req, data.id, admin)
     return res.redirect("/wall")
   } else {
     return utils.error(res, "Session system error...")

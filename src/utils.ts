@@ -2,10 +2,21 @@ import argon from "argon2"
 import fs from "fs/promises"
 import path from "path"
 
-import * as user from "./entities/user"
-import * as db from "./database"
+import * as entities from "./entities"
 
 const uuid = require("uuid")
+
+export interface Dated {
+  date: number
+}
+
+export function sortByDate(a: Dated, b: Dated): number {
+  return b.date - a.date
+}
+
+export function removeDuplicate<T>(array: T[]): T[] {
+  return [...new Set(array)]
+}
 
 export async function forEachFileInDirectories(
   pathList: string[],
@@ -27,11 +38,12 @@ export async function forEachFileInDirectories(
 export function checkoutSession(
   req: any,
   res: any,
-  callback: (user: user.FullUser, admin: boolean) => any
+  callback: (user: entities.User, admin: boolean) => any
 ) {
   if (isUserLogged(req)) {
-    const user = db.getFullUserById(loggedUserId(req), true)
-    callback(user, isUserAdmin(req))
+    const user = entities.User.fromId(loggedUserId(req))
+    if (user) callback(user, isUserAdmin(req))
+    else error(res, "Internal error!")
   } else {
     error(res, "Session expired... Please <a href='/'>login</a>.")
   }
@@ -65,10 +77,14 @@ export function isUserAdmin(req: any): boolean {
   return !!req.session?.admin
 }
 
-export function logUser(req: any, user_id: string, admin: boolean) {
+export function logUser(
+  req: any,
+  user: entities.User | string,
+  admin: boolean
+) {
   req.session.admin = admin
   req.session.logged = true
-  req.session.user_id = user_id
+  req.session.user_id = typeof user === "string" ? user : user.id
 }
 
 export function loggedUserId(req: any): string {

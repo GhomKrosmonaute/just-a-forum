@@ -1,6 +1,6 @@
 <%
-const isAlreadyLinked = user.sentFriendRequests.some(u => u.id === target.id)
-const isFriend = user.friends.some(u => u.id === target.id)
+const isAlreadyLinked = user.getSentFriendRequests().some(u => u.id === target.id)
+const isFriend = user.isFriendWith(target)
 const isMe = target.id === user.id
 %>
 <div

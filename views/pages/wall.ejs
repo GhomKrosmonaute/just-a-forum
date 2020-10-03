@@ -13,12 +13,11 @@
     <div class="d-flex flex-wrap">
         <%
             if(own){
-                for(const post of user.wall){
-                    include('../partials/post', { post, user })
+                for(const post of user.getWall()){
                     %><%- include('../partials/post-card', { post, user }) %><%
                 }
             } else {
-                for(const post of target.posts){
+                for(const post of target.getPosts()){
                     %><%- include('../partials/post-card', { post, user }) %><%
                 }
             }

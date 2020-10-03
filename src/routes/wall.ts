@@ -1,6 +1,6 @@
 import app from "../server"
+import * as entities from "../entities"
 import * as utils from "../utils"
-import * as db from "../database"
 
 app.get("/wall", function (req, res) {
   utils.checkoutSession(req, res, (user) => {
@@ -14,18 +14,11 @@ app.get("/wall", function (req, res) {
 app.get("/wall/:user_id", function (req, res) {
   utils.checkoutSession(req, res, (user) => {
     const target_id = req.params.user_id
+    const target = entities.User.fromId(target_id)
 
-    if (!target_id) {
+    if (!target) {
       return utils.error(res, "Unknown user")
     }
-
-    const data = db.getUser(target_id)
-
-    if (!data) {
-      return utils.error(res, "Unknown user.")
-    }
-
-    const target = db.getFullUser(data, true)
 
     utils.page(req, res, "wall", { user, target })
   })

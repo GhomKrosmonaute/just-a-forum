@@ -1,0 +1,25 @@
+<%
+const fullPath = post.getPath()
+
+if(fullPath.length > 1){
+    let path = fullPath.slice(0)
+    if(fullPath.length > 5) {
+        path = fullPath.slice(post.path.length - 6)
+        path.unshift({
+            ...fullPath[0],
+            content: "..."
+        })
+    }
+%>
+    <nav aria-label="breadcrumb" role="navigation" class="mt-2">
+        <ol class="breadcrumb">
+            <% path.forEach((part, i) => { %>
+                <li class="breadcrumb-item <%= (i === path.length - 1) ? "active" : "" %>">
+                    <% if (i !== path.length - 1){ %><a href="/post/<%= part.id %>"><% } %>
+                        <%= part.content.trim().slice(0,10).trim() + (part.content.trim().length > 10 ? "..." : "") %>
+                        <% if (i !== path.length - 1){ %></a><% } %>
+                </li>
+            <% }) %>
+        </ol>
+    </nav>
+<% } %>

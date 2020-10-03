@@ -9,6 +9,11 @@ require("dotenv").config()
 
 const app = express()
 
+app.locals.site = {
+  name: "Forॐ",
+  baseUrl: "https://www.just-a-forum.tk",
+}
+
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "..", "views"))
 

@@ -1,4 +1,4 @@
-import * as db from "../database"
+import * as entities from "../entities"
 import * as utils from "../utils"
 import app from "../server"
 
@@ -11,17 +11,13 @@ app.post("/search", function (req, res) {
     }
 
     const results = {
-      posts: db.posts
-        .filterArray((data) => {
-          return data.content.toLowerCase().includes(search.toLowerCase())
-        })
-        .map((data) => db.getFullPostById(data.id, true)),
+      posts: entities.Post.filter((data) => {
+        return data.content.toLowerCase().includes(search.toLowerCase())
+      }),
 
-      users: db.users
-        .filterArray((data) => {
-          return data.username.toLowerCase().includes(search.toLowerCase())
-        })
-        .map((data) => db.getFullUserById(data.id)),
+      users: entities.User.filter((data) => {
+        return data.username.toLowerCase().includes(search.toLowerCase())
+      }),
     }
 
     utils.page(req, res, "search", { user, search, results })

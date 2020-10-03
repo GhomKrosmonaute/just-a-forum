@@ -1,29 +1,30 @@
 import app from "../server"
-import * as db from "../database"
 import * as utils from "../utils"
-import * as post from "../entities/post"
+import * as entities from "../entities"
 
 const message = "This post no longer exists or the given ID is incorrect."
 
-app.get("/post", function (req, res) {
-  utils.back(req, res)
-})
+app.get("/post", utils.back)
 
 app.post("/post", function (req, res) {
   utils.checkoutSession(req, res, (user) => {
-    const data: post.PostData = {
+    const data: entities.PostData = {
       id: utils.makeId(),
       author_id: user.id,
       parent_id: req.body.parent_id,
-      content: req.body.content,
+      content: req.body.content?.trim(),
       date: Date.now(),
     }
 
-    if (!data.content.trim()) {
+    if (!data.content) {
       return utils.error(res, "Your post is empty...")
     }
 
-    db.posts.set(data.id, data)
+    if (data.content.length > 1024) {
+      return utils.error(res, "Your post is too large")
+    }
+
+    entities.Post.add(data)
 
     utils.back(req, res)
   })
@@ -31,48 +32,29 @@ app.post("/post", function (req, res) {
 
 app.get("/post/:post_id", function (req, res) {
   utils.checkoutSession(req, res, (user) => {
-    const post_id = req.params.post_id
+    const post = entities.Post.fromId(req.params.post_id)
 
-    if (!post_id) {
-      return utils.page(req, res, "error", { message })
+    if (!post) {
+      return utils.error(res, message)
     }
-
-    const data = db.getPost(post_id)
-
-    if (!data) {
-      return utils.page(req, res, "error", { message })
-    }
-
-    const post = db.getFullPost(data, true)
 
     utils.page(req, res, "post", { user, post })
   })
 })
 
 app.get("/post/delete/:post_id", function (req, res) {
-  utils.checkoutSession(req, res, () => {
-    const post_id = req.params.post_id
+  utils.checkoutSession(req, res, (user) => {
+    const post = entities.Post.fromId(req.params.post_id)
 
-    if (!post_id) {
-      return utils.page(req, res, "error", { message })
+    if (!post) {
+      return utils.error(res, message)
     }
 
-    const data = db.posts.get(post_id)
-
-    if (!data) {
-      return utils.page(req, res, "error", { message })
+    if (post.author_id !== user.id && !user.admin) {
+      return utils.error(res, "Permission error.")
     }
 
-    function deleteChildrenOf(d: post.PostData) {
-      db.posts.delete(d.id)
-      db.posts.forEach((d) => {
-        if (d.parent_id === d.id) {
-          deleteChildrenOf(d)
-        }
-      })
-    }
-
-    deleteChildrenOf(data)
+    post.delete()
 
     utils.back(req, res)
   })
@@ -80,19 +62,11 @@ app.get("/post/delete/:post_id", function (req, res) {
 
 app.get("/post/edit/:post_id", (req, res) => {
   utils.checkoutSession(req, res, (user) => {
-    const post_id = req.params.post_id
+    const post = entities.Post.fromId(req.params.post_id)
 
-    if (!post_id) {
-      return utils.page(req, res, "error", { message })
+    if (!post) {
+      return utils.error(res, message)
     }
-
-    const data = db.posts.get(post_id)
-
-    if (!data) {
-      return utils.page(req, res, "error", { message })
-    }
-
-    const post = db.getFullPostById(data.id, true)
 
     utils.page(req, res, "post-editor", { post, user })
   })
@@ -100,28 +74,24 @@ app.get("/post/edit/:post_id", (req, res) => {
 
 app.post("/post/edit/:post_id", (req, res) => {
   utils.checkoutSession(req, res, (user) => {
-    const post_id = req.params.post_id
+    const post = entities.Post.fromId(req.params.post_id)
 
-    if (!post_id) {
-      return utils.page(req, res, "error", { message })
+    if (!post) {
+      return utils.error(res, message)
     }
 
-    const data = db.posts.get(post_id)
-
-    if (!data) {
-      return utils.page(req, res, "error", { message })
+    if (post.author_id !== user.id && !user.admin) {
+      return utils.error(res, "Permission error.")
     }
 
-    data.content = req.body.content ?? ""
+    post.content = req.body.content ?? ""
 
-    if (!data.content.trim()) {
+    if (!post.content.trim()) {
       return utils.error(res, "Your post is empty...")
     }
 
-    db.posts.set(data.id, data)
+    entities.Post.add(post.data)
 
-    const post = db.getFullPostById(data.id, true)
-
-    utils.page(req, res, "post", { user, post })
+    res.redirect("/post/" + post.id)
   })
 })

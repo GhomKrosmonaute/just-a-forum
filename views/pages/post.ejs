@@ -3,29 +3,7 @@
 <div class="p-2">
     <h3 class="m-0"> Topic </h3>
 
-    <%
-    if(post.path.length > 1){
-        let path = post.path
-        if(post.path.length > 5) {
-            path = post.path.slice(post.path.length - 6)
-            path.unshift({
-                ...post.path[0],
-                content: "..."
-            })
-        }
-    %>
-        <nav aria-label="breadcrumb" role="navigation">
-            <ol class="breadcrumb">
-                <% path.forEach((part, i) => { %>
-                    <li class="breadcrumb-item <%= (i === path.length - 1) ? "active" : "" %>">
-                        <% if (i !== path.length - 1){ %><a href="/post/<%= part.id %>"><% } %>
-                            <%= part.content.trim().slice(0,10).trim() + (part.content.trim().length > 10 ? "..." : "") %>
-                        <% if (i !== path.length - 1){ %></a><% } %>
-                    </li>
-                <% }) %>
-            </ol>
-        </nav>
-    <% } %>
+    <%- include('../partials/post-breadcrumb', { post }) %>
 
     <div class="d-flex">
         <%- include('../partials/post', { user, post }) %>
@@ -38,7 +16,7 @@
     <%- include('../partials/post-form', { action: 'comment', user, post }) %>
 
     <div class="d-flex flex-wrap">
-        <% for(const child of post.children) { %>
+        <% for(const child of post.getChildren()) { %>
             <%- include('../partials/post-card', { user, post: child }) %>
         <% } %>
     </div>

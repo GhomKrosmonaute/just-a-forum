@@ -1,6 +1,6 @@
 <div class="m-4 px-4 pt-2 shadow rounded border-top border-dark" style="min-width: 300px; min-height: 100px">
     <div class="d-flex justify-content-between align-items-center">
-        <%- include('user-field', { target: post.author, user }) %>
+        <%- include('user-field', { target: post.getAuthor(), user }) %>
         <div class="text-secondary"><%= post.since %></div>
     </div>
 
