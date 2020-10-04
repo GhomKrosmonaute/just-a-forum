@@ -29,5 +29,4 @@
 - **todo**: add title attributes for describe button effects
 - **todo**: use markdown-it (and highlightjs) for post contents and allow markdown in posts !
 - **todo**: limit subscriptions by some technics ⚠️
-- **todo**: sort post from recent to old in search page
 - **todo**: add fixtures for dev tests
