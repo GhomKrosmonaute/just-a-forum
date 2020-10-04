@@ -6,11 +6,13 @@ body {
   height: 100% !important;
 }
 
-.muted-anchor {
+.muted-anchor,
+.color-none {
   color: initial !important;
 }
 
-.muted-anchor:hover {
+.muted-anchor:hover,
+.decoration-none {
   text-decoration: none !important;
 }
 

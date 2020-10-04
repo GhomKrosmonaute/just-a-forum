@@ -22,12 +22,12 @@
     </div>
 
     <% if(post.author_id === user.id || user.admin){ %>
-        <div class="d-flex align-items-center m-0 p-0 d-sub-hover flex-nowrap">
-            <a href="/post/edit/<%= post.id %>" class="text-info px-1 d-block">
-                Edit
+        <div class="my-auto p-0 d-sub-hover text-nowrap">
+            <a href="/post/edit/<%= post.id %>" class="text-info mx-1 decoration-none">
+                <i class="far fa-edit"></i>
             </a>
-            <a href="/post/delete/<%= post.id %>" class="text-danger px-1 d-block">
-                <i class="now-ui-icons ui-1_simple-remove"></i>
+            <a href="/post/delete/<%= post.id %>" class="text-danger mx-1 decoration-none">
+                <i class="far fa-trash-alt"></i>
             </a>
         </div>
     <% } %>
