@@ -8,7 +8,7 @@
     "clean": "gulp clean",
     "build": "gulp build",
     "build.force": "npm run clean && npm run build",
-    "deploy": "git pull && yarn build && pm2 restart forum && pm2 logs forum"
+    "deploy": "git pull && yarn build && pm2 restart forum"
   },
   "prettier": {
     "semi": false
