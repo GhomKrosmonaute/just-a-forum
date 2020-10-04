@@ -32,3 +32,4 @@
 - **todo**: sort post from recent to old in search page
 - **todo**: use express-session properties to display user status (afk, online, offline)
 - **todo**: fix all CSS shifts of hovered elements
+- **todo**: add fixtures for dev tests
