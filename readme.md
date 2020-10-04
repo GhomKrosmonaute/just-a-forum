@@ -30,6 +30,4 @@
 - **todo**: use markdown-it (and highlightjs) for post contents and allow markdown in posts !
 - **todo**: limit subscriptions by some technics ⚠️
 - **todo**: sort post from recent to old in search page
-- **todo**: use express-session properties to display user status (afk, online, offline)
-- **todo**: fix all CSS shifts of hovered elements
 - **todo**: add fixtures for dev tests
