@@ -1,6 +1,6 @@
 <%- include('../partials/header', { logged: true }); %>
 
-<div class="p-2">
+<div>
     <div class="d-flex align-items-center">
         <h3 class="m-0"> Results </h3>
 
@@ -20,18 +20,18 @@
         </div>
     </div>
 
-    <div class="d-flex flex-column flex-md-row">
+    <div class="d-md-flex">
         <% if(results.users.length > 0){ %>
-            <div>
+            <div class="col-md-4">
                 <h4> Users </h4>
                 <%- include('../partials/user-list', { users: results.users, user }) %>
             </div>
         <% } %>
 
-        <hr class="d-none d-md-block">
+        <hr class="d-block d-md-none">
 
         <% if(results.posts.length > 0){ %>
-            <div>
+            <div class="col-md-8">
                 <h4> Posts </h4>
                 <div class="d-flex flex-wrap flex-grow-1">
                     <% for(const post of results.posts){ %>

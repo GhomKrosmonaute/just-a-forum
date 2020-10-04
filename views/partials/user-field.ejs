@@ -5,20 +5,22 @@
     const isMe = target.id === user.id
 %>
 <div
-        class="d-flex align-items-center justify-content-between px-2 py-3 m-0 <%= isMe ? 'text-primary' : '' %>"
-        style="height: 25px; min-width: 50px">
-    <div class="text-nowrap d-flex align-items-center">
-        <i class="now-ui-icons users_single-02"></i>
-        <a class="text-align-center m-0 p-0 px-1 mx-2 text-monospace muted-anchor" href="/wall/<%= target.id %>"><%= target.username %></a>
-    </div>
-    <div class="text-nowrap d-flex align-items-center">
+        class="d-flex align-items-center justify-content-between p-0 m-0"
+        style="height: 25px">
+    <a class="text-nowrap d-flex align-items-center muted-anchor px-2 py-3 overflow-hidden" href="/wall/<%= target.id %>" style="max-width: 100px">
+        <i class="now-ui-icons users_single-02 <%= isMe ? 'text-primary' : '' %>"></i>
+        <span class="text-align-center m-0 p-0 px-1 mx-2 text-monospace <%= isMe ? 'text-primary' : '' %>">
+            <%= target.username %>
+        </span>
+    </a>
+    <div class="text-nowrap d-flex align-items-center overflow-hidden">
         <% if(user.admin) { %>
-            <a href="/unsubscribe/<%= target.id %>" class="d-sub-hover btn btn-sm btn-icon btn-round m-0 btn-danger">
+            <a href="/unsubscribe/<%= target.id %>" class="d-sub-hover text-danger m-1 p-1">
                 <i class="now-ui-icons ui-1_simple-remove"></i>
             </a>
         <% } %>
         <% if (!isMe) { %>
-            <a href="/link/<%= target.id %>" class="d-sub-hover my-0 btn btn-sm btn-icon btn-round m-0 <%= isFriend ? 'btn-danger' : (isAlreadyLinked ? 'btn-dark' : 'btn-success') %>">
+            <a href="/link/<%= target.id %>" class="d-sub-hover m-1 p-1 <%= isFriend ? 'text-danger' : (isAlreadyLinked ? 'text-dark' : 'text-success') %>">
                 <i class="now-ui-icons <%= isFriend ? 'ui-1_simple-delete' : (isAlreadyLinked ? 'ui-1_simple-delete' : 'ui-1_simple-add') %>"></i>
             </a>
         <% } %>
