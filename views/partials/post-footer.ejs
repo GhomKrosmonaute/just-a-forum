@@ -12,7 +12,7 @@
                 <i class="now-ui-icons ui-2_favourite-28 adapt-icon-size"></i>
             </button>
         </form>
-        <% const children = post.getChildren() %>
+        <% const children = post.getAllChildren() %>
         <a href="/post/<%= post.id %>" class="btn btn-sm <%= children.length > 0 ? '' : 'btn-icon' %> <%= children.some(child => child.author_id === user.id) ? 'btn-primary' : 'btn-dark' %> btn-round text-nowrap">
             <% if(children.length > 0){ %>
                 <%= children.length %>

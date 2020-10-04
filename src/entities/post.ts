@@ -91,6 +91,12 @@ export class Post implements PostData {
       .sort(utils.sortByDate)
   }
 
+  getAllChildren(): Post[] {
+    return this.getChildren()
+      .map(child => child.getAllChildren())
+      .flat()
+  }
+
   getPath(): Post[] {
     const path: Post[] = []
     let current: Post | void = this
