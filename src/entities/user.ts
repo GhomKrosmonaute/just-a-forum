@@ -30,6 +30,14 @@ export class User implements UserData {
     }
   }
 
+  get online(): boolean {
+    return (
+      utils.sessions.has(this.id) &&
+      Date.now() <
+        (utils.sessions.get(this.id) as number) + utils.sessionTimeout
+    )
+  }
+
   static fromId(id: string): User | void {
     const data = this.db.get(id)
     if (!data) return

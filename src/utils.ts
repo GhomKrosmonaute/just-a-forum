@@ -35,24 +35,6 @@ export async function forEachFileInDirectories(
   }
 }
 
-export function checkoutSession(
-  req: any,
-  res: any,
-  callback: (user: entities.User) => any
-) {
-  if (isUserLogged(req)) {
-    const user = entities.User.fromId(loggedUserId(req))
-    if (user) {
-      user.admin = isUserAdmin(req)
-      callback(user)
-    } else {
-      error(res, "Internal error!")
-    }
-  } else {
-    error(res, "Session expired... Please <a href='/'>login</a>.")
-  }
-}
-
 export function error(res: any, message: string) {
   res.render("pages/error", { message })
 }
@@ -119,5 +101,37 @@ export async function parseLogin(
     username,
     hash,
     admin,
+  }
+}
+
+/** Contains sessions activity timeouts <user_id, last_activity_time> */
+export const sessions = new Map<string, number>()
+export const sessionTimeout = 600000 // 10 min
+
+export function refreshSessions() {
+  const now = Date.now()
+  sessions.forEach((time, id) => {
+    if (now > time + sessionTimeout) {
+      sessions.delete(id)
+    }
+  })
+}
+
+export function checkoutSession(
+  req: any,
+  res: any,
+  callback: (user: entities.User) => any
+) {
+  if (isUserLogged(req)) {
+    const user = entities.User.fromId(loggedUserId(req))
+    if (user) {
+      user.admin = isUserAdmin(req)
+      sessions.set(user.id, Date.now())
+      callback(user)
+    } else {
+      error(res, "Internal error!")
+    }
+  } else {
+    error(res, "Session expired... Please <a href='/'>login</a>.")
   }
 }
