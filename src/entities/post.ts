@@ -93,7 +93,7 @@ export class Post implements PostData {
 
   getAllChildren(): Post[] {
     return this.getChildren()
-      .map(child => child.getAllChildren())
+      .map((child) => [child, ...child.getAllChildren()])
       .flat()
   }
 
