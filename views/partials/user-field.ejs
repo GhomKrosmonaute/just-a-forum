@@ -15,12 +15,15 @@
     </a>
     <div class="text-nowrap d-flex align-items-center overflow-hidden">
         <% if(user.admin) { %>
-            <a href="/unsubscribe/<%= target.id %>" class="d-sub-hover text-danger m-1 p-1">
+            <a href="/unsubscribe/<%= target.id %>" class="d-sub-hover text-danger m-1 p-1" title="⚠️ Delete user account ⚠️">
                 <i class="now-ui-icons ui-1_simple-remove"></i>
             </a>
         <% } %>
         <% if (!isMe) { %>
-            <a href="/link/<%= target.id %>" class="d-sub-hover m-1 p-1 <%= isFriend ? 'text-danger' : (isAlreadyLinked ? 'text-dark' : 'text-success') %>">
+            <a
+                    href="/link/<%= target.id %>"
+                    class="d-sub-hover m-1 p-1 <%= isFriend ? 'text-danger' : (isAlreadyLinked ? 'text-dark' : 'text-success') %>"
+                    title="Remove from <%= isFriend ? 'friend-list' : 'pending-list'%>">
                 <i class="now-ui-icons <%= isFriend ? 'ui-1_simple-delete' : (isAlreadyLinked ? 'ui-1_simple-delete' : 'ui-1_simple-add') %>"></i>
             </a>
         <% } %>
