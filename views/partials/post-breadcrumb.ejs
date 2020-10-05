@@ -2,9 +2,9 @@
 const fullPath = post.getPath()
 
 if(fullPath.length > 1){
-    let path = fullPath.slice(0)
+    var path = fullPath.slice(0)
     if(fullPath.length > 5) {
-        path = fullPath.slice(post.path.length - 6)
+        path = fullPath.slice(fullPath.length - 6)
         path.unshift({
             ...fullPath[0],
             content: "..."
