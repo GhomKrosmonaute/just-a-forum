@@ -30,3 +30,5 @@
 - **todo**: use markdown-it (and highlightjs) for post contents and allow markdown in posts !
 - **todo**: limit subscriptions by some technics ⚠️
 - **todo**: add fixtures for dev tests
+- **todo**: add user profile card on top of user wall
+- **todo**: add report button on posts and on users profile
