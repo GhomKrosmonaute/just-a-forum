@@ -3,7 +3,6 @@
     <div class="d-flex align-items-center m-0 p-0">
         <% const likes = post.getLikes() %>
         <form action="/like" method="post" class="m-0 p-0">
-            <input type="hidden" name="user_id" value="<%= user.id %>">
             <input type="hidden" name="post_id" value="<%= post.id %>">
             <button
                     type="submit"
@@ -41,10 +40,10 @@
 
     <% if(post.author_id === user.id || user.admin){ %>
         <div class="my-auto p-0 d-sub-hover text-nowrap">
-            <a href="/post/edit/<%= post.id %>" class="text-info mx-1 decoration-none">
+            <a href="/post/edit/<%= post.id %>" class="text-info mx-1 decoration-none" title="Edit the post">
                 <i class="far fa-edit"></i>
             </a>
-            <a href="/post/delete/<%= post.id %>" class="text-danger mx-1 decoration-none">
+            <a href="/post/delete/<%= post.id %>" class="text-danger mx-1 decoration-none" title="Delete the post">
                 <i class="far fa-trash-alt"></i>
             </a>
         </div>
