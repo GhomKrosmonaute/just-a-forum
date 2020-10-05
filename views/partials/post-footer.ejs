@@ -7,7 +7,13 @@
             <input type="hidden" name="post_id" value="<%= post.id %>">
             <button
                     type="submit"
-                    <%- include('popover', { content: 'Liked by ' + likes.map(like => like.getUser().username).join(', ') }) %>
+                    <% if(likes.length === 0) { %>
+                        <%- include('popover', { content: 'Like this topic' }) %>
+                    <% } else if (likes.length > 20) { %>
+                        <%- include('popover', { content: likes.length + ' likes' }) %>
+                    <% } else { %>
+                        <%- include('popover', { content: likes.map(like => like.getUser().username).join(', ') }) %>
+                    <% } %>
                     class="btn btn-sm <%= likes.length > 0 ? '' : 'btn-icon' %> <%= likes.some(like => like.user_id === user.id) ? 'btn-primary' : 'btn-dark' %> btn-round text-nowrap">
                 <% if(likes.length > 0){ %>
                     <%= likes.length %>
@@ -17,7 +23,13 @@
         </form>
         <% const children = post.getAllChildren() %>
         <a
-                <%- include('popover', { content: children.length + ' reactions' }) %>
+                <% if(children.length === 0) { %>
+                    <%- include('popover', { content: 'Comment this topic' }) %>
+                <% } else if (children.length > 20) { %>
+                    <%- include('popover', { content: children.length + ' comments' }) %>
+                <% } else { %>
+                    <%- include('popover', { content: [...new Set(children.map(post => post.getAuthor().username))].join(', ') }) %>
+                <% } %>
                 href="/post/<%= post.id %>"
                 class="btn btn-sm <%= children.length > 0 ? '' : 'btn-icon' %> <%= children.some(child => child.author_id === user.id) ? 'btn-primary' : 'btn-dark' %> btn-round text-nowrap">
             <% if(children.length > 0){ %>
