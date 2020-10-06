@@ -1,17 +1,33 @@
 import argon from "argon2"
 import fs from "fs/promises"
 import path from "path"
-import markdown from "markdown-it"
+import Markdown from "markdown-it"
+import hljs from "highlightjs"
 
 import * as entities from "./entities"
 
 const uuid = require("uuid")
 
-export const md = markdown({
+export const md: Markdown = new Markdown({
   html: false,
   linkify: true,
   typographer: true,
   breaks: true,
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return (
+          '<pre class="hljs"><code>' +
+          hljs.highlight(lang, str, true).value +
+          "</code></pre>"
+        )
+      } catch (__) {}
+    }
+
+    return (
+      '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + "</code></pre>"
+    )
+  },
 })
 
 export interface Dated {
