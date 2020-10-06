@@ -29,3 +29,9 @@
 - **todo**: add fixtures for dev tests
 - **todo**: add user profile card on top of user wall
 - **todo**: add report button on posts and on users profile
+- **todo**: fix network
+- **todo**: show a preview of post content in post-card
+- **todo**: save not-highlighted / formatted content in db, format only on displaying
+- **todo**: make profile page with settings (CRUD & RGPD) and preferences (themes dark/light & theme color & displayed name)
+- **todo**: separate login page and subscribe page
+- **todo**: remove bootstrap and make a real SCSS theme from scratch
