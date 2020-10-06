@@ -54,6 +54,10 @@ app.get("/unsubscribe/:user_id", function (req, res) {
 
     target.delete()
 
-    utils.back(req, res)
+    if (target.id === user.id) {
+      utils.logout(req, res)
+    } else {
+      utils.back(req, res)
+    }
   })
 })

@@ -97,6 +97,12 @@ export function logUser(
   req.session.user_id = typeof user === "string" ? user : user.id
 }
 
+export function logout(req: any, res: any) {
+  req.session?.destroy?.(() => {
+    res.redirect("/")
+  })
+}
+
 export function loggedUserId(req: any): string {
   return req.session.user_id
 }
