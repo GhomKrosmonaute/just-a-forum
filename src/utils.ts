@@ -1,10 +1,18 @@
 import argon from "argon2"
 import fs from "fs/promises"
 import path from "path"
+import markdown from "markdown-it"
 
 import * as entities from "./entities"
 
 const uuid = require("uuid")
+
+export const md = markdown({
+  html: false,
+  linkify: true,
+  typographer: true,
+  breaks: true,
+})
 
 export interface Dated {
   date: number
