@@ -25,7 +25,6 @@
 - **todo**: implement socket.io for mention notifications
 - **todo**: implement a live private chat between members (using socket.io too)
 - **todo**: paginate wall page and search page or show a limited count of items ⚠️
-- **todo**: use markdown-it (and highlightjs) for post contents and allow markdown in posts !
 - **todo**: limit subscriptions by some technics ⚠️
 - **todo**: add fixtures for dev tests
 - **todo**: add user profile card on top of user wall

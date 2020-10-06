@@ -7,15 +7,22 @@
 <div
         class="d-flex align-items-center justify-content-between p-0 m-0"
         style="height: 25px">
-    <a class="text-nowrap d-flex align-items-center muted-anchor px-2 py-3 overflow-hidden" href="/wall/<%= target.id %>" style="max-width: 100px">
-        <i class="now-ui-icons users_single-02 <%= isMe ? 'text-primary' : (target.online ? 'text-success' : '') %>"></i>
+    <a class="text-nowrap d-flex align-items-center muted-anchor px-2 py-auto overflow-hidden" href="/wall/<%= target.id %>" style="max-width: 100px">
+        <i
+                class="now-ui-icons users_single-02 <%= isMe ? 'text-primary' : (target.online ? 'text-success' : '') %>"
+                title="<%= target.username + ' is ' + (target.online ? 'online' : 'offline') %>"
+        ></i>
         <span class="text-align-center m-0 p-0 px-1 mx-2 text-monospace <%= isMe ? 'text-primary' : '' %>">
             <%= target.username %>
         </span>
     </a>
     <div class="text-nowrap d-flex align-items-center overflow-hidden">
-        <% if(user.admin) { %>
-            <a href="/unsubscribe/<%= target.id %>" class="d-sub-hover text-danger m-1 p-1" title="⚠️ Delete user account ⚠️">
+        <% if(user.admin || isMe) { %>
+            <a
+                    <%- include('popover', { content: '⚠️ Delete ' + (isMe ? 'your' : 'user') + ' account ⚠' }) %>
+                    href="/unsubscribe/<%= target.id %>"
+                    class="d-sub-hover text-danger m-1 p-1"
+                    title="Warning!">
                 <i class="now-ui-icons ui-1_simple-remove"></i>
             </a>
         <% } %>
