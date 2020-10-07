@@ -27,11 +27,14 @@
 - **todo**: paginate wall page and search page or show a limited count of items ⚠️
 - **todo**: limit subscriptions by some technics ⚠️
 - **todo**: add fixtures for dev tests
-- **todo**: add user profile card on top of user wall
+- **todo**: add user-card EJS template
+- **todo**: use user-card on top of user wall page
+- **todo**: use user-card on user results in search page
 - **todo**: add report button on posts and on users profile
 - **todo**: fix network
 - **todo**: show a preview of post content in post-card
 - **todo**: save not-highlighted / formatted content in db, format only on displaying
-- **todo**: make profile page with settings (CRUD & RGPD) and preferences (themes dark/light & theme color & displayed name)
+- **todo**: make settings page (CRUD & RGPD, themes dark/light & theme color & displayed name)
+- **todo**: make profile public page
 - **todo**: separate login page and subscribe page
 - **todo**: remove bootstrap and make a real SCSS theme from scratch
