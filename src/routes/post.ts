@@ -20,8 +20,6 @@ app.post("/post", function (req, res) {
       return utils.error(res, "Your post is empty...")
     }
 
-    data.content = utils.md.render(data.content)
-
     if (data.content.length > 1024) {
       return utils.error(res, "Your post is too large")
     }
@@ -91,8 +89,6 @@ app.post("/post/edit/:post_id", (req, res) => {
     if (!post.content.trim()) {
       return utils.error(res, "Your post is empty...")
     }
-
-    post.content = utils.md.render(post.content)
 
     entities.Post.add(post.data)
 

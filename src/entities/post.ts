@@ -78,6 +78,19 @@ export class Post implements PostData {
     return post
   }
 
+  getFormattedContent(): string {
+    const mentions = this.getMentions()
+    let formattedContent = utils.md.render(this.content)
+    for (const user of mentions) {
+      const regex = new RegExp(`(?:^|\\s)(@${user.username})\\b`, "g")
+      formattedContent = formattedContent.replace(
+        regex,
+        `<a href='/wall/${user.id}' class="decoration-none">$1</a>`
+      )
+    }
+    return formattedContent
+  }
+
   getLikes(): entities.Like[] {
     return entities.Like.db
       .filterArray((data) => data.post_id === this.id)
