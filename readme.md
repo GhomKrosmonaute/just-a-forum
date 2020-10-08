@@ -38,4 +38,3 @@
 - **todo**: make profile public page
 - **todo**: separate login page and subscribe page
 - **todo**: remove bootstrap and make a real SCSS theme from scratch
-- **todo**: fix mentions regex

@@ -82,9 +82,8 @@ export class Post implements PostData {
     const mentions = this.getMentions()
     let formattedContent = utils.md.render(this.content)
     for (const user of mentions) {
-      const regex = new RegExp(`(?:^|\\s)(@${user.username})\\b`, "g")
       formattedContent = formattedContent.replace(
-        regex,
+        new RegExp(`(@${user.username})\\b`, "g"),
         `<a href='/wall/${user.id}' class="decoration-none">$1</a>`
       )
     }
@@ -123,7 +122,10 @@ export class Post implements PostData {
   getMentions(): entities.User[] {
     return utils.removeDuplicate(
       entities.User.db
-        .filterArray((data) => this.content.includes("@" + data.username))
+        .filterArray((data) => {
+          const regex = new RegExp(`(@${data.username})\\b`)
+          return regex.test(this.content)
+        })
         .map((data) => new entities.User(data))
     )
   }
