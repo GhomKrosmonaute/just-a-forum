@@ -81,11 +81,16 @@ export class Post implements PostData {
   getFormattedContent(): string {
     const mentions = this.getMentions()
     let formattedContent = utils.md.render(this.content)
+    let croppedContent = formattedContent
     for (const user of mentions) {
-      formattedContent = formattedContent.replace(
-        new RegExp(`(@${user.username})\\b`, "g"),
-        `<a href='/wall/${user.id}' class="decoration-none">$1</a>`
-      )
+      const mention = "@" + user.username
+      while (croppedContent.includes(mention)) {
+        croppedContent = croppedContent.replace(mention, "")
+        formattedContent = formattedContent.replace(
+          mention,
+          `<a href='/wall/${user.id}' class="decoration-none" title="Visit user profile">${mention}</a>`
+        )
+      }
     }
     return formattedContent
   }
@@ -124,8 +129,7 @@ export class Post implements PostData {
       .removeDuplicate(
         entities.User.db
           .filterArray((data) => {
-            const regex = new RegExp(`(@${data.username})\\b`)
-            return regex.test(this.content)
+            return this.content.includes("@" + data.username)
           })
           .map((data) => data.id)
       )
