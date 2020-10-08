@@ -120,14 +120,16 @@ export class Post implements PostData {
   }
 
   getMentions(): entities.User[] {
-    return utils.removeDuplicate(
-      entities.User.db
-        .filterArray((data) => {
-          const regex = new RegExp(`(@${data.username})\\b`)
-          return regex.test(this.content)
-        })
-        .map((data) => new entities.User(data))
-    )
+    return utils
+      .removeDuplicate(
+        entities.User.db
+          .filterArray((data) => {
+            const regex = new RegExp(`(@${data.username})\\b`)
+            return regex.test(this.content)
+          })
+          .map((data) => data.id)
+      )
+      .map((id) => entities.User.fromId(id) as entities.User)
   }
 
   delete() {

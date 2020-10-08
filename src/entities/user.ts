@@ -89,16 +89,18 @@ export class User implements UserData {
 
   getNetwork(): User[] {
     const friends = this.getFriends()
-    return utils.removeDuplicate(
-      User.db
-        .filterArray(
-          (data) => data.id !== this.id && friends.some((f) => f.id === data.id)
-        )
-        .map((data) =>
-          new User(data).getFriends().filter((f) => f.id !== this.id)
-        )
-        .flat()
-    )
+    return utils
+      .removeDuplicate(
+        friends
+          .map((data) =>
+            new User(data)
+              .getFriends()
+              .filter((friend) => friend.id !== this.id)
+              .map((friend) => friend.id)
+          )
+          .flat()
+      )
+      .map((id) => User.fromId(id) as User)
   }
 
   getFriends(): User[] {
