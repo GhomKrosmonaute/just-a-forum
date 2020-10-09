@@ -31,7 +31,6 @@
 - **todo**: use user-card on top of user wall page
 - **todo**: use user-card on user results in search page
 - **todo**: add report button on posts and on users profile
-- **todo**: fix network
 - **todo**: show a preview of post content in post-card
 - **todo**: save not-highlighted / formatted content in db, format only on displaying
 - **todo**: make settings page (CRUD & RGPD, themes dark/light & theme color & displayed name)

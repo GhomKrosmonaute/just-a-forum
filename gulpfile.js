@@ -1,26 +1,30 @@
 const gulp = require("gulp")
 const clean = require("gulp-clean")
 const tsc = require("gulp-typescript")
+const sass = require("gulp-sass")
+const maps = require("gulp-sourcemaps")
 const cp = require("child_process")
 
 function start(cb) {
-  cp.exec("nodemon dist/index", function (err, stdout, stderr) {
-    console.log(stdout)
-    console.log(stderr)
-    cb(err)
-  })
+  cp.exec("nodemon dist/index", cb)
 }
 
 function watching(cb) {
   start(cb)
-  gulp.watch(
-    ["gulpfile.js", "assets/**", "src/**/*.ts", "views/**/*.ejs"],
-    { delay: 500 },
-    build
-  )
+  gulp.watch(["src/**/*.ts"], { delay: 500 }, buildTypescript)
+  gulp.watch(["sass/**/*.scss"], { delay: 500 }, buildSass)
 }
 
-function build() {
+function buildSass() {
+  return gulp
+    .src("sass/**/*.scss")
+    .pipe(maps.init())
+    .pipe(sass.sync({ outputStyle: "compressed" }).on("error", sass.logError))
+    .pipe(maps.write())
+    .pipe(gulp.dest("public/sass"))
+}
+
+function buildTypescript() {
   return gulp
     .src("src/**/*.ts")
     .pipe(
@@ -39,12 +43,17 @@ function build() {
 
 function cleaner() {
   return gulp
-    .src(["dist", "data"], { read: false, allowEmpty: true })
+    .src(["dist", "data", "public/sass"], { read: false, allowEmpty: true })
     .pipe(clean({ force: true }))
 }
+
+const build = gulp.series(buildSass, buildTypescript)
+const watch = gulp.series(cleaner, build, watching)
 
 exports.start = start
 exports.clean = cleaner
 exports.build = build
-exports.watch = gulp.series(cleaner, build, watching)
-exports.default = watching
+exports.sass = buildSass
+exports.tsc = buildTypescript
+exports.watch = watch
+exports.default = watch
