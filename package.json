@@ -10,7 +10,7 @@
     "build.ts": "gulp tsc",
     "build.sass": "gulp sass",
     "build.force": "npm run clean && npm run build",
-    "deploy": "git pull && npm i && yarn build && pm2 restart forum"
+    "deploy": "git pull && npm i && yarn build && pm2 restart forum && pm2 save"
   },
   "prettier": {
     "semi": false
