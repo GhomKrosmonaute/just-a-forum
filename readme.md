@@ -36,4 +36,3 @@
 - **todo**: make profile public page
 - **todo**: remove bootstrap and make a real SCSS theme from scratch
 - **todo**: fix redirection (make a real History class to manage it)
-- **todo**: make possible to use "@you" for replying mention, and "@me" for mention me (shortcuts)

@@ -81,17 +81,43 @@ export class Post implements PostData {
   getFormattedContent(): string {
     const mentions = this.getMentions()
     let formattedContent = utils.md.render(this.content)
-    let croppedContent = formattedContent
+    let cache = formattedContent
+
+    const parent = this.getParent()
+
+    if (parent) {
+      const you = parent.getAuthor()
+      if (you) {
+        while (cache.includes("@you")) {
+          cache = cache.replace("@you", "")
+          formattedContent = formattedContent.replace(
+            "@you",
+            you.getHTMLAnchor()
+          )
+        }
+      }
+    }
+
+    const me = this.getAuthor()
+
+    if (me) {
+      while (cache.includes("@me")) {
+        cache = cache.replace("@me", "")
+        formattedContent = formattedContent.replace("@me", me.getHTMLAnchor())
+      }
+    }
+
     for (const user of mentions) {
       const mention = "@" + user.username
-      while (croppedContent.includes(mention)) {
-        croppedContent = croppedContent.replace(mention, "")
+      while (cache.includes(mention)) {
+        cache = cache.replace(mention, "")
         formattedContent = formattedContent.replace(
           mention,
-          `<a href='/wall/${user.id}' class="decoration-none" title="Visit user profile">${mention}</a>`
+          user.getHTMLAnchor()
         )
       }
     }
+
     return formattedContent
   }
 
@@ -125,6 +151,19 @@ export class Post implements PostData {
   }
 
   getMentions(): entities.User[] {
+    const shortcuts: string[] = []
+
+    if (this.content.includes("@you")) {
+      const parent = this.getParent()
+      if (parent) {
+        shortcuts.push(parent.author_id)
+      }
+    }
+
+    if (this.content.includes("@me")) {
+      shortcuts.push(this.author_id)
+    }
+
     return utils
       .removeDuplicate(
         entities.User.db

@@ -71,6 +71,10 @@ export class User implements UserData {
     })
   }
 
+  getHTMLAnchor(): string {
+    return `<a href='/wall/${this.id}' class="decoration-none" title="Visit user profile">@${this.username}</a>`
+  }
+
   getWall(): entities.Post[] {
     return this.getPosts()
       .concat(
