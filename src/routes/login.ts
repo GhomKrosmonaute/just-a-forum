@@ -2,6 +2,10 @@ import * as entities from "../entities"
 import * as utils from "../utils"
 import app from "../server"
 
+app.get("/login", function (req, res) {
+  res.render("pages/login")
+})
+
 app.post("/login", async function (req, res) {
   const body = await utils.parseLogin(req)
 

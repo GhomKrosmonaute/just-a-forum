@@ -34,7 +34,6 @@
 - **todo**: show a preview of post content in post-card
 - **todo**: make settings page (CRUD & RGPD, themes dark/light & theme color & displayed name)
 - **todo**: make profile public page
-- **todo**: separate login page and subscribe page
 - **todo**: remove bootstrap and make a real SCSS theme from scratch
 - **todo**: fix the post clickable zone (maybe all the post)
 - **todo**: fix redirection (make a real History class to manage it)
