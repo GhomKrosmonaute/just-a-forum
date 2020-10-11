@@ -2,9 +2,16 @@
 
 <div class="p-2 col-md-5">
     <h3 class="m-0"> <%= target.username %>'s profile </h3>
-
     <hr>
-
+    <ul>
+        <li>
+            <a href="/wall/<%= target.id %>">Posts</a>
+            <div class="badge badge-primary">
+                <%= target.getPosts().length %>
+            </div>
+        </li>
+    </ul>
+    <hr>
     <% if(target.id === user.id || user.admin){ %>
         <form action="/profile/<%= target.id %>" method="post" class="form-group">
             <input class="form-control" type="text" name="username" value="<%= target.username %>" placeholder="New username">
