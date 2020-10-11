@@ -32,7 +32,7 @@ app.post("/profile/:user_id", function (req, res) {
 
     // check user permission
 
-    if (user.id !== target.id && utils.isUserAdmin(req)) {
+    if (user.id !== target.id && !utils.isUserAdmin(req)) {
       return utils.error(res, "Permission error.")
     }
 
