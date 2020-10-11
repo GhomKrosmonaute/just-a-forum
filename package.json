@@ -9,7 +9,7 @@
     "build": "gulp build",
     "build.ts": "gulp tsc",
     "build.sass": "gulp sass",
-    "build.force": "npm run clean && npm run build",
+    "build.force": "yarn clean && yarn build",
     "deploy": "git pull && npm i && yarn build && pm2 restart forum && pm2 save"
   },
   "prettier": {
@@ -18,12 +18,10 @@
   "author": "ghom",
   "license": "ISC",
   "devDependencies": {
-    "@types/escape-html": "^1.0.0",
     "@types/express": "^4.17.8",
     "@types/express-session": "^1.17.0",
     "@types/gulp": "^4.0.7",
     "@types/highlightjs": "^9.12.0",
-    "@types/jsonwebtoken": "^8.5.0",
     "@types/markdown-it": "^10.0.2",
     "@types/node": "^14.11.2",
     "@types/uuid": "^8.3.0",
@@ -36,7 +34,9 @@
     "node-sass": "^4.14.1",
     "nodemon": "^2.0.4",
     "prettier": "^2.1.2",
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.3",
+    "yarn": "^1.22.10",
+    "pm2": "^4.5.0"
   },
   "dependencies": {
     "argon2": "^0.27.0",
@@ -45,11 +45,9 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "enmap": "^5.8.0",
-    "escape-html": "^1.0.3",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "highlightjs": "^9.16.2",
-    "jsonwebtoken": "^8.5.1",
     "markdown-it": "^11.0.1",
     "uuid": "^8.3.0"
   }
