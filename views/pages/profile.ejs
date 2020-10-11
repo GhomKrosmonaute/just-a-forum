@@ -17,7 +17,7 @@
             <input class="form-control" type="text" name="username" value="<%= target.username %>" placeholder="New username">
             <input class="form-control" type="password" name="new_password" placeholder="New password">
             <hr>
-            <input class="form-control" type="password" name="old_password" placeholder="Current password" required>
+            <input class="form-control" type="password" name="old_password" placeholder="Current password" <%= if(user.admin) 'required' %>>
             <div class="d-flex justify-content-between">
                 <button type="button" class="btn btn-round btn-danger mr-2" title="Delete account">Delete</button>
                 <input type="submit" value="Edit" class="btn btn-round btn-primary flex-grow-1" title="Patch account">
