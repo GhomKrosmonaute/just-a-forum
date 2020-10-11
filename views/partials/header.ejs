@@ -7,10 +7,10 @@
                 <h1 class="h2 text-nowrap m-0 text-white"><%- site.name %></h1>
             </a>
 
-            <%- include('search-bar', { options: null }); %>
+            <% if (logged) { %>
+                <%- include('search-bar', { options: null }); %>
 
-            <div>
-                <% if (logged) { %>
+                <div>
                     <a href="/logout" class="btn btn-secondary btn-round d-none d-md-block">
                         <span class=""> Logout </span>
                         <i class="now-ui-icons media-1_button-power ml-2"></i>
@@ -18,8 +18,8 @@
                     <a href="/logout" class="btn btn-icon btn-secondary btn-round d-block d-md-none">
                         <i class="now-ui-icons media-1_button-power"></i>
                     </a>
-                <% } %>
-            </div>
+                </div>
+            <% } %>
         </div>
     </div>
 </header>
