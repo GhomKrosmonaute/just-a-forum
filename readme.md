@@ -30,9 +30,8 @@
 - **todo**: add user-card EJS template
 - **todo**: use user-card on top of user wall page
 - **todo**: use user-card on user results in search page
-- **todo**: make profile public page
 - **todo**: add report button on posts and on users profile
 - **todo**: show a preview of post content in post-card
-- **todo**: make settings page (CRUD & RGPD, themes dark/light & theme color & displayed name)
+- **todo**: make settings page (CRUD & RGPD, themes dark/light & theme color)
 - **todo**: remove bootstrap and make a real SCSS theme from scratch
 - **todo**: fix redirection (make a real History class to manage it)
