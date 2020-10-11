@@ -1,6 +1,6 @@
 <div class="col-md-3 p-2">
     <% { %>
-        <% const friends = user.getFriends() %>
+        <% const friends = target.getFriends() %>
 
         <div class="d-flex align-items-center">
             <h3 class="m-0"> Friends </h3>
@@ -12,8 +12,8 @@
         </div>
 
         <%- include('user-list', { users: friends, user }) %>
-    <% }{ %>
-        <% const requests = user.getRequests() %>
+    <% } if(user.id === target.id) { %>
+        <% const requests = target.getRequests() %>
 
         <div class="d-flex align-items-center">
             <h4 class="m-0 mt-2"> Requests </h4>
@@ -25,8 +25,8 @@
         </div>
 
         <%- include('user-list', { users: requests, user }) %>
-    <% }{ %>
-        <% const pending = user.getPending() %>
+
+        <% const pending = target.getPending() %>
 
         <div class="d-flex align-items-center">
             <h4 class="m-0 mt-2"> Pending </h4>
@@ -38,8 +38,9 @@
         </div>
 
         <%- include('user-list', { users: pending, user }) %>
-    <% }{ %>
-        <% const network = user.getNetwork() %>
+
+        <% const network = target.getNetwork() %>
+
         <div class="d-flex align-items-center">
             <h4 class="m-0 mt-2"> Network </h4>
 

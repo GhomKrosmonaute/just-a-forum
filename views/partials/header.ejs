@@ -9,15 +9,17 @@
 
             <%- include('search-bar', { options: null }); %>
 
-            <% if (logged) { %>
-                <a href="/logout" class="btn btn-danger btn-round d-none d-md-block">
-                    <span class=""> Logout </span>
-                    <i class="now-ui-icons media-1_button-power ml-2"></i>
-                </a>
-                <a href="/logout" class="btn btn-icon btn-danger btn-round d-block d-md-none">
-                    <i class="now-ui-icons media-1_button-power"></i>
-                </a>
-            <% } %>
+            <div>
+                <% if (logged) { %>
+                    <a href="/logout" class="btn btn-secondary btn-round d-none d-md-block">
+                        <span class=""> Logout </span>
+                        <i class="now-ui-icons media-1_button-power ml-2"></i>
+                    </a>
+                    <a href="/logout" class="btn btn-icon btn-secondary btn-round d-block d-md-none">
+                        <i class="now-ui-icons media-1_button-power"></i>
+                    </a>
+                <% } %>
+            </div>
         </div>
     </div>
 </header>

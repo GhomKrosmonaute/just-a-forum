@@ -107,6 +107,12 @@ export function loggedUserId(req: any): string {
   return req.session.user_id
 }
 
+export function hash(password: string): Promise<string> {
+  return argon.hash(password, {
+    salt: Buffer.from(process.env.HASH_SALT as string),
+  })
+}
+
 export async function parseLogin(
   req: any
 ): Promise<{
@@ -123,13 +129,11 @@ export async function parseLogin(
     password === process.env.ADMIN_PASSWORD &&
     username === process.env.ADMIN_USERNAME
 
-  const hash = await argon.hash(password, {
-    salt: Buffer.from(process.env.HASH_SALT as string),
-  })
+  const _hash = await hash(password)
 
   return {
     username,
-    hash,
+    hash: _hash,
     admin,
   }
 }

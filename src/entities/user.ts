@@ -161,4 +161,13 @@ export class User implements UserData {
     this.getPosts().forEach((post) => post.delete())
     User.db.delete(this.id)
   }
+
+  patch(data: UserData) {
+    if (data.id !== this.id) {
+      throw new Error("oops")
+    }
+    this.username = data.username
+    this.password = data.password
+    User.db.set(data.id, data)
+  }
 }

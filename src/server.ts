@@ -51,3 +51,5 @@ export default app
     throw error
   }
 })()
+
+setInterval(utils.refreshSessions, utils.sessionTimeout)
