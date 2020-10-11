@@ -35,3 +35,4 @@
 - **todo**: make settings page (CRUD & RGPD, themes dark/light & theme color)
 - **todo**: remove bootstrap and make a real SCSS theme from scratch
 - **todo**: fix redirection (make a real History class to manage it)
+- **todo**: remove session activity time on logout
