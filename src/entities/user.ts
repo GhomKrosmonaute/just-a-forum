@@ -50,6 +50,15 @@ export class User implements UserData {
     return new User(data)
   }
 
+  static sort(
+    sorter: (d1: UserData, d2: UserData) => number,
+    limit?: number
+  ): User[] {
+    const sorted = this.db.array().sort(sorter)
+    const data = limit ? sorted.slice(0, limit) : sorted
+    return data.map((d) => new User(d))
+  }
+
   static filter(filter: (data: UserData) => boolean): User[] {
     return this.db.filterArray(filter).map((data) => new User(data))
   }

@@ -3,6 +3,7 @@ import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
 import * as entities from "../entities"
 import * as utils from "../utils"
+import { UserData } from "../entities"
 
 dayjs.extend(relativeTime)
 
@@ -55,6 +56,15 @@ export class Post implements PostData {
     const data = this.db.find(finder)
     if (!data) return
     return new Post(data)
+  }
+
+  static sort(
+    sorter: (d1: PostData, d2: PostData) => number,
+    limit?: number
+  ): Post[] {
+    const sorted = this.db.array().sort(sorter)
+    const data = limit ? sorted.slice(0, limit) : sorted
+    return data.map((d) => new Post(d))
   }
 
   static filter(filter: (data: PostData) => boolean): Post[] {
