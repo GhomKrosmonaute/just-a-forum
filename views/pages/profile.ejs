@@ -11,15 +11,15 @@
             </div>
         </li>
     </ul>
-    <hr>
     <% if(target.id === user.id || user.admin){ %>
+        <hr>
         <form action="/profile/<%= target.id %>" method="post" class="form-group">
             <input class="form-control" type="text" name="username" value="<%= target.username %>" placeholder="New username">
             <input class="form-control" type="password" name="new_password" placeholder="New password">
             <hr>
-            <input class="form-control" type="password" name="old_password" placeholder="Current password" <%= if(user.admin) 'required' %>>
+            <input class="form-control" type="password" name="old_password" placeholder="Current password" <%= user.admin ? '' : 'required' %>>
             <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-round btn-danger mr-2" title="Delete account">Delete</button>
+                <a href="/unsubscribe/<%= target.id %>" class="btn btn-round btn-danger mr-2" title="Delete account">Delete</a>
                 <input type="submit" value="Edit" class="btn btn-round btn-primary flex-grow-1" title="Patch account">
             </div>
         </form>

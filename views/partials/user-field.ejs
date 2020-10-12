@@ -17,12 +17,11 @@
         </span>
     </a>
     <div class="text-nowrap d-flex align-items-center overflow-hidden">
-        <% if(user.admin || isMe) { %>
+        <% if(user.admin) { %>
             <a
-                    <%- include('popover', { content: '⚠️ Delete ' + (isMe ? 'your' : 'user') + ' account ⚠' }) %>
+                    <%- include('popover', { content: '⚠️ Delete user account ⚠' }) %>
                     href="/unsubscribe/<%= target.id %>"
-                    class="d-sub-hover text-danger m-1 p-1"
-                    title="Warning!">
+                    class="d-sub-hover text-danger m-1 p-1">
                 <i class="now-ui-icons ui-1_simple-remove"></i>
             </a>
         <% } %>
