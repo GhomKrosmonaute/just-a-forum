@@ -21,10 +21,10 @@
 
 ## Todo list
 
+- **todo**: paginate wall page and admin page ⚠️
+- **todo**: limit subscriptions by some technics ⚠️
 - **todo**: implement socket.io for mention notifications
 - **todo**: implement a live private chat between members (using socket.io too)
-- **todo**: paginate wall page and search page or show a limited count of items ⚠️
-- **todo**: limit subscriptions by some technics ⚠️
 - **todo**: add fixtures for dev tests
 - **todo**: add user-card EJS template
 - **todo**: use user-card on top of user wall page
