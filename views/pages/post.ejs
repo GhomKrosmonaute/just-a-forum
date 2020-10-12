@@ -15,11 +15,17 @@
 
     <%- include('../partials/post-form', { action: 'comment', user, post }) %>
 
-    <div class="d-flex flex-wrap">
-        <% for(const child of post.getChildren()) { %>
-            <%- include('../partials/post-card', { user, post: child }) %>
-        <% } %>
-    </div>
+    <% { %>
+        <% const pagination = post.getChildrenPagination(pageIndex) %>
+
+        <div class="d-flex flex-wrap">
+            <% for(const child of pagination.page) { %>
+                <%- include('../partials/post-card', { user, post: child }) %>
+            <% } %>
+        </div>
+
+        <%- include('../partials/pagination', { pagination }) %>
+    <% } %>
 </div>
 
 <%- include('../partials/friends', { user, target: user }); %>

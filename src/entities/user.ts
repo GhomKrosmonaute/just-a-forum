@@ -85,10 +85,18 @@ export class User implements UserData {
       .sort(utils.sortByDate)
   }
 
+  getWallPagination(pageIndex: number): utils.Pagination<entities.Post> {
+    return utils.paginate(this.getWall(), pageIndex)
+  }
+
   getPosts(): entities.Post[] {
     return entities.Post.db
       .filterArray((data) => data.author_id === this.id && !data.parent_id)
       .map((data) => new entities.Post(data))
+  }
+
+  getPostsPagination(pageIndex: number): utils.Pagination<entities.Post> {
+    return utils.paginate(this.getPosts(), pageIndex)
   }
 
   getNetwork(): User[] {

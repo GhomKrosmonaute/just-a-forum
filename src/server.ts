@@ -25,7 +25,7 @@ app.use(
     resave: true,
     saveUninitialized: true,
   }),
-  parser.urlencoded({ extended: true }),
+  parser.urlencoded({ extended: false }),
   parser.json()
 )
 

@@ -38,7 +38,9 @@ app.get("/post/:post_id", function (req, res) {
       return utils.error(res, message)
     }
 
-    utils.page(req, res, "post", { user, post })
+    const pageIndex = Number(req.query.page ?? 0)
+
+    utils.page(req, res, "post", { user, post, pageIndex })
   })
 })
 

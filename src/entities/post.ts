@@ -134,6 +134,10 @@ export class Post implements PostData {
       .sort(utils.sortByDate)
   }
 
+  getChildrenPagination(pageIndex: number): utils.Pagination<Post> {
+    return utils.paginate(this.getChildren(), pageIndex)
+  }
+
   getAllChildren(): Post[] {
     return this.getChildren()
       .map((child) => [child, ...child.getAllChildren()])

@@ -1,0 +1,31 @@
+<% if(pagination.active){ %>
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item <%= pagination.prev ? '' : 'disabled' %>">
+                <a class="page-link" href="?page=0">First</a>
+            </li>
+            <% if(pagination.prev){ %>
+                <li class="page-item">
+                    <a class="page-link" href="?page=<%= pagination.index - 1 %>">
+                        <%= pagination.index %>
+                    </a>
+                </li>
+            <% } %>
+            <li class="page-item active">
+                <a class="page-link" href="?page=<%= pagination.index %>">
+                    <%= pagination.index + 1 %>
+                </a>
+            </li>
+            <% if(pagination.next){ %>
+                <li class="page-item">
+                    <a class="page-link" href="?page=<%= pagination.index + 1 %>">
+                        <%= pagination.index + 2 %>
+                    </a>
+                </li>
+            <% } %>
+            <li class="page-item <%= pagination.next ? '' : 'disabled' %>">
+                <a class="page-link" href="?page=<%= pagination.lastIndex %>">Last</a>
+            </li>
+        </ul>
+    </nav>
+<% } %>

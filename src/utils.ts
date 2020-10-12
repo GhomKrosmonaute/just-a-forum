@@ -169,3 +169,34 @@ export function checkoutSession(
     error(res, "Session expired... Please <a href='/'>login</a>.")
   }
 }
+
+export interface Pagination<T> {
+  items: T[]
+  pages: T[][]
+  page: T[]
+  index: number
+  next: boolean
+  prev: boolean
+  lastIndex: number
+  active: boolean
+}
+
+export const maxItemPerPage: number = 6
+
+export function paginate<T>(items: T[], pageIndex: number = 0): Pagination<T> {
+  const pages: T[][] = []
+  const pageCount = Math.ceil(items.length / maxItemPerPage)
+  for (let i = 0; i < pageCount; i++) {
+    pages.push(items.slice(maxItemPerPage * i, maxItemPerPage * (i + 1)))
+  }
+  return {
+    items,
+    pages,
+    page: pages[pageIndex] ?? [],
+    index: pageIndex,
+    next: pageIndex < pageCount - 1,
+    prev: pageIndex > 0,
+    lastIndex: pageCount - 1,
+    active: pages.length > 1,
+  }
+}
