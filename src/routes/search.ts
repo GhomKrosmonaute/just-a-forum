@@ -5,10 +5,8 @@ import app from "../server"
 const ss = require("string-similarity")
 
 app.post("/search", function (req, res) {
-  utils.checkoutSession(req, res, (user) => {
-    const search = req.body.search?.trim() ?? ""
-    res.redirect("/search/" + search)
-  })
+  const search = req.body.search?.trim() ?? ""
+  res.redirect("/search/" + search)
 })
 
 app.get("/search/:search", function (req, res) {
