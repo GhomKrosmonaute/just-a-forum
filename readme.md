@@ -11,7 +11,6 @@
         - Once XCode is installed, go to **Preferences**, **Downloads**, and install the **Command Line Tools**.
 - Install dependencies with npm.
 - Make a **.env** file with this lines inside:
-    - `JWT_SECRET=...`
     - `HASH_SALT=...`
     - `SESSION_SECRET=...`
     - `PORT=...`

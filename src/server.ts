@@ -35,7 +35,6 @@ console.table({
   ADMIN_USERNAME: process.env.ADMIN_USERNAME,
   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
   SESSION_SECRET: process.env.SESSION_SECRET,
-  JWT_SECRET: process.env.JWT_SECRET,
   HASH_SALT: process.env.HASH_SALT,
   PORT: process.env.PORT ?? 2834,
 })
