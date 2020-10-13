@@ -113,14 +113,15 @@ export class User implements UserData {
     return utils
       .removeDuplicate(
         friends
-          .map((data) =>
-            new User(data)
+          .map((friend) =>
+            friend
               .getFriends()
               .filter((friend) => friend.id !== this.id)
               .map((friend) => friend.id)
           )
           .flat()
       )
+      .filter((id) => !friends.some((friend) => friend.id === id))
       .map((id) => User.fromId(id) as User)
   }
 
