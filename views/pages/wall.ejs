@@ -1,20 +1,10 @@
 <%- include('../partials/header', { logged: true }); %>
 
-<% const own = user.id === target.id %>
-
 <div class="p-2">
+    <h3 class="m-0"><%= user.username + "'s" %> feed</h3>
 
-    <h3 class="m-0"><%= own ? "Feed" : (target.username + " posts") %></h3>
-
-    <% if(own){ %>
-        <%- include('../partials/post-form', { action: 'post', post: null, user }) %>
-    <% } %>
-
-    <div class="d-flex flex-wrap">
-        <% for(const post of target.getPosts()){ %>
-            <%- include('../partials/post-card', { post, user }) %>
-        <% } %>
-    </div>
+    <%- include('../partials/post-form', { action: 'post', post: null, user }) %>
+    <%- include('../partials/post-list', { pagination: user.getWallPagination(pageIndex), user }) %>
 </div>
 
 <hr class="d-md-none">

@@ -97,3 +97,17 @@ app.post("/post/edit/:post_id", (req, res) => {
     res.redirect("/post/" + post.id)
   })
 })
+
+app.get("/posts/:user_id", function (req, res) {
+  utils.checkoutSession(req, res, (user) => {
+    const target = entities.User.fromId(req.params.user_id)
+
+    if (!target) {
+      return utils.error(res, "Invalid target user")
+    }
+
+    const pageIndex = Number(req.query.page ?? 0)
+
+    utils.page(req, res, "posts", { user, target, pageIndex })
+  })
+})
