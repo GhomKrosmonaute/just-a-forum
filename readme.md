@@ -21,14 +21,11 @@
 
 ## Todo list
 
-- **todo**: paginate wall page and admin page ⚠️
+- **todo**: paginate admin page ⚠️
 - **todo**: limit subscriptions by some technics ⚠️
 - **todo**: implement socket.io for mention notifications
 - **todo**: implement a live private chat between members (using socket.io too)
 - **todo**: add fixtures for dev tests
-- **todo**: add user-card EJS template
-- **todo**: use user-card on top of user wall page
-- **todo**: use user-card on user results in search page
 - **todo**: add report button on posts and on users profile
 - **todo**: show a preview of post content in post-card
 - **todo**: make settings page (CRUD & RGPD, themes dark/light & theme color)
