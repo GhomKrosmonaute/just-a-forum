@@ -7,7 +7,6 @@ app.get("/admin", function (req, res) {
     if (!user.admin) {
       return utils.error(res, "Access denied.")
     }
-
-    res.render("pages/admin")
+    utils.page(req, res, "admin")
   })
 })

@@ -5,6 +5,6 @@ app.get(["/", "/login", "/search"], function (req, res) {
   if (utils.isUserLogged(req)) {
     res.redirect("/wall")
   } else {
-    res.render("pages/login")
+    utils.page(req, res, "login")
   }
 })

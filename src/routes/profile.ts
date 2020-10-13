@@ -4,7 +4,7 @@ import * as entities from "../entities"
 
 app.get("/profile", function (req, res) {
   utils.checkoutSession(req, res, (user) => {
-    res.render("pages/profile", { user, target: user })
+    utils.page(req, res, "profile", { user, target: user })
   })
 })
 
@@ -16,7 +16,7 @@ app.get("/profile/:user_id", function (req, res) {
       return utils.error(res, "Invalid target user")
     }
 
-    res.render("pages/profile", { user, target })
+    utils.page(req, res, "profile", { user, target })
   })
 })
 
@@ -58,6 +58,6 @@ app.post("/profile/:user_id", function (req, res) {
 
     // render
 
-    res.render("pages/profile", { user, target })
+    utils.page(req, res, "profile", { user, target })
   })
 })

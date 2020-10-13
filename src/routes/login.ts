@@ -3,7 +3,7 @@ import * as utils from "../utils"
 import app from "../server"
 
 app.get("/login", function (req, res) {
-  res.render("pages/login")
+  utils.page(req, res, "login")
 })
 
 app.post("/login", async function (req, res) {
