@@ -58,7 +58,7 @@ export class Shortcut implements ShortcutData {
   }
 
   getUsers(): entities.User[] {
-    return entities.User.filter((data) => data.shortcuts.includes(this.id))
+    return entities.User.filter((data) => !!data?.shortcuts?.includes(this.id))
   }
 
   delete() {
