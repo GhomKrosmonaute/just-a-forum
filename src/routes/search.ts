@@ -29,23 +29,28 @@ function searching(req: any, res: any, user: entities.User, search: string) {
   const pageIndex = Number(req.query.page ?? 0)
   const strategy: "strict" | "clever" =
     req.query.strategy || req.body.strategy || "clever"
-  const comparator =
+
+  const sorter = (prop: string) => ss.compareTwoStrings(prop, search)
+  const filter = (prop: string) =>
+    prop.toLowerCase().includes(search.toLowerCase())
+
+  let users = entities.User.sort((d1, d2) => {
+    return sorter(d2.username) - sorter(d1.username)
+  }, 20)
+
+  const posts =
     strategy === "strict"
-      ? (prop: string) => ss.compareTwoStrings(prop, search)
-      : (prop: string) => prop.toLowerCase().includes(search.toLowerCase())
+      ? entities.Post.filter((data) => filter(data.content))
+          .sort((a, b) => sorter(b.content) - sorter(a.content))
+          .slice(0, 66)
+      : entities.Post.sort((a, b) => sorter(b.content) - sorter(a.content), 66)
 
-  const results = {
-    posts: utils.paginate(
-      entities.Post.sort((d1, d2) => {
-        return comparator(d2.content) - comparator(d1.content)
-      }, 66),
-      pageIndex
-    ),
+  const postPagination = utils.paginate(posts, pageIndex)
 
-    users: entities.User.sort((d1, d2) => {
-      return comparator(d2.username) - comparator(d1.username)
-    }, 20),
-  }
-
-  utils.page(req, res, "search", { user, search, results, pageIndex })
+  utils.page(req, res, "search", {
+    user,
+    search,
+    pageIndex,
+    results: { posts: postPagination, users },
+  })
 }
