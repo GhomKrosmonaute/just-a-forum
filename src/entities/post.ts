@@ -3,7 +3,6 @@ import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
 import * as entities from "../entities"
 import * as utils from "../utils"
-import { UserData } from "../entities"
 
 dayjs.extend(relativeTime)
 

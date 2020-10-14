@@ -6,6 +6,7 @@ export interface UserData {
   id: string
   username: string
   password: string
+  shortcuts: string[]
 }
 
 export class User implements UserData {
@@ -15,11 +16,13 @@ export class User implements UserData {
   public id: string
   public username: string
   public password: string
+  public shortcuts: string[]
 
   constructor(data: UserData) {
     this.id = data.id
     this.username = data.username
     this.password = data.password
+    this.shortcuts = data.shortcuts.slice(0)
   }
 
   get data(): UserData {
@@ -27,6 +30,7 @@ export class User implements UserData {
       id: this.id,
       username: this.username,
       password: this.password,
+      shortcuts: this.shortcuts.slice(0),
     }
   }
 
@@ -82,6 +86,13 @@ export class User implements UserData {
 
   getHTMLAnchor(): string {
     return `<a href='/wall/${this.id}' class="decoration-none" title="Visit user profile">@${this.username}</a>`
+  }
+
+  /** max 25 per user */
+  getShortcuts(): entities.Shortcut[] {
+    return this.shortcuts
+      .map((id) => entities.Shortcut.fromId(id))
+      .filter((shortcut): shortcut is entities.Shortcut => !!shortcut)
   }
 
   getWall(): entities.Post[] {
@@ -169,6 +180,12 @@ export class User implements UserData {
       .map((data) => User.fromId(data.author_id) as User)
   }
 
+  deleteShortcut(shortcut_id: string) {
+    const data = this.data
+    data.shortcuts = data.shortcuts.filter((id) => id !== shortcut_id)
+    this.patch(data)
+  }
+
   delete() {
     entities.Link.forEach((link) => {
       if (link.target_id === this.id || link.author_id === this.id) {
@@ -178,6 +195,9 @@ export class User implements UserData {
     this.getLikes().forEach((like) => like.delete())
     this.getPosts().forEach((post) => post.delete())
     User.db.delete(this.id)
+    this.getShortcuts().forEach((shortcut) => {
+      if (shortcut.getUsers().length === 0) shortcut.delete()
+    })
   }
 
   patch(data: UserData) {
