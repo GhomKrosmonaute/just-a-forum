@@ -21,14 +21,23 @@ function searching(req: any, res: any, user: entities.User, search: string) {
     return utils.error(res, "Invalid search...")
   }
 
-  if (search.startsWith("=")) {
-    search = search.slice(1)
+  if (search.startsWith("===")) {
+    search = search.slice(3)
+    req.query.strategy = "exact"
+  }
+
+  if (search.startsWith("==")) {
+    search = search.slice(2)
     req.query.strategy = "strict"
   }
 
+  if (search.startsWith("=")) {
+    search = search.slice(1)
+  }
+
   const pageIndex = Number(req.query.page ?? 0)
-  const strategy: "strict" | "clever" =
-    req.query.strategy || req.body.strategy || "clever"
+  const strategy: "strict" | "clever" | "exact" =
+    req.query.strategy ?? req.body.strategy ?? "clever"
 
   const sorter = (prop: string) => ss.compareTwoStrings(prop, search)
 
@@ -41,6 +50,10 @@ function searching(req: any, res: any, user: entities.User, search: string) {
       ? entities.Post.filter((data) =>
           data.content.toLowerCase().includes(search.toLowerCase())
         )
+          .sort((a, b) => sorter(b.content) - sorter(a.content))
+          .slice(0, 66)
+      : strategy === "exact"
+      ? entities.Post.filter((data) => data.content.includes(search))
           .sort((a, b) => sorter(b.content) - sorter(a.content))
           .slice(0, 66)
       : entities.Post.sort((a, b) => sorter(b.content) - sorter(a.content), 66)
