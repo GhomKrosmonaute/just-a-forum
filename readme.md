@@ -23,7 +23,7 @@
 
 - **todo**: paginate admin page ⚠️
 - **todo**: limit subscriptions by some technics ⚠️
-- **todo**: implement socket.io for mention notifications
+- **todo**: implement socket.io for mention notifications (using mention API)
 - **todo**: implement a live private chat between members (using socket.io too)
 - **todo**: add fixtures for dev tests
 - **todo**: add report button on posts and on users profile
@@ -33,3 +33,7 @@
 - **todo**: fix redirection (make a real History class to manage it)
 - **todo**: remove session activity time on logout
 - **todo**: allow user own custom shortcuts
+- **todo**: implement right click on items (copy url, edit, delete, share, send to DM, copy ID)
+- **todo**: implement right click on blank (open compact version of settings)
+- **todo**: allow shortcuts to be public and private
+- **todo**: make a "get" button on public shortcuts to get it
