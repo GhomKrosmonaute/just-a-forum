@@ -37,3 +37,5 @@
 - **todo**: implement right click on blank (open compact version of settings)
 - **todo**: allow shortcuts to be public and private
 - **todo**: make a "get" button on public shortcuts to get it
+- **todo**: allow searching of shortcuts in search page
+- **todo**: add a js tool page (regex tester, css selector tester, color picker, etc...)
