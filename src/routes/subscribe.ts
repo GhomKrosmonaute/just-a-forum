@@ -31,6 +31,7 @@ app.post("/subscribe", async function (req, res) {
     id: utils.makeId(),
     username,
     password: hash,
+    shortcuts: [],
   }
 
   entities.User.add(data)

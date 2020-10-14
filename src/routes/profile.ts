@@ -54,6 +54,7 @@ app.post("/profile/:user_id", function (req, res) {
       id: target.id,
       username: username ?? target.username,
       password: new_password ?? target.password,
+      shortcuts: target.shortcuts,
     })
 
     // render
