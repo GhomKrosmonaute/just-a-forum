@@ -39,3 +39,4 @@
 - **todo**: make a "get" button on public shortcuts to get it
 - **todo**: allow searching of shortcuts in search page
 - **todo**: add a js tool page (regex tester, css selector tester, color picker, etc...)
+- **todo**: add profile button in the right of header
