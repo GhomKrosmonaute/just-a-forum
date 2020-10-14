@@ -6,7 +6,7 @@ export interface UserData {
   id: string
   username: string
   password: string
-  shortcuts: string[]
+  shortcuts?: string[]
 }
 
 export class User implements UserData {
@@ -22,7 +22,7 @@ export class User implements UserData {
     this.id = data.id
     this.username = data.username
     this.password = data.password
-    this.shortcuts = data.shortcuts.slice(0)
+    this.shortcuts = data.shortcuts?.slice(0) ?? []
   }
 
   get data(): UserData {
@@ -182,7 +182,7 @@ export class User implements UserData {
 
   deleteShortcut(shortcut_id: string) {
     const data = this.data
-    data.shortcuts = data.shortcuts.filter((id) => id !== shortcut_id)
+    data.shortcuts = data?.shortcuts?.filter((id) => id !== shortcut_id) ?? []
     this.patch(data)
   }
 
