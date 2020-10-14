@@ -31,16 +31,16 @@ function searching(req: any, res: any, user: entities.User, search: string) {
     req.query.strategy || req.body.strategy || "clever"
 
   const sorter = (prop: string) => ss.compareTwoStrings(prop, search)
-  const filter = (prop: string) =>
-    prop.toLowerCase().includes(search.toLowerCase())
 
-  let users = entities.User.sort((d1, d2) => {
-    return sorter(d2.username) - sorter(d1.username)
+  const users = entities.User.sort((a, b) => {
+    return sorter(b.username) - sorter(a.username)
   }, 20)
 
   const posts =
     strategy === "strict"
-      ? entities.Post.filter((data) => filter(data.content))
+      ? entities.Post.filter((data) =>
+          data.content.toLowerCase().includes(search.toLowerCase())
+        )
           .sort((a, b) => sorter(b.content) - sorter(a.content))
           .slice(0, 66)
       : entities.Post.sort((a, b) => sorter(b.content) - sorter(a.content), 66)
