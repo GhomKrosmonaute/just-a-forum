@@ -39,4 +39,7 @@
 - **todo**: make a "get" button on public shortcuts to get it
 - **todo**: allow searching of shortcuts in search page
 - **todo**: add a js tool page (regex tester, css selector tester, color picker, etc...)
-- **todo**: add profile button in the right of header
+- **todo**: adapt for mobile
+- **todo**: on profile of other user, show mutual friends
+- **todo**: use the maximum of place for posts
+- **todo**: use javascript algorithme to wrap posts
