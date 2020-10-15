@@ -42,3 +42,4 @@
 - **todo**: on profile of other user, show mutual friends
 - **todo**: use the maximum of place for posts
 - **todo**: use javascript algorithme to wrap posts
+- **todo**: add JS Labs logo on favicon and on site \<h1>title\</h1>
