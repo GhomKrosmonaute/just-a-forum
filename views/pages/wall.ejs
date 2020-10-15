@@ -1,6 +1,6 @@
 <%- include('../partials/header', { options: { user } }); %>
 
-<div class="p-2">
+<div class="p-2 flex-grow-1">
     <h3 class="m-0"><%= user.username + "'s" %> feed</h3>
 
     <%- include('../partials/post-form', { action: 'post', post: null, user }) %>

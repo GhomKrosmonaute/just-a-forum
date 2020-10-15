@@ -1,7 +1,7 @@
-<div class="m-4 px-4 pt-2 shadow rounded border-top border-dark d-flex flex-column" style="min-width: 300px; min-height: 100px">
+<div class="m-3 p-0 px-2 pt-2 shadow rounded border-top border-dark d-flex flex-column" style="min-width: 300px; min-height: 100px">
     <%- include('post-header', { post, user }) %>
 
-    <div onclick="location.href='/post/<%= post.id %>'" class="muted-anchor flex-grow-1 pointer">
+    <div onclick="location.href='/post/<%= post.id %>'" class="flex-grow-1 pointer">
         <%- include('post-content', { post, user }) %>
     </div>
 

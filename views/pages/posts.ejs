@@ -3,7 +3,7 @@
 <% { %>
     <% const own = user.id === target.id %>
 
-    <div class="p-2">
+    <div class="p-2 flex-grow-1">
         <h3 class="m-0"><%= own ? "Your posts" : (target.username + "'s posts") %></h3>
 
         <% if(own){ %>
