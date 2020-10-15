@@ -102,6 +102,7 @@ export function logUser(
 }
 
 export function logout(req: any, res: any) {
+  sessions.delete(req.session.user_id)
   req.session?.destroy?.(() => {
     res.redirect("/")
   })
