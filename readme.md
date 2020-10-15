@@ -31,7 +31,6 @@
 - **todo**: make settings page (CRUD & RGPD, themes dark/light & theme color)
 - **todo**: remove bootstrap and make a real SCSS theme from scratch
 - **todo**: fix redirection (make a real History class to manage it)
-- **todo**: remove session activity time on logout
 - **todo**: allow user own custom shortcuts
 - **todo**: implement right click on items (copy url, edit, delete, share, send to DM, copy ID)
 - **todo**: implement right click on blank (open compact version of settings)
@@ -39,4 +38,3 @@
 - **todo**: make a "get" button on public shortcuts to get it
 - **todo**: allow searching of shortcuts in search page
 - **todo**: add a js tool page (regex tester, css selector tester, color picker, etc...)
-- **todo**: add profile button and forum GitHub button in the header
