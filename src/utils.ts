@@ -30,12 +30,16 @@ export const md: Markdown = new Markdown({
   },
 })
 
-export interface Dated {
-  date: number
-}
-
-export function sortByDate(a: Dated, b: Dated): number {
-  return b.date - a.date
+export function sortByDate(a: entities.Post, b: entities.Post): number {
+  const a_recent = Math.max(
+    a.date,
+    ...a.getAllChildren().map((child) => child.date)
+  )
+  const b_recent = Math.max(
+    b.date,
+    ...b.getAllChildren().map((child) => child.date)
+  )
+  return b_recent - a_recent
 }
 
 export function removeDuplicate<T>(array: T[]): T[] {
@@ -98,6 +102,7 @@ export function logUser(
 }
 
 export function logout(req: any, res: any) {
+  sessions.delete(req.session.user_id)
   req.session?.destroy?.(() => {
     res.redirect("/")
   })
@@ -111,6 +116,26 @@ export function hash(password: string): Promise<string> {
   return argon.hash(password, {
     salt: Buffer.from(process.env.HASH_SALT as string),
   })
+}
+
+export function validateUsername(
+  res: any,
+  username: string,
+  callback: () => unknown
+): void {
+  if (/\s/.test(username)) {
+    return error(res, "Username mustn't contains spaces.")
+  }
+
+  if (username.length > 20) {
+    return error(res, "Username is too large (20 char max)")
+  }
+
+  if (entities.User.db.some((data) => data.username === username)) {
+    return error(res, "Username already used...")
+  }
+
+  callback()
 }
 
 export async function parseLogin(

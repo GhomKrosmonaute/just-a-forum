@@ -15,33 +15,23 @@ app.post("/subscribe", async function (req, res) {
 
   const { username, hash, admin } = body
 
-  if (/\s/.test(username)) {
-    return utils.error(res, "Username mustn't contains spaces.")
-  }
+  utils.validateUsername(res, username, () => {
+    const data: entities.UserData = {
+      id: utils.makeId(),
+      username,
+      password: hash,
+      shortcuts: [],
+    }
 
-  if (username.length > 20) {
-    return utils.error(res, "Username is too large (20 char max)")
-  }
+    entities.User.add(data)
 
-  if (entities.User.db.some((data) => data.username === username)) {
-    return utils.error(res, "Username already used...")
-  }
-
-  const data: entities.UserData = {
-    id: utils.makeId(),
-    username,
-    password: hash,
-    shortcuts: [],
-  }
-
-  entities.User.add(data)
-
-  if (req.session) {
-    utils.logUser(req, data.id, admin)
-    return res.redirect("/wall")
-  } else {
-    return utils.error(res, "Session system error...")
-  }
+    if (req.session) {
+      utils.logUser(req, data.id, admin)
+      return res.redirect("/wall")
+    } else {
+      return utils.error(res, "Session system error...")
+    }
+  })
 })
 
 app.get("/unsubscribe/:user_id", function (req, res) {

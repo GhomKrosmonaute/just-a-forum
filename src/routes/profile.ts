@@ -48,17 +48,19 @@ app.post("/profile/:user_id", function (req, res) {
       }
     }
 
-    // patch
+    utils.validateUsername(res, username, () => {
+      // patch
 
-    target.patch({
-      id: target.id,
-      username: username ?? target.username,
-      password: new_password ?? target.password,
-      shortcuts: target.shortcuts,
+      target.patch({
+        id: target.id,
+        username: username ?? target.username,
+        password: new_password ?? target.password,
+        shortcuts: target.shortcuts,
+      })
+
+      // render
+
+      utils.page(req, res, "profile", { user, target })
     })
-
-    // render
-
-    utils.page(req, res, "profile", { user, target })
   })
 })
