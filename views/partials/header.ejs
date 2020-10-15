@@ -10,12 +10,19 @@
             <% if (options.user) { %>
                 <%- include('search-bar', { options: null }); %>
 
-                <div>
-                    <a href="/logout" class="btn btn-secondary btn-round d-none d-md-block">
+                <div class="btn-group" role="group">
+                    <a href="/profile/<%= options.user.id %>" class="btn btn-outline-secondary btn-round d-none d-md-block">
+                        <span><%= options.user.username %></span>
+                        <i class="now-ui-icons users_single-02 ml-2"></i>
+                    </a>
+                    <a href="/profile/<%= options.user.id %>" class="btn btn-outline-secondary btn-round btn-icon d-block d-md-none">
+                        <i class="now-ui-icons users_single-02"></i>
+                    </a>
+                    <a href="/logout" class="btn btn-outline-secondary btn-round d-none d-md-block">
                         <span class=""> Logout </span>
                         <i class="now-ui-icons media-1_button-power ml-2"></i>
                     </a>
-                    <a href="/logout" class="btn btn-icon btn-secondary btn-round d-block d-md-none">
+                    <a href="/logout" class="btn btn-icon btn-outline-secondary btn-round d-block d-md-none">
                         <i class="now-ui-icons media-1_button-power"></i>
                     </a>
                 </div>
