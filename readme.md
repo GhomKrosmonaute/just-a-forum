@@ -22,7 +22,7 @@
 ## Todo list
 
 - **todo**: paginate admin page ⚠️
-- **todo**: limit subscriptions by some technics ⚠️
+- **todo**: mail confirmation using [nodemailer](https://nodemailer.com/about/) ⚠️
 - **todo**: implement socket.io for mention notifications (using mention API)
 - **todo**: implement a live private chat between members (using socket.io too)
 - **todo**: add fixtures for dev tests
