@@ -40,4 +40,3 @@
 - **todo**: allow searching of shortcuts in search page
 - **todo**: add a js tool page (regex tester, css selector tester, color picker, etc...)
 - **todo**: add profile button and forum GitHub button in the header
-- **todo**: by default, sort posts by children date OR by self date (from recent to old)
