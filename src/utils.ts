@@ -30,12 +30,16 @@ export const md: Markdown = new Markdown({
   },
 })
 
-export interface Dated {
-  date: number
-}
-
-export function sortByDate(a: Dated, b: Dated): number {
-  return b.date - a.date
+export function sortByDate(a: entities.Post, b: entities.Post): number {
+  const a_recent = Math.max(
+    a.date,
+    ...a.getAllChildren().map((child) => child.date)
+  )
+  const b_recent = Math.max(
+    b.date,
+    ...b.getAllChildren().map((child) => child.date)
+  )
+  return b_recent - a_recent
 }
 
 export function removeDuplicate<T>(array: T[]): T[] {

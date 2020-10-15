@@ -6,11 +6,12 @@ import * as utils from "../utils"
 
 dayjs.extend(relativeTime)
 
-export interface PostData extends utils.Dated {
+export interface PostData {
   id: string
   author_id: string
   parent_id: string | null
   content: string
+  date: number
 }
 
 export class Post implements PostData {
