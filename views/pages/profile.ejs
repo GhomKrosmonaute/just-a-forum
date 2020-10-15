@@ -1,4 +1,4 @@
-<%- include('../partials/header', { logged: true }) %>
+<%- include('../partials/header', { options: { user } }); %>
 
 <div class="p-2 col-md-5">
     <h3 class="m-0"> <%= target.username %>'s profile </h3>

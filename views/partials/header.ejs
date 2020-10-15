@@ -7,7 +7,7 @@
                 <h1 class="h2 text-nowrap m-0 text-white"><%- site.name %></h1>
             </a>
 
-            <% if (logged) { %>
+            <% if (options.user) { %>
                 <%- include('search-bar', { options: null }); %>
 
                 <div>
