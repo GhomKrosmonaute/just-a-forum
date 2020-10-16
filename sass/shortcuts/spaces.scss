@@ -1,0 +1,13 @@
+.p {
+  padding: 20px;
+  &-none {
+    padding: 0;
+  }
+}
+
+.m {
+  margin: 20px;
+  &-none {
+    margin: 0;
+  }
+}

@@ -1,0 +1,25 @@
+.btn-group {
+  display: flex;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 40px;
+  cursor: pointer;
+  color: var(--white);
+  background-color: var(--dark);
+  transition: background-color 200ms ease-in-out;
+
+  &:hover {
+    background-color: var(--dark-blue);
+  }
+}
+
+a.btn,
+a.btn:hover {
+  text-decoration: none;
+}

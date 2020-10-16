@@ -1,38 +1,24 @@
 <%- include('head') %>
-<div id="content" class="d-flex flex-column">
-<header class="bg-dark text-white mb-4 py-3">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-            <h1 class="h2 text-nowrap m-0">
-                <a href="https://github.com/CamilleAbella/just-a-forum" class="muted-anchor">
-                    <i class="fa fa-github-alt text-white"></i>
-                </a>
-                <a href="/" class="muted-anchor">
-                    <span class="text-white"><%- site.name %></span>
-                </a>
-            </h1>
+<div id="content">
+<header class="bg-dark text-white">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a href="/" class="muted-anchor">
+            <img class="d-block" src="/brand/logo_white-dark.png" alt="logo" height="40" title="<%= site.name %>">
+        </a>
 
-            <% if (options.user) { %>
-                <%- include('search-bar', { options: null }); %>
+        <% if (options.user) { %>
+            <%- include('search-bar', { options: null }); %>
 
-                <div class="btn-group" role="group">
-                    <a href="/profile/<%= options.user.id %>" class="btn btn-outline-secondary btn-round d-none d-md-block">
-                        <span><%= options.user.username %></span>
-                        <i class="now-ui-icons users_single-02 ml-2"></i>
-                    </a>
-                    <a href="/profile/<%= options.user.id %>" class="btn btn-outline-secondary btn-round btn-icon d-block d-md-none">
-                        <i class="now-ui-icons users_single-02"></i>
-                    </a>
-                    <a href="/logout" class="btn btn-outline-secondary btn-round d-none d-md-block">
-                        <span class=""> Logout </span>
-                        <i class="now-ui-icons media-1_button-power ml-2"></i>
-                    </a>
-                    <a href="/logout" class="btn btn-icon btn-outline-secondary btn-round d-block d-md-none">
-                        <i class="now-ui-icons media-1_button-power"></i>
-                    </a>
-                </div>
-            <% } %>
-        </div>
+            <div class="btn-group">
+                <a href="/profile/<%= options.user.id %>" class="btn">
+                    <span><%= options.user.username %></span>
+                </a>
+                <a href="/logout" class="btn">
+                    <span class=""> Logout </span>
+                </a>
+            </div>
+        <% } %>
     </div>
 </header>
-<main class="container flex-grow-1 d-md-flex justify-content-around">
+<main class="flex-grow-1">
+    <div class="container">

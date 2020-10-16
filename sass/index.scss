@@ -2,7 +2,14 @@
 @import "starter";
 
 @import "components/header";
+@import "components/main";
+@import "components/footer";
+@import "components/container";
+@import "components/button";
+@import "components/form";
 
+@import "shortcuts/flex";
 @import "shortcuts/anchor";
 @import "shortcuts/cursor";
+@import "shortcuts/colors";
 @import "shortcuts/display";

@@ -1,3 +1,15 @@
+.d {
+  &-flex {
+    display: flex;
+  }
+  &-block {
+    display: block;
+  }
+  &-none {
+    display: none;
+  }
+}
+
 .d-hover,
 .d-sub-hover {
   display: none;
