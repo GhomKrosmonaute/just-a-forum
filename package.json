@@ -8,6 +8,8 @@
     "clean": "gulp clean",
     "build": "gulp build",
     "build.ts": "gulp tsc",
+    "build.tsc": "gulp tsc",
+    "build.css": "gulp sass",
     "build.sass": "gulp sass",
     "build.force": "yarn clean && yarn build",
     "deploy": "git pull && npm i && yarn build && pm2 restart forum && pm2 save"

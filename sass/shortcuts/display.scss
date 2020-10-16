@@ -1,0 +1,10 @@
+.d-hover,
+.d-sub-hover {
+  display: none;
+}
+
+:hover > .d-hover,
+:hover > .d-sub-hover,
+:hover > * > .d-sub-hover {
+  display: block;
+}

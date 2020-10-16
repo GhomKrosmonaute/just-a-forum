@@ -1,37 +1,8 @@
-body {
-  min-height: 100vh;
+@import "init";
+@import "starter";
 
-  #content {
-    height: 100%;
-  }
-}
+@import "components/header";
 
-.muted-anchor,
-.color-none {
-  color: initial;
-}
-
-.muted-anchor:hover,
-.decoration-none {
-  text-decoration: none;
-}
-
-.pointer {
-  cursor: pointer;
-}
-
-.d-hover,
-.d-sub-hover {
-  display: none;
-}
-
-:hover > .d-hover,
-:hover > .d-sub-hover,
-:hover > * > .d-sub-hover {
-  display: block;
-}
-
-.adapt-icon-size,
-.adapt-icon-size i {
-  font-size: 10px;
-}
+@import "shortcuts/anchor";
+@import "shortcuts/cursor";
+@import "shortcuts/display";

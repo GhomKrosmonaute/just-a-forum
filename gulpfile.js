@@ -11,8 +11,21 @@ function start(cb) {
 
 function watching(cb) {
   start(cb)
-  gulp.watch(["src/**/*.ts"], { delay: 500 }, buildTypescript)
-  gulp.watch(["sass/**/*.scss"], { delay: 500 }, buildSass)
+  gulp.watch(
+    ["src/**/*.ts"],
+    { delay: 500 },
+    gulp.series(cleanTypescript, buildTypescript)
+  )
+  gulp.watch(
+    ["sass/**/*.scss"],
+    { delay: 500 },
+    gulp.series(cleanSass, buildSass)
+  )
+  gulp.watch(
+    ["brand/**/*.png"],
+    { delay: 500 },
+    gulp.series(cleanAssets, copyAssets)
+  )
 }
 
 function buildSass() {
@@ -41,17 +54,39 @@ function buildTypescript() {
     .pipe(gulp.dest("dist"))
 }
 
-function cleaner() {
+function cleanTypescript() {
+  return cleanByGlob("dist")
+}
+
+function cleanDatabase() {
+  return cleanByGlob("data")
+}
+
+function cleanSass() {
+  return cleanByGlob("public/sass")
+}
+
+function cleanAssets() {
+  return cleanByGlob(["public/assets/brand"])
+}
+
+function cleanByGlob(globs) {
   return gulp
-    .src(["dist", "data", "public/sass"], { read: false, allowEmpty: true })
+    .src(globs, { read: false, allowEmpty: true })
     .pipe(clean({ force: true }))
 }
 
-const build = gulp.series(buildSass, buildTypescript)
-const watch = gulp.series(cleaner, build, watching)
+function copyAssets() {
+  return gulp.src("brand/**/*.png").pipe(gulp.dest("public/brand/"))
+}
+
+const safeClean = gulp.series(cleanAssets, cleanSass, cleanTypescript)
+const build = gulp.series(safeClean, copyAssets, buildSass, buildTypescript)
+const watch = gulp.series(build, watching)
 
 exports.start = start
-exports.clean = cleaner
+exports.reset = cleanDatabase
+exports.clean = safeClean
 exports.build = build
 exports.sass = buildSass
 exports.tsc = buildTypescript
