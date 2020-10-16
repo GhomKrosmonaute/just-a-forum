@@ -21,25 +21,26 @@
 
 ## Todo list
 
-- **todo**: paginate admin page ⚠️
-- **todo**: mail confirmation using [nodemailer](https://nodemailer.com/about/) ⚠️
-- **todo**: implement socket.io for mention notifications (using mention API)
-- **todo**: implement a live private chat between members (using socket.io too)
-- **todo**: add fixtures for dev tests
-- **todo**: add report button on posts and on users profile
-- **todo**: show a preview of post content in post-card
-- **todo**: make settings page (CRUD & RGPD, themes dark/light & theme color)
-- **todo**: remove bootstrap and make a real SCSS theme from scratch
-- **todo**: fix redirection (make a real History class to manage it)
-- **todo**: allow user own custom shortcuts
-- **todo**: implement right click on items (copy url, edit, delete, share, send to DM, copy ID)
-- **todo**: implement right click on blank (open compact version of settings)
-- **todo**: allow shortcuts to be public and private
-- **todo**: make a "get" button on public shortcuts to get it
-- **todo**: allow searching of shortcuts in search page
-- **todo**: add a js tool page (regex tester, css selector tester, color picker, etc...)
-- **todo**: adapt for mobile
-- **todo**: on profile of other user, show mutual friends
-- **todo**: use the maximum of place for posts
-- **todo**: use javascript algorithme to wrap posts
-- **todo**: add JS Labs logo on favicon and on site \<h1>title\</h1>
+- paginate admin page ⚠️
+- mail confirmation using [nodemailer](https://nodemailer.com/about/) ⚠️
+- implement socket.io for mention notifications (using mention API)
+- implement a live private chat between members (using socket.io too)
+- add fixtures for dev tests
+- add report button on posts and on users profile
+- show a preview of post content in post-card
+- make settings page (CRUD & RGPD, themes dark/light & theme color)
+- remove bootstrap and make a real SCSS theme from scratch
+- fix redirection (make a real History class to manage it)
+- allow user own custom shortcuts
+- implement right click on items (copy url, edit, delete, share, send to DM, copy ID)
+- implement right click on blank (open compact version of settings)
+- allow shortcuts to be public and private
+- make a "get" button on public shortcuts to get it
+- allow searching of shortcuts in search page
+- add a js tool page (regex tester, css selector tester, color picker, etc...)
+- adapt for mobile
+- on profile of other user, show mutual friends
+- use the maximum of place for posts
+- use javascript algorithme to wrap posts
+- add JS Labs logo on favicon and on site \<h1>title\</h1>
+- remove the last apostroph of pseudo whan display it like `Ghom's thing`
