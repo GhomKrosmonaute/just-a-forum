@@ -42,5 +42,5 @@
 - on profile of other user, show mutual friends
 - use the maximum of place for posts
 - use javascript algorithme to wrap posts
-- add JS Labs logo on favicon and on site \<h1>title\</h1>
+- add brand and favicon
 - remove the last apostroph of pseudo whan display it like `Ghom's thing`
