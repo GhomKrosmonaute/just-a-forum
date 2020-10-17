@@ -12,6 +12,12 @@
   &-bold {
     font-weight: var(--text-bold);
   }
+  &-normal {
+    font-weight: var(--text-normal);
+  }
+  &-light {
+    font-weight: var(--text-light);
+  }
   &-align {
     &-center {
       text-align: center;

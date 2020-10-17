@@ -11,9 +11,11 @@
 }
 
 @mixin colors($property) {
+  @include color($property, "red");
   @include color($property, "dark");
   @include color($property, "blue");
   @include color($property, "white");
   @include color($property, "muted");
   @include color($property, "dark-blue");
+  @include color($property, "transparent");
 }

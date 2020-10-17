@@ -1,26 +1,21 @@
 <%- include('../partials/header', { options: { user } }); %>
 
-<div class="p-2 flex-grow-1">
-    <h3 class="m-0"> <%= target.username %>'s profile </h3>
-    <hr>
-    <ul>
-        <li>
-            <a href="/posts/<%= target.id %>">Posts</a>
-            <div class="badge badge-primary">
-                <%= target.getPosts().length %>
-            </div>
-        </li>
-    </ul>
+<div>
+    <h2 style="margin-bottom: 20px"> <%= target.username %>'s profile </h2>
+    <div class="group" style="margin-bottom: 40px">
+        <a class="btn round" href="/posts/<%= target.id %>"><%= target.getPosts().length %> posts</a>
+    </div>
     <% if(target.id === user.id || user.admin){ %>
-        <hr>
-        <form action="/profile/<%= target.id %>" method="post" class="form-group">
-            <input class="form-control" type="text" name="username" value="<%= target.username %>" placeholder="New username">
-            <input class="form-control" type="password" name="new_password" placeholder="New password">
-            <hr>
-            <input class="form-control" type="password" name="old_password" placeholder="Current password" <%= user.admin ? '' : 'required' %>>
-            <div class="d-flex justify-content-between">
-                <a href="/unsubscribe/<%= target.id %>" class="btn btn-round btn-danger mr-2" title="Delete account">Delete</a>
-                <input type="submit" value="Edit" class="btn btn-round btn-primary flex-grow-1" title="Patch account">
+        <form action="/profile/<%= target.id %>" method="post" class="form shadow">
+            <h3> Edit profile </h3>
+            <div class="group-column" style="margin-bottom: 20px">
+                <input class="input-text rect-hover shadow-inset" type="text" name="username" value="<%= target.username %>" placeholder="New username">
+                <input class="input-text rect-hover shadow-inset" type="password" name="new_password" placeholder="New password">
+            </div>
+            <input class="input-text rect-hover shadow-inset" type="password" name="old_password" placeholder="Current password" <%= user.admin ? '' : 'required' %>>
+            <div class="group">
+                <a href="/unsubscribe/<%= target.id %>" class="btn rect-hover bg-red-hover" title="Delete account">Delete</a>
+                <input type="submit" value="Edit" class="btn rect-hover bg-dark-blue bg-blue-hover" title="Patch account">
             </div>
         </form>
     <% } %>

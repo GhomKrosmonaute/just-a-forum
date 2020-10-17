@@ -6,8 +6,8 @@
                 <a href="/" class="muted-anchor logo">
                     <img class="d-block" src="/brand/logo_white-dark.png" alt="logo" height="40" title="<%= site.name %>">
                 </a>
-                <a href="<%- site.github %>" class="btn"><span>Github</span></a>
-                <a href="<%- site.discord %>" class="btn"><span>Discord</span></a>
+                <a href="<%- site.github %>" target="_blank" class="btn"><span class="text-normal">Github</span></a>
+                <a href="<%- site.discord %>" target="_blank" class="btn"><span class="text-normal">Discord</span></a>
             </div>
 
 
@@ -16,10 +16,10 @@
 
                 <div class="group">
                     <a href="/profile/<%= options.user.id %>" class="btn">
-                        <span><%= options.user.username %></span>
+                        <span class="text-normal"><%= options.user.username %></span>
                     </a>
-                    <a href="/logout" class="btn">
-                        <span> Logout </span>
+                    <a href="/logout" class="btn bg-red-hover">
+                        <span class="text-normal"> Logout </span>
                     </a>
                 </div>
             <% } %>

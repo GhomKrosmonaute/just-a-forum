@@ -1,31 +1,35 @@
 <% if(pagination.active){ %>
-    <nav>
-        <ul class="pagination justify-content-center">
-            <li class="page-item <%= pagination.prev ? '' : 'disabled' %>">
-                <a class="page-link" href="?page=0">First</a>
-            </li>
+    <nav class="d-flex justify-content-center">
+        <ul class="group round bg-dark">
+            <a
+                class="text-normal btn bg-white <%= pagination.prev ? 'bg-white-hover text-blue text-dark-blue-hover' : 'bg-white-hover text-muted text-muted-hover' %>"
+                href="?page=0"
+            >
+                First
+            </a>
+
             <% if(pagination.prev){ %>
-                <li class="page-item">
-                    <a class="page-link" href="?page=<%= pagination.index - 1 %>">
-                        <%= pagination.index %>
-                    </a>
-                </li>
-            <% } %>
-            <li class="page-item active">
-                <a class="page-link" href="?page=<%= pagination.index %>">
-                    <%= pagination.index + 1 %>
+                <a class="text-normal btn bg-white bg-white-hover text-blue text-dark-blue-hover" href="?page=<%= pagination.index - 1 %>">
+                    <%= pagination.index %>
                 </a>
-            </li>
-            <% if(pagination.next){ %>
-                <li class="page-item">
-                    <a class="page-link" href="?page=<%= pagination.index + 1 %>">
-                        <%= pagination.index + 2 %>
-                    </a>
-                </li>
             <% } %>
-            <li class="page-item <%= pagination.next ? '' : 'disabled' %>">
-                <a class="page-link" href="?page=<%= pagination.lastIndex %>">Last</a>
-            </li>
+
+            <a class="text-normal btn bg-white bg-white-hover text-blue text-dark-blue-hover" href="?page=<%= pagination.index %>">
+                <%= pagination.index + 1 %>
+            </a>
+
+            <% if(pagination.next){ %>
+                <a class="text-normal btn bg-white bg-white-hover text-blue text-dark-blue-hover" href="?page=<%= pagination.index + 1 %>">
+                    <%= pagination.index + 2 %>
+                </a>
+            <% } %>
+
+            <a
+                class="text-normal btn bg-white <%= pagination.prev ? 'bg-white-hover text-blue text-dark-blue-hover' : 'bg-white-hover text-muted text-muted-hover' %>"
+                href="?page=<%= pagination.lastIndex %>"
+            >
+                Last
+            </a>
         </ul>
     </nav>
 <% } %>
