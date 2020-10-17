@@ -44,3 +44,4 @@
 - use javascript algorithme to wrap posts
 - add brand and favicon
 - remove the last apostroph of pseudo whan display it like `Ghom's thing`
+- make a deploy script on gulpfile: send a Discord webhook with deployed branch/commit links and deployed site url
