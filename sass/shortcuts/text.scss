@@ -1,0 +1,19 @@
+.text {
+  &-nowrap {
+    white-space: nowrap;
+  }
+  &-bold {
+    font-weight: var(--text-bold);
+  }
+  &-align {
+    &-center {
+      text-align: center;
+    }
+    &-right {
+      text-align: right;
+    }
+    &-left {
+      text-align: left;
+    }
+  }
+}

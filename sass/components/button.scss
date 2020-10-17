@@ -13,6 +13,9 @@
   color: var(--white);
   background-color: var(--dark);
   transition: background-color 200ms ease-in-out;
+  font-family: var(--font-family);
+  font-weight: var(--text-light);
+  font-size: 18px;
 
   &:hover {
     background-color: var(--dark-blue);
