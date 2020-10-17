@@ -48,3 +48,4 @@
 - add dropdowns on header
 - add fixed side-bar with friend list
 - add fixed chat-boxes (facebook-like) on bottom-right of viewport
+- replace Ghom copyright by just "Ɠɧॐ"
