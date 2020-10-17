@@ -1,16 +1,14 @@
 <%- include('../partials/header', { options: { user: null } }); %>
 
-<form action="login" method="POST" class="d-flex flex-column align-self-center">
-    <h2 class="align-self-center"> Login </h2>
-    <div class="form-group mx-5 mx-md-0">
-        <input type="text" maxlength="20" class="form-control" autofocus name="username" placeholder="Username" required>
+<form action="/login" method="POST" class="form">
+    <h2> Login </h2>
+    <div class="group-column">
+        <input class="input-text round-hover" type="text" maxlength="20" autofocus name="username" placeholder="Username" required>
+        <input class="input-text round-hover" type="password" minlength="5" name="password" placeholder="Password" required>
     </div>
-    <div class="form-group mx-5 mx-md-0">
-        <input type="password" class="form-control" name="password" placeholder="Password" required>
-    </div>
-    <div class="d-flex justify-content-around">
-        <a href="/subscribe" class="btn btn-secondary btn-round flex-grow-1">Subscribe</a>
-        <input type="submit" class="btn btn-primary btn-round" value="Go">
+    <div class="group">
+        <a href="/subscribe" class="btn round">Subscribe</a>
+        <input type="submit" class="btn round" value="Go">
     </div>
 </form>
 

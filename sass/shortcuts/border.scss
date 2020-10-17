@@ -1,0 +1,23 @@
+@import "../mixin/colors";
+
+.border {
+  border: 1px solid var(--dark);
+
+  @include colors(border-color);
+
+  &-none {
+    border: none;
+  }
+}
+
+.round {
+  border-radius: 20px;
+
+  &-hover {
+    border-radius: 0;
+    &:hover,
+    &:focus {
+      border-radius: 20px;
+    }
+  }
+}

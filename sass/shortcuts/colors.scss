@@ -1,53 +1,9 @@
+@import "../mixin/colors";
+
 .bg {
-  &-dark {
-    background-color: var(--dark);
-    &-hover:hover {
-      background-color: var(--dark);
-    }
-  }
-  &-white {
-    background-color: var(--white);
-    &-hover:hover {
-      background-color: var(--white);
-    }
-  }
-  &-blurple {
-    background-color: var(--blue);
-    &-hover:hover {
-      background-color: var(--blue);
-    }
-  }
-  &-dark-blurple {
-    background-color: var(--dark-blue);
-    &-hover:hover {
-      background-color: var(--dark-blue);
-    }
-  }
+  @include colors(background-color);
 }
 
 .text {
-  &-dark {
-    color: var(--dark);
-    &-hover:hover {
-      color: var(--dark);
-    }
-  }
-  &-white {
-    color: var(--white);
-    &-hover:hover {
-      color: var(--white);
-    }
-  }
-  &-blurple {
-    color: var(--blue);
-    &-hover:hover {
-      color: var(--blue);
-    }
-  }
-  &-dark-blurple {
-    color: var(--dark-blue);
-    &-hover:hover {
-      color: var(--dark-blue);
-    }
-  }
+  @include colors(color);
 }

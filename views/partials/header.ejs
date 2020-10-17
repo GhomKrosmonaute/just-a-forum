@@ -2,7 +2,7 @@
 <div id="content">
 <header class="bg-dark text-white">
     <div class="container d-flex justify-content-between align-items-center">
-        <div class="btn-group">
+        <div class="group">
             <a href="/" class="muted-anchor logo">
                 <img class="d-block" src="/brand/logo_white-dark.png" alt="logo" height="40" title="<%= site.name %>">
             </a>
@@ -18,7 +18,7 @@
         <% if (options.user) { %>
             <%- include('search-bar', { options: null }); %>
 
-            <div class="btn-group">
+            <div class="group">
                 <a href="/profile/<%= options.user.id %>" class="btn">
                     <span><%= options.user.username %></span>
                 </a>

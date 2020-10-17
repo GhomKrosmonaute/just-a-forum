@@ -1,0 +1,27 @@
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 40px;
+  cursor: pointer;
+  color: var(--white);
+  background-color: var(--dark);
+  transition: border-radius 1s ease-in-out, background-color 200ms ease-in-out;
+  font-family: var(--font-family);
+  font-weight: var(--text-light);
+  font-size: 18px;
+
+  &-icon {
+    width: 40px;
+    padding: 0;
+    text-align: center;
+  }
+
+  &:hover,
+  &:focus {
+    color: var(--white);
+    background-color: var(--dark-blue);
+  }
+}

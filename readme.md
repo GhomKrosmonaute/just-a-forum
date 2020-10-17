@@ -49,3 +49,5 @@
 - add fixed side-bar with friend list
 - add fixed chat-boxes (facebook-like) on bottom-right of viewport
 - replace Ghom copyright by just "Ɠɧॐ" with a link to my web portfolio
+- force min 5 char in the password (back-end side)
+- make possible user slugs in routes and show slugs on displayed url

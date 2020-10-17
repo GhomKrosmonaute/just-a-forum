@@ -1,8 +1,12 @@
-<form method="post" action="/search" class="input-group col-md-5 m-0 p-0 mx-4">
-    <input type="text" name="search" value="<%= options?.search || '' %>" class="input-text bg-white" placeholder="Search an user or a post">
-    <div class="input-group-append">
-        <button type="submit" class="input-group-text">
-            <i class="now-ui-icons ui-1_zoom-bold"></i>
-        </button>
-    </div>
+<form method="post" action="/search" class="flex-grow-1 group search-bar">
+    <input
+            type="text"
+            name="search"
+            value="<%= options?.search || '' %>"
+            class="input-text bg-white border-none flex-grow-1"
+            placeholder="Search an user or a post">
+
+    <button type="submit" class="btn bg-white bg-white-hover text-dark text-dark-blue-hover">
+        <i class="fa fa-search"></i>
+    </button>
 </form>
