@@ -10,7 +10,7 @@ require("dotenv").config()
 const app = express()
 
 app.locals.site = {
-  name: "Forॐ",
+  name: "Just a Forॐ",
   baseUrl: "https://www.just-a-forum.tk",
 }
 

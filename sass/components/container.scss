@@ -1,8 +1,10 @@
 .container {
-  padding: 0;
+  padding: 20px 40px;
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 900px;
   min-width: 400px;
   width: 70vw;
   height: 100%;
+  box-shadow: var(--transparent) 0 0 50px;
+  clip-path: inset(0 -100vw 0 -100vw);
 }

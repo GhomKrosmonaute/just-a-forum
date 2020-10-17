@@ -1,0 +1,57 @@
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 40px;
+  cursor: pointer;
+  color: var(--white);
+  background-color: var(--dark);
+  transition: background-color 200ms ease-in-out;
+  font-family: var(--font-family);
+  font-weight: var(--text-light);
+  font-size: 18px;
+
+  &-icon {
+    width: 40px;
+    padding: 0;
+    text-align: center;
+  }
+
+  &-group {
+    display: flex;
+
+    .btn-round {
+      border-radius: 0;
+
+      &:last-child {
+        border-radius: 0 20px 20px 0;
+        &:hover {
+          border-radius: 0;
+        }
+      }
+
+      &:first-child {
+        border-radius: 20px 0 0 20px;
+        &:hover {
+          border-radius: 0;
+        }
+      }
+    }
+  }
+
+  &-round {
+    border-radius: 20px;
+    transition: border-radius 1s ease-in-out;
+
+    &:hover {
+      border-radius: 0;
+    }
+  }
+
+  &:hover {
+    color: var(--white);
+    background-color: var(--dark-blue);
+  }
+}

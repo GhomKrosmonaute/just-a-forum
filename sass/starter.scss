@@ -5,6 +5,16 @@
   box-sizing: border-box;
 }
 
+a {
+  color: var(--dark-blue);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--blue);
+  text-decoration: none;
+}
+
 body {
   min-height: 100vh;
   font-family: var(--font-family);

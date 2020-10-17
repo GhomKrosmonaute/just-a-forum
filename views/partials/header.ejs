@@ -2,9 +2,18 @@
 <div id="content">
 <header class="bg-dark text-white">
     <div class="container d-flex justify-content-between align-items-center">
-        <a href="/" class="muted-anchor">
-            <img class="d-block" src="/brand/logo_white-dark.png" alt="logo" height="40" title="<%= site.name %>">
-        </a>
+        <div class="btn-group">
+            <a href="/" class="muted-anchor logo">
+                <img class="d-block" src="/brand/logo_white-dark.png" alt="logo" height="40" title="<%= site.name %>">
+            </a>
+            <a href="https://github.com/CamilleAbella/just-a-forum" class="btn">
+                <span>Github</span>
+            </a>
+            <a href="https://discord.gg/3vC2XWK" class="btn">
+                <span>Discord</span>
+            </a>
+        </div>
+
 
         <% if (options.user) { %>
             <%- include('search-bar', { options: null }); %>
@@ -14,7 +23,7 @@
                     <span><%= options.user.username %></span>
                 </a>
                 <a href="/logout" class="btn">
-                    <span class=""> Logout </span>
+                    <span> Logout </span>
                 </a>
             </div>
         <% } %>
