@@ -45,3 +45,6 @@
 - add brand and favicon
 - remove the last apostroph of pseudo whan display it like `Ghom's thing`
 - make a deploy script on gulpfile: send a Discord webhook with deployed branch/commit links and deployed site url
+- add dropdowns on header
+- add fixed side-bar with friend list
+- add fixed chat-boxes (facebook-like) on bottom-right of viewport
