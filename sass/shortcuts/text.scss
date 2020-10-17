@@ -1,4 +1,11 @@
 .text {
+  &-inlaid {
+    pointer-events: none;
+    &::selection {
+      pointer-events: none;
+      display: none;
+    }
+  }
   &-nowrap {
     white-space: nowrap;
   }

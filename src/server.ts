@@ -11,8 +11,14 @@ const app = express()
 
 app.locals.site = {
   name: "Just a Forॐ",
-  baseUrl: "https://www.just-a-forum.tk",
+  author: "Ɠɧॐ",
+  url: "https://www.just-a-forum.tk",
+  discord: "https://discord.gg/3vC2XWK",
+  github: "https://github.com/CamilleAbella/just-a-forum",
   deployedAt: Date.now(),
+  deployedSince() {
+    return utils.dayjs(this.deployedAt).fromNow()
+  },
 }
 
 app.set("view engine", "ejs")

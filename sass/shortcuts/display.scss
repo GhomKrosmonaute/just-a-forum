@@ -11,12 +11,21 @@
 }
 
 .d-hover,
-.d-sub-hover {
+.d-sub-hover,
+.d-sub-hover-flex {
   display: none;
 }
 
-:hover > .d-hover,
-:hover > .d-sub-hover,
-:hover > * > .d-sub-hover {
-  display: block;
+.trigger:hover {
+  > .d-hover,
+  .d-sub-hover {
+    display: block;
+    &-flex {
+      display: flex;
+    }
+  }
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }

@@ -2,11 +2,11 @@ import * as entities from "../entities"
 import * as utils from "../utils"
 import app from "../server"
 
-app.get("/subscribe", function (req, res) {
-  res.render("pages/subscribe")
+app.get("/sign-in", function (req, res) {
+  res.render("pages/sign-in")
 })
 
-app.post("/subscribe", async function (req, res) {
+app.post("/sign-in", async function (req, res) {
   const body = await utils.parseLogin(req)
 
   if (!body) {
@@ -27,7 +27,7 @@ app.post("/subscribe", async function (req, res) {
 
     if (req.session) {
       utils.logUser(req, data.id, admin)
-      return res.redirect("/wall")
+      return res.redirect("/feed")
     } else {
       return utils.error(res, "Session system error...")
     }

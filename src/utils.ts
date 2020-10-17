@@ -3,10 +3,16 @@ import fs from "fs/promises"
 import path from "path"
 import Markdown from "markdown-it"
 import hljs from "highlightjs"
+import dayjs from "dayjs"
+import relativeTime from "dayjs/plugin/relativeTime"
 
 import * as entities from "./entities"
 
 const uuid = require("uuid")
+
+dayjs.extend(relativeTime)
+
+export { dayjs }
 
 export const md: Markdown = new Markdown({
   html: false,
@@ -165,7 +171,7 @@ export async function parseLogin(
 
 /** Contains sessions activity timeouts <user_id, last_activity_time> */
 export const sessions = new Map<string, number>()
-export const sessionTimeout = 600000 // 10 min
+export const sessionTimeout = 1000 * 60 * 3 // 3 min
 
 export function refreshSessions() {
   const now = Date.now()

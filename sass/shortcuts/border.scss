@@ -21,3 +21,10 @@
     }
   }
 }
+
+.shadow {
+  box-shadow: var(--transparent) 0 0 10px;
+  &-inset {
+    box-shadow: inset var(--transparent) 0 0 10px;
+  }
+}

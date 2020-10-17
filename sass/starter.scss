@@ -21,10 +21,4 @@ body {
   min-height: 100vh;
   font-family: var(--font-family);
   font-weight: var(--text-normal);
-
-  #content {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
 }

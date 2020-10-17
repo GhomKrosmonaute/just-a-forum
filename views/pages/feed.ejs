@@ -4,7 +4,7 @@
     <h3 class="m-0"><%= user.username + "'s" %> feed</h3>
 
     <%- include('../partials/post-form', { action: 'post', post: null, user }) %>
-    <%- include('../partials/post-list', { pagination: user.getWallPagination(pageIndex), user }) %>
+    <%- include('../partials/post-list', { pagination: user.getFeedPagination(pageIndex), user }) %>
 </div>
 
 <hr class="d-md-none">

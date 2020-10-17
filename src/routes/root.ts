@@ -1,10 +1,10 @@
 import app from "../server"
 import * as utils from "../utils"
 
-app.get(["/", "/login", "/search"], function (req, res) {
+app.get("/", function (req, res) {
   if (utils.isUserLogged(req)) {
-    res.redirect("/wall")
+    res.redirect("/feed")
   } else {
-    utils.page(req, res, "login")
+    res.redirect("/login")
   }
 })

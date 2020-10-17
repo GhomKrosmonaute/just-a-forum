@@ -1,49 +1,51 @@
 <% { %>
 <div class="d-flex justify-content-between">
-    <div class="d-flex align-items-center m-0 p-0">
+    <div class="d-flex align-items-center">
         <% const likes = post.getLikes() %>
-        <form action="/like" method="post" class="m-0 p-0">
-            <input type="hidden" name="post_id" value="<%= post.id %>">
-            <button
-                    type="submit"
-                    <% if(likes.length === 0) { %>
-                        <%- include('popover', { content: 'Like this topic' }) %>
-                    <% } else if (likes.length > 20) { %>
-                        <%- include('popover', { content: likes.length + ' likes' }) %>
-                    <% } else { %>
-                        <%- include('popover', { content: likes.map(like => like.getUser().username).join(', ') }) %>
-                    <% } %>
-                    class="btn btn-sm <%= likes.length > 0 ? '' : 'btn-icon' %> <%= likes.some(like => like.user_id === user.id) ? 'btn-primary' : 'btn-dark' %> btn-round text-nowrap">
-                <% if(likes.length > 0){ %>
-                    <%= likes.length %>
-                <% } %>
-                <i class="now-ui-icons ui-2_favourite-28 adapt-icon-size"></i>
-            </button>
-        </form>
         <% const children = post.getAllChildren() %>
-        <a
+
+        <div class="group post-reactions">
+            <a
+                <% if(likes.length === 0) { %>
+                    <%- include('popover', { content: 'Like this topic' }) %>
+                <% } else if (likes.length > 20) { %>
+                    <%- include('popover', { content: likes.length + ' likes' }) %>
+                <% } else { %>
+                    <%- include('popover', { content: likes.map(like => like.getUser().username).join(', ') }) %>
+                <% } %>
+                    href="/like/<%= post.id %>" class="btn btn-icon <%= likes.some(like => like.user_id === user.id) ? 'bg-blue bg-dark-blue-hover' : '' %> round text-nowrap">
+                <% if(likes.length > 0){ %>
+                    <span class="text-bold"><%= likes.length %></span>
+                <% } else { %>
+                    <i class="fa fa-heart"></i>
+                <% } %>
+            </a>
+
+            <a
                 <% if(children.length === 0) { %>
                     <%- include('popover', { content: 'Comment this topic' }) %>
                 <% } else if (children.length > 20) { %>
                     <%- include('popover', { content: children.length + ' comments' }) %>
                 <% } else { %>
-                    <%- include('popover', { content: [...new Set(children.map(post => post.getAuthor().username))].join(', ') }) %>
+                <%- include('popover', { content: [...new Set(children.map(post => post.getAuthor().username))].join(', ') }) %>
+                    <% } %>
+                    href="/post/<%= post.id %>"
+                    class="btn btn-icon <%= children.some(child => child.author_id === user.id) ? 'bg-blue bg-dark-blue-hover' : '' %> round text-nowrap">
+                <% if(children.length > 0){ %>
+                    <span class="text-bold"><%= children.length %></span>
+                <% } else { %>
+                    <i class="fa fa-comment"></i>
                 <% } %>
-                href="/post/<%= post.id %>"
-                class="btn btn-sm <%= children.length > 0 ? '' : 'btn-icon' %> <%= children.some(child => child.author_id === user.id) ? 'btn-primary' : 'btn-dark' %> btn-round text-nowrap">
-            <% if(children.length > 0){ %>
-                <%= children.length %>
-            <% } %>
-            <i class="now-ui-icons ui-2_chat-round adapt-icon-size"></i>
-        </a>
+            </a>
+        </div>
     </div>
 
     <% if(post.author_id === user.id || user.admin){ %>
-        <div class="my-auto p-0 d-sub-hover text-nowrap">
-            <a href="/post/edit/<%= post.id %>" class="text-info mx-1 decoration-none" title="Edit the post">
+        <div class="d-sub-hover-flex align-items-end justify-content-between group">
+            <a href="/post/edit/<%= post.id %>" title="Edit the post" style="margin-right: 20px">
                 <i class="far fa-edit"></i>
             </a>
-            <a href="/post/delete/<%= post.id %>" class="text-danger mx-1 decoration-none" title="Delete the post">
+            <a href="/post/delete/<%= post.id %>" class="text-red" title="Delete the post">
                 <i class="far fa-trash-alt"></i>
             </a>
         </div>

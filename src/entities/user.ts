@@ -85,7 +85,7 @@ export class User implements UserData {
   }
 
   getHTMLAnchor(): string {
-    return `<a href='/wall/${this.id}' class="decoration-none" title="Visit user profile">@${this.username}</a>`
+    return `<a href='/feed/${this.id}' class="decoration-none" title="Visit user profile">@${this.username}</a>`
   }
 
   /** max 25 per user */
@@ -95,7 +95,7 @@ export class User implements UserData {
       .filter((shortcut): shortcut is entities.Shortcut => !!shortcut)
   }
 
-  getWall(): entities.Post[] {
+  getFeed(): entities.Post[] {
     return this.getPosts()
       .concat(
         this.getFriends()
@@ -105,8 +105,8 @@ export class User implements UserData {
       .sort(utils.sortByDate)
   }
 
-  getWallPagination(pageIndex: number): utils.Pagination<entities.Post> {
-    return utils.paginate(this.getWall(), pageIndex)
+  getFeedPagination(pageIndex: number): utils.Pagination<entities.Post> {
+    return utils.paginate(this.getFeed(), pageIndex)
   }
 
   getPosts(): entities.Post[] {

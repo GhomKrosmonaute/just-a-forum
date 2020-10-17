@@ -16,6 +16,12 @@ app.get("/search/:search", function (req, res) {
   })
 })
 
+app.get("/search", function (req, res) {
+  utils.checkoutSession(req, res, () => {
+    utils.error(res, "Invalid search...")
+  })
+})
+
 function searching(req: any, res: any, user: entities.User, search: string) {
   if (search.trim().length === 0) {
     return utils.error(res, "Invalid search...")

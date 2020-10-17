@@ -1,15 +1,19 @@
-@mixin color($property, $colorName, $value) {
+@mixin color($property, $colorName) {
   &-#{$colorName} {
-    #{$property}: $value;
-    &-hover:hover {
-      #{$property}: $value;
+    #{$property}: var(--#{$colorName});
+    &-hover {
+      &:hover,
+      &:focus {
+        #{$property}: var(--#{$colorName});
+      }
     }
   }
 }
 
 @mixin colors($property) {
-  @include color($property, dark, var(--dark));
-  @include color($property, blue, var(--blue));
-  @include color($property, white, var(--white));
-  @include color($property, dark-blue, var(--dark-blue));
+  @include color($property, "dark");
+  @include color($property, "blue");
+  @include color($property, "white");
+  @include color($property, "muted");
+  @include color($property, "dark-blue");
 }

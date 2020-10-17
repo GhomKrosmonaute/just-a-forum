@@ -1,4 +1,4 @@
-<div class="m-3 p-0 px-2 pt-2 shadow rounded border-top border-dark d-flex flex-column" style="min-width: 300px; min-height: 100px">
+<div class="post shadow d-flex flex-column trigger">
     <%- include('post-header', { post, user }) %>
 
     <div onclick="location.href='/post/<%= post.id %>'" class="flex-grow-1 pointer">

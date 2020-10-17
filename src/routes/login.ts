@@ -25,5 +25,5 @@ app.post("/login", async function (req, res) {
 
   utils.logUser(req, user, admin)
 
-  res.redirect("/wall")
+  res.redirect("/feed")
 })

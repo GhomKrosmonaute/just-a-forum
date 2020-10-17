@@ -1,10 +1,6 @@
 import Enmap from "enmap"
-import dayjs from "dayjs"
-import relativeTime from "dayjs/plugin/relativeTime"
 import * as entities from "../entities"
 import * as utils from "../utils"
-
-dayjs.extend(relativeTime)
 
 export interface PostData {
   id: string
@@ -42,7 +38,7 @@ export class Post implements PostData {
   }
 
   get since(): string {
-    return dayjs(this.date).fromNow()
+    return utils.dayjs(this.date).fromNow()
   }
 
   static fromId(id: string | null): Post | undefined {

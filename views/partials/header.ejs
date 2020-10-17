@@ -1,33 +1,29 @@
 <%- include('head') %>
-<div id="content">
-<header class="bg-dark text-white">
-    <div class="container d-flex justify-content-between align-items-center">
-        <div class="group">
-            <a href="/" class="muted-anchor logo">
-                <img class="d-block" src="/brand/logo_white-dark.png" alt="logo" height="40" title="<%= site.name %>">
-            </a>
-            <a href="https://github.com/CamilleAbella/just-a-forum" class="btn">
-                <span>Github</span>
-            </a>
-            <a href="https://discord.gg/3vC2XWK" class="btn">
-                <span>Discord</span>
-            </a>
-        </div>
-
-
-        <% if (options.user) { %>
-            <%- include('search-bar', { options: null }); %>
-
+<body class="d-flex flex-column">
+    <header class="bg-dark text-white">
+        <div class="container d-flex justify-content-between align-items-center">
             <div class="group">
-                <a href="/profile/<%= options.user.id %>" class="btn">
-                    <span><%= options.user.username %></span>
+                <a href="/" class="muted-anchor logo">
+                    <img class="d-block" src="/brand/logo_white-dark.png" alt="logo" height="40" title="<%= site.name %>">
                 </a>
-                <a href="/logout" class="btn">
-                    <span> Logout </span>
-                </a>
+                <a href="<%- site.github %>" class="btn"><span>Github</span></a>
+                <a href="<%- site.discord %>" class="btn"><span>Discord</span></a>
             </div>
-        <% } %>
-    </div>
-</header>
-<main class="flex-grow-1">
-    <div class="container">
+
+
+            <% if (options.user) { %>
+                <%- include('search-bar', { options: null }); %>
+
+                <div class="group">
+                    <a href="/profile/<%= options.user.id %>" class="btn">
+                        <span><%= options.user.username %></span>
+                    </a>
+                    <a href="/logout" class="btn">
+                        <span> Logout </span>
+                    </a>
+                </div>
+            <% } %>
+        </div>
+    </header>
+    <main class="bg-blue flex-grow-1 d-flex flex-column">
+        <div class="container bg-white flex-grow-1">

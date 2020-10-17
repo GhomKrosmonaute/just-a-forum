@@ -1,0 +1,26 @@
+.post {
+  min-width: 390px;
+  min-height: 100px;
+  padding: 20px;
+
+  &-list {
+    > .post {
+      margin-top: 40px;
+      &:nth-child(even) {
+        margin-left: 40px;
+      }
+    }
+  }
+
+  &-header {
+    height: 20px;
+    margin-bottom: 20px;
+  }
+
+  &-reactions {
+    transform: translate(-40px, 30px);
+    > :last-child {
+      border-top-right-radius: 0 !important;
+    }
+  }
+}

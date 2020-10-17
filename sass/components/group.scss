@@ -1,6 +1,12 @@
 .group {
   display: flex;
 
+  > * {
+    &:not(:last-child) {
+      border-right: 0;
+    }
+  }
+
   > .rect-hover {
     border-radius: 0;
 

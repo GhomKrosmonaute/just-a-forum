@@ -5,9 +5,9 @@
     const isMe = target.id === user.id
 %>
 <div
-        class="d-flex align-items-center justify-content-between p-0 m-0"
-        style="height: 25px">
-    <a class="text-nowrap d-flex align-items-center muted-anchor px-2 py-auto overflow-hidden" href="/profile/<%= target.id %>" style="max-width: 100px">
+        class="d-flex align-items-center justify-content-between text-bold text-dark-blue"
+        style="height: 20px">
+    <a class="text-nowrap d-flex align-items-center muted-anchor overflow-hidden" href="/profile/<%= target.id %>" style="max-width: 100px">
         <i
                 class="now-ui-icons users_single-02 <%= isMe ? 'text-primary' : (target.online ? 'text-success' : '') %>"
                 title="<%= target.username + ' is ' + (target.online ? 'online' : 'offline') %>"
