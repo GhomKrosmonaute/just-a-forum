@@ -1,13 +1,20 @@
-.p {
-  padding: 20px;
+@mixin sizes($property) {
+  #{$property}: var(--space);
+  &-half {
+    #{$property}: var(--half);
+  }
+  &-quart {
+    #{$property}: var(--quart);
+  }
   &-none {
-    padding: 0;
+    #{$property}: 0;
   }
 }
 
+.p {
+  @include sizes(padding);
+}
+
 .m {
-  margin: 20px;
-  &-none {
-    margin: 0;
-  }
+  @include sizes(margin);
 }

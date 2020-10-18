@@ -1,7 +1,7 @@
 <%- include('../partials/header', { options: { user: null }, title: 'Error' }); %>
 
-<div class="align-self-center shadow rounded">
-    <h1 class="text-red">Error</h1>
+<div class="align-self-center shadow round p">
+    <h1 class="text-red" style="margin-bottom: 20px">Error</h1>
     <p>
         <%- message %>
         <% if(!message.includes('href')){ %>
