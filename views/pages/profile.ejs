@@ -1,7 +1,11 @@
-<%- include('../partials/header', { options: { user } }); %>
+<% { %>
+    <% const title = target.username.endsWith("'") ? target.username + "s profile" : target.username + "'s profile" %>
 
-<div>
-    <h2 style="margin-bottom: 20px"> <%= target.username %>'s profile </h2>
+    <%- include('../partials/header', { options: { user }, title }); %>
+
+    <div>
+        <h2 style="margin-bottom: 20px"><%= title %></h2>
+<% } %>
     <div class="group" style="margin-bottom: 40px">
         <a class="btn round" href="/posts/<%= target.id %>"><%= target.getPosts().length %> posts</a>
     </div>

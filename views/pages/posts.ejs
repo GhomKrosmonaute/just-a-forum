@@ -1,10 +1,11 @@
-<%- include('../partials/header', { options: { user } }); %>
-
 <% { %>
     <% const own = user.id === target.id %>
+    <% const title = target.username.endsWith("'") ? target.username + "s posts" : target.username + "'s posts" %>
+
+    <%- include('../partials/header', { options: { user }, title }); %>
 
     <div class="p-2 flex-grow-1">
-        <h3 class="m-0"><%= own ? "Your posts" : (target.username + "'s posts") %></h3>
+        <h3 class="m-0"><%= own ? "Your posts" : title %></h3>
 
         <% if(own){ %>
             <%- include('../partials/post-form', { action: 'post', post: null, user }) %>

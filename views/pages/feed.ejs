@@ -1,11 +1,15 @@
-<%- include('../partials/header', { options: { user } }); %>
+<% { %>
+    <% const title = user.username.endsWith("'") ? user.username + "s feed" : user.username + "'s feed" %>
+
+    <%- include('../partials/header', { options: { user }, title }); %>
 
 <div class="p-2 flex-grow-1">
-    <h3 class="m-0"><%= user.username + "'s" %> feed</h3>
+    <h3 class="m-0"><%= title %></h3>
 
     <%- include('../partials/post-form', { action: 'post', post: null, user }) %>
     <%- include('../partials/post-list', { pagination: user.getFeedPagination(pageIndex), user }) %>
 </div>
+<% } %>
 
 <hr class="d-md-none">
 

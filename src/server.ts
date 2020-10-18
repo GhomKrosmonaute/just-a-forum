@@ -12,6 +12,7 @@ const app = express()
 app.locals.site = {
   name: "Just a Forॐ",
   author: "Ɠɧॐ",
+  description: "The JS Forum of JS Labs",
   url: "https://www.just-a-forum.tk",
   discord: "https://discord.gg/3vC2XWK",
   github: "https://github.com/CamilleAbella/just-a-forum",
