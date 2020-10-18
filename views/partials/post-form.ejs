@@ -3,7 +3,7 @@
 <% const comment = action === "comment" %>
 <% const route = edit ? ("/post/edit/" + post.id) : "/post" %>
 
-<form action="<%= route %>" method="POST" id="post" class="post-form">
+<form action="<%= route %>" method="POST" id="post" class="post-form <%= edit ? 'post-editor' : '' %>">
 
     <% if (comment) { %>
         <input type="hidden" name="parent_id" value="<%= post.id %>">

@@ -38,4 +38,11 @@
       border-top-left-radius: 0;
     }
   }
+
+  &-editor {
+    textarea {
+      resize: none;
+      height: 60vh;
+    }
+  }
 }
