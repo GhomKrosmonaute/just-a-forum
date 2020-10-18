@@ -10,8 +10,8 @@
         href="/profile/<%= target.id %>"
     >
         <i
-                class="picture fa fa-user-circle <%= isMe ? 'text-dark-blue' : (target.online ? 'text-blue' : '') %>"
-                title="<%= target.username + ' is ' + (target.online ? 'online' : 'offline') %>"
+            class="picture fa fa-user-circle <%= isMe ? 'text-dark-blue' : (target.online ? 'text-blue' : '') %>"
+            title="<%= target.username + ' is ' + (target.online ? 'online' : 'offline') %>"
         ></i>
         <span class="username <%= isMe ? 'text-dark-blue' : '' %>">
             <%= target.username %>
@@ -20,8 +20,7 @@
     <div class="text-nowrap d-flex align-items-center">
         <% if(user.admin) { %>
             <a
-                <%- include('popover', { content: '⚠️ Delete user account ⚠' }) %>
-                title="⚠️ Delete user account ⚠️ "
+                <%- include('popover', { content: '⚠️ Delete user account ⚠️ ' }) %>
                 href="/unsubscribe/<%= target.id %>"
                 class="d-hover-bis text-red text-red-hover"
                 style="margin-left: var(--half)"
