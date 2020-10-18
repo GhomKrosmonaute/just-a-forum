@@ -45,3 +45,6 @@
 - force min 5 char in the password (back-end side)
 - make possible user slugs in routes and show slugs on displayed url
 - allow tabulation in textarea
+- replace error embed title by null
+- fix topics breadcrumb
+- fix even username undefined bug
