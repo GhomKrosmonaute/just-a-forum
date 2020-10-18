@@ -1,4 +1,16 @@
-# Forॐ - Just a recursive forum
+<div align="center">
+  <br />
+  <p>
+    <a href="https://just-a-forum.tk"><img src="./brand/logo_dark-blurple-blurple.png" width="546" alt="just-a-forum-logo" /></a>
+  </p>
+<br />
+    <h1> Just a Forॐ </h1>
+<br />
+  <p>
+    <a href="https://discord.gg/3vC2XWK"><img src="https://img.shields.io/discord/507389389098188820?color=7289da&logo=discord&logoColor=white" alt="Discord server" /></a>
+    <a href="https://david-dm.org/CamilleAbella/just-a-forum"><img src="https://img.shields.io/david/CamilleAbella/just-a-forum.svg?maxAge=3600" alt="Dependencies" /></a>
+  </p>
+</div>
 
 ## How to use it ?
 
