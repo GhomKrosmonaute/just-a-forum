@@ -1,4 +1,4 @@
-<div class="post-list d-flex flex-wrap align-items-start justify-content-center flex-grow-1">
+<div class="post-list flex-grow-1">
     <% for(const p_post of pagination.page){ %>
         <%- include('../partials/post-card', { post: p_post, user }) %>
     <% } %>

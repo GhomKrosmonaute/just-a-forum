@@ -1,0 +1,16 @@
+@mixin list() {
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: center;
+
+    > * {
+      margin-bottom: 0;
+      margin-top: 40px;
+      &:nth-child(even) {
+        margin-left: 40px;
+      }
+    }
+  }
+}

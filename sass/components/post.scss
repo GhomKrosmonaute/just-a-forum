@@ -1,18 +1,12 @@
+@import "../shortcuts/list";
+
 .post {
   min-width: 390px;
   min-height: 100px;
   padding: 20px;
   margin: 40px 0 40px 0;
 
-  &-list {
-    > .post {
-      margin-bottom: 0;
-      margin-top: 40px;
-      &:nth-child(even) {
-        margin-left: 40px;
-      }
-    }
-  }
+  @include list();
 
   &-header {
     height: 20px;

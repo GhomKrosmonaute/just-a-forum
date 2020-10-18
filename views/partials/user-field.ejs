@@ -4,33 +4,39 @@
     const isFriend = user.isFriendWith(target)
     const isMe = target.id === user.id
 %>
-<div
-        class="d-flex align-items-center justify-content-between text-bold text-dark-blue"
-        style="height: 20px">
-    <a class="text-nowrap d-flex align-items-center muted-anchor overflow-hidden" href="/profile/<%= target.id %>" style="max-width: 100px">
+<div class="user trigger-bis">
+    <a
+        class="text-nowrap d-flex align-items-center muted-anchor overflow-hidden"
+        href="/profile/<%= target.id %>"
+    >
         <i
-                class="now-ui-icons users_single-02 <%= isMe ? 'text-primary' : (target.online ? 'text-success' : '') %>"
+                class="picture fa fa-user-circle <%= isMe ? 'text-dark-blue' : (target.online ? 'text-blue' : '') %>"
                 title="<%= target.username + ' is ' + (target.online ? 'online' : 'offline') %>"
         ></i>
-        <span class="text-align-center m-0 p-0 px-1 mx-2 text-monospace <%= isMe ? 'text-primary' : '' %>">
+        <span class="username <%= isMe ? 'text-dark-blue' : '' %>">
             <%= target.username %>
         </span>
     </a>
-    <div class="text-nowrap d-flex align-items-center overflow-hidden">
+    <div class="text-nowrap d-flex align-items-center">
         <% if(user.admin) { %>
             <a
-                    <%- include('popover', { content: '⚠️ Delete user account ⚠' }) %>
-                    href="/unsubscribe/<%= target.id %>"
-                    class="d-sub-hover text-danger m-1 p-1">
-                <i class="now-ui-icons ui-1_simple-remove"></i>
+                <%- include('popover', { content: '⚠️ Delete user account ⚠' }) %>
+                title="⚠️ Delete user account ⚠️ "
+                href="/unsubscribe/<%= target.id %>"
+                class="d-hover-bis text-red text-red-hover"
+                style="margin-left: var(--half)"
+            >
+                <i class="far fa-trash-alt"></i>
             </a>
         <% } %>
         <% if (!isMe) { %>
             <a
-                    href="/link/<%= target.id %>"
-                    class="d-sub-hover m-1 p-1 <%= isFriend ? 'text-danger' : (isAlreadyLinked ? 'text-dark' : 'text-success') %>"
-                    title="Remove from <%= isFriend ? 'friend-list' : 'pending-list'%>">
-                <i class="now-ui-icons <%= isFriend ? 'ui-1_simple-delete' : (isAlreadyLinked ? 'ui-1_simple-delete' : 'ui-1_simple-add') %>"></i>
+                href="/link/<%= target.id %>"
+                class="d-hover-bis <%= isFriend ? 'text-red text-red-hover' : (isAlreadyLinked ? 'text-dark text-dark-blue-hover' : 'text-blue text-dark-blue-hover') %>"
+                title="<%= isFriend ? 'Remove from friend-list' : (isAlreadyLinked ? 'Remove from pending-list' : 'Send friend request')%>"
+                style="margin-left: var(--half)"
+            >
+                <i class="fas fa-user-<%= isFriend ? 'times' : (isAlreadyLinked ? 'minus' : 'plus') %>"></i>
             </a>
         <% } %>
     </div>

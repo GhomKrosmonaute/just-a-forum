@@ -11,14 +11,23 @@
 }
 
 .d-hover,
-.d-sub-hover,
-.d-sub-hover-flex {
+.d-hover-flex,
+.d-hover-bis,
+.d-hover-bis-flex {
   display: none;
 }
 
 .trigger:hover {
-  > .d-hover,
-  .d-sub-hover {
+  .d-hover {
+    display: block;
+    &-flex {
+      display: flex;
+    }
+  }
+}
+
+.trigger-bis:hover {
+  .d-hover-bis {
     display: block;
     &-flex {
       display: flex;

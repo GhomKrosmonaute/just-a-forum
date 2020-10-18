@@ -1,0 +1,29 @@
+@import "../shortcuts/list";
+
+.user {
+  display: flex;
+  height: var(--space);
+  max-width: 220px;
+
+  @include list();
+
+  .picture {
+    font-size: var(--space);
+    margin-right: var(--quart);
+  }
+
+  .username {
+    font-size: var(--half);
+  }
+}
+
+.post {
+  .user {
+    background-color: var(--white);
+    box-shadow: var(--transparent) 0 0 var(--quart);
+    border-radius: var(--space);
+    border-bottom-right-radius: 0;
+    padding-right: var(--half);
+    transform: translate(-40px, -20px);
+  }
+}
