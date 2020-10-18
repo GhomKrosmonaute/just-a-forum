@@ -137,10 +137,6 @@ export function validateUsername(
     return error(res, "Username is too large (20 char max)")
   }
 
-  if (entities.User.db.some((data) => data.username === username)) {
-    return error(res, "Username already used...")
-  }
-
   callback()
 }
 

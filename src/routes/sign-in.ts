@@ -1,6 +1,7 @@
 import * as entities from "../entities"
 import * as utils from "../utils"
 import app from "../server"
+import { error } from "../utils"
 
 app.get("/sign-in", function (req, res) {
   res.render("pages/sign-in")
@@ -16,6 +17,10 @@ app.post("/sign-in", async function (req, res) {
   const { username, hash, admin } = body
 
   utils.validateUsername(res, username, () => {
+    if (entities.User.db.some((data) => data.username === username)) {
+      return error(res, "Username already used...")
+    }
+
     const data: entities.UserData = {
       id: utils.makeId(),
       username,

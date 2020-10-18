@@ -8,6 +8,13 @@
 
   @include list();
 
+  &-list {
+    justify-content: start;
+    > * {
+      margin-left: 0 !important;
+    }
+  }
+
   .picture {
     font-size: var(--space);
     margin-right: var(--quart);
@@ -15,10 +22,6 @@
 
   .username {
     font-size: var(--half);
-  }
-
-  &-list {
-    justify-content: start;
   }
 }
 
