@@ -48,3 +48,4 @@
 - replace error embed title by null
 - fix topics breadcrumb
 - fix even username undefined bug
+- remove line numbers if line count is inferior that 5
