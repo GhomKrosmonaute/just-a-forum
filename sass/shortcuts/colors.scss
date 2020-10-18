@@ -18,6 +18,7 @@
   @include color($property, "muted");
   @include color($property, "dark-blue");
   @include color($property, "transparent");
+  @include color($property, "thin-layer");
 }
 
 .bg {

@@ -1,10 +1,15 @@
+@mixin inlaid-text {
+  pointer-events: none;
+  user-select: none;
+  &::selection {
+    pointer-events: none;
+    display: none;
+  }
+}
+
 .text {
   &-inlaid {
-    pointer-events: none;
-    &::selection {
-      pointer-events: none;
-      display: none;
-    }
+    @include inlaid-text;
   }
   &-nowrap {
     white-space: nowrap;
@@ -17,6 +22,9 @@
   }
   &-light {
     font-weight: var(--text-light);
+  }
+  &-break {
+    word-break: break-word;
   }
   &-align {
     &-center {

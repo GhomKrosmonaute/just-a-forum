@@ -29,8 +29,6 @@
 - add report button on posts and on users profile
 - show a preview of post content in post-card
 - make settings page (CRUD & RGPD, themes dark/light & theme color)
-- remove bootstrap and make a real SCSS theme from scratch
-- fix redirection (make a real History class to manage it)
 - allow user own custom shortcuts
 - implement right click on items (copy url, edit, delete, share, send to DM, copy ID)
 - implement right click on blank (open compact version of settings)
@@ -40,14 +38,10 @@
 - add a js tool page (regex tester, css selector tester, color picker, etc...)
 - adapt for mobile
 - on profile of other user, show mutual friends
-- use the maximum of place for posts
-- use javascript algorithme to wrap posts
-- add brand and favicon
-- remove the last apostroph of pseudo whan display it like `Ghom's thing`
 - make a deploy script on gulpfile: send a Discord webhook with deployed branch/commit links and deployed site url
 - add dropdowns on header
 - add fixed side-bar with friend list
 - add fixed chat-boxes (facebook-like) on bottom-right of viewport
-- replace Ghom copyright by just "Ɠɧॐ" with a link to my web portfolio
 - force min 5 char in the password (back-end side)
 - make possible user slugs in routes and show slugs on displayed url
+- allow tabulation in textarea

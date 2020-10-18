@@ -1,0 +1,113 @@
+@import "../shortcuts/text";
+
+pre.hljs {
+  word-break: keep-all;
+  overflow-x: auto;
+  padding: var(--quart);
+  margin-top: var(--quart);
+  margin-bottom: var(--quart);
+  background-color: var(--thin-layer);
+  box-shadow: inset 0 0 var(--quart) var(--thin-layer);
+
+  > code {
+    font-family: var(--font-mono);
+    font-weight: var(--text-light);
+    text-space: 20px;
+
+    .hljs {
+      &-keyword,
+      &-class {
+        color: var(--dark-blue);
+        font-weight: var(--text-light);
+      }
+
+      &-built_in,
+      &-symbol,
+      &-type {
+        color: var(--dark-blue);
+        font-weight: var(--text-bold);
+      }
+
+      &-literal,
+      &-number {
+        color: var(--blue);
+        font-weight: var(--text-bold);
+      }
+
+      &-string,
+      &-regexp {
+        color: var(--blue);
+        font-weight: var(--text-light);
+      }
+
+      &-subst {
+        color: var(--dark);
+        font-weight: var(--text-light);
+      }
+
+      &-title {
+        color: var(--dark);
+        font-weight: var(--text-bold);
+      }
+
+      &-params {
+        color: var(--dark);
+        font-weight: var(--text-light);
+      }
+
+      &-comment {
+        color: var(--muted);
+        font-weight: var(--text-light);
+      }
+
+      // documentation markup within comments
+      &-doctag {
+      }
+      // function or method declaration
+      &-function {
+      }
+      // flags, modifiers, annotations, processing instructions, preprocessor directive, etc
+      &-meta {
+        // keyword or built-in within meta construct
+        &-keyword {
+        }
+        // string within meta construct
+        &-string {
+        }
+      }
+
+      // continue: https://highlightjs.readthedocs.io/en/latest/css-classes-reference.html
+
+      &-line {
+        display: inline-flex;
+        height: 20px;
+        width: 100%;
+
+        &-code {
+          flex-grow: 1;
+        }
+
+        &-number {
+          display: inline-block;
+          text-align: right;
+          @include inlaid-text;
+          color: var(--transparent);
+          margin-right: 20px;
+          width: 20px;
+        }
+
+        &:hover {
+          .hljs-line {
+            &-number {
+              color: var(--blue);
+              font-weight: var(--text-bold);
+            }
+            &-code {
+              background-color: var(--white);
+            }
+          }
+        }
+      }
+    }
+  }
+}

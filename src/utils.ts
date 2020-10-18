@@ -22,19 +22,43 @@ export const md: Markdown = new Markdown({
   highlight: function (str, lang) {
     if (lang && hljs.getLanguage(lang)) {
       try {
-        return (
-          '<pre class="hljs"><code>' +
-          hljs.highlight(lang, str, true).value +
-          "</code></pre>"
-        )
-      } catch (__) {}
-    }
+        // remove multiline comments
+        const regex = /\/\*(?:[\s\S]*?)\*\//g
+        let match
+        while ((match = regex.exec(str)) !== null) {
+          const comment = match[0]
+          if (comment && comment.includes("\n")) {
+            str = str.replace(comment, "")
+          }
+        }
 
+        // parse code
+        const code = hljs.highlight(lang, str, true).value
+
+        // place line numbers
+        const withLineNumbers = addLineNumbersTo(code)
+
+        // return result
+        return `<pre class="hljs"><code>${withLineNumbers}</code></pre>`
+      } catch (_) {}
+    }
     return (
-      '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + "</code></pre>"
+      '<pre class="hljs"><code>' +
+      addLineNumbersTo(md.utils.escapeHtml(str)) +
+      "</code></pre>"
     )
   },
 })
+
+export function addLineNumbersTo(code: string): string {
+  return code
+    .trim()
+    .split("\n")
+    .map((line, index) => {
+      return `<span class="hljs-line"><span class="hljs-line-number">${index}</span><span class="hljs-line-code">${line}</span></span>`
+    })
+    .join("\n")
+}
 
 export function sortByDate(a: entities.Post, b: entities.Post): number {
   const a_recent = Math.max(
