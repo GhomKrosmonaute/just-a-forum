@@ -2,8 +2,9 @@
 
 .user {
   display: flex;
+  justify-content: space-between;
   height: var(--space);
-  max-width: 220px;
+  width: 220px;
 
   @include list();
 
@@ -14,6 +15,10 @@
 
   .username {
     font-size: var(--half);
+  }
+
+  &-list {
+    justify-content: start;
   }
 }
 
