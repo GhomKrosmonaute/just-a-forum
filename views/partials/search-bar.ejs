@@ -1,12 +1,15 @@
-<form method="post" action="/search" class="flex-grow-1 group search-bar">
-    <input
-            type="text"
-            name="search"
-            value="<%= options?.search || '' %>"
-            class="input-text bg-white border-none flex-grow-1"
-            placeholder="Search an user or a post">
+<% { %>
+    <% const classes = options?.classes ?? 'bg-white bg-white-hover text-dark text-dark-blue-hover border-none' %>
+    <form method="post" action="/search" class="flex-grow-1 group search-bar">
+        <input
+                type="text"
+                name="search"
+                value="<%= options?.search || '' %>"
+                class="flex-grow-1 input-text <%= classes %>"
+                placeholder="Search an user or a post">
 
-    <button type="submit" class="btn bg-white bg-white-hover text-dark text-dark-blue-hover">
-        <i class="fa fa-search"></i>
-    </button>
-</form>
+        <button type="submit" class="btn <%= classes %>">
+            <i class="fa fa-search"></i>
+        </button>
+    </form>
+<% } %>

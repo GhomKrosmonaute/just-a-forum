@@ -3,15 +3,10 @@
 
     <%- include('../partials/header', { options: { user }, title }); %>
 
-<div class="p-2 flex-grow-1">
-    <h3 class="m-0"><%= title %></h3>
-
-    <%- include('../partials/post-form', { action: 'post', post: null, user }) %>
-    <%- include('../partials/post-list', { pagination: user.getFeedPagination(pageIndex), user }) %>
-</div>
+    <h1 class=""><%= title %></h1>
 <% } %>
 
-<hr class="d-md-none">
-
+<%- include('../partials/post-form', { action: 'post', post: null, user }) %>
+<%- include('../partials/post-list', { pagination: user.getFeedPagination(pageIndex), user }) %>
 <%- include('../partials/friends', { user, target: user }); %>
 <%- include('../partials/footer'); %>

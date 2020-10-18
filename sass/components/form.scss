@@ -16,6 +16,12 @@
   > :last-child {
     margin-top: 20px;
     align-self: center;
+    > :last-child {
+      background-color: var(--dark-blue);
+      &:hover {
+        background-color: var(--blue);
+      }
+    }
   }
 }
 

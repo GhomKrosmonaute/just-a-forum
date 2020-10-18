@@ -1,47 +1,32 @@
 <%- include('../partials/header', { options: { user }, title: 'Search' }); %>
 
 <div class="flex-grow-1">
-    <div class="d-flex align-items-center">
-        <h3 class="m-0"> Results </h3>
+    <div class="d-flex align-items-center" style="margin-bottom: 40px">
+        <h1 style="margin-right: 40px"> Results </h1>
 
-        <%- include('../partials/search-bar', { options: { search } }) %>
+        <%- include('../partials/search-bar', { options: { search, classes: 'bg-white bg-white-hover text-dark text-dark-blue-hover rect-hover shadow' } }) %>
 
-        <div class="text-nowrap">
-            <span class="badge badge-primary">
+        <div class="d-flex justify-content-center text-bold" style="margin-left: 40px">
+            <div style="margin-right: 40px">
+                <i class="fa fa-user"></i>
                 <%= results.users.length %>
-                <i class="d-md-none now-ui-icons users_single-02"></i>
-                <span class="d-none d-md-inline">users</span>
-            </span>
-            <span class="badge badge-primary">
-                <%= results.posts.length %>
-                <i class="d-md-none now-ui-icons ui-1_email-85"></i>
-                <span class="d-none d-md-inline">posts</span>
-            </span>
+                <span>users</span>
+            </div>
+            <div>
+                <i class="fa fa-comment"></i>
+                <%= results.posts.page.length %>
+                <span>posts</span>
+            </div>
         </div>
     </div>
 
-    <div class="d-md-flex">
+    <div>
         <% if(results.users.length > 0){ %>
-            <div class="col-md-4">
-                <h4> Users </h4>
-                <%- include('../partials/user-list', { users: results.users, user }) %>
-            </div>
+            <%- include('../partials/user-list', { users: results.users, user }) %>
         <% } %>
 
-        <hr class="d-block d-md-none">
-
         <% if(results.posts.page.length > 0){ %>
-            <div class="col-md-8 flex-grow-1 d-flex flex-column">
-                <h4> Posts </h4>
-
-                <div class="d-flex flex-wrap flex-grow-1">
-                    <% for(const post of results.posts.page){ %>
-                        <%- include('../partials/post-card', { post, user }) %>
-                    <% } %>
-                </div>
-
-                <%- include('../partials/pagination', { pagination: results.posts }) %>
-            </div>
+            <%- include('../partials/post-list', { pagination: results.posts, pageIndex }) %>
         <% } %>
     </div>
 </div>

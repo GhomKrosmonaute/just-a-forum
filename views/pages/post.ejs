@@ -1,7 +1,7 @@
 <%- include('../partials/header', { options: { user }, title: 'Topic' }); %>
 
-<div class="p-2 flex-grow-1">
-    <h3 class="m-0"> Topic </h3>
+<div class="flex-grow-1">
+    <h1> Topic </h1>
 
     <%- include('../partials/post-breadcrumb', { post }) %>
 
@@ -9,9 +9,7 @@
         <%- include('../partials/post', { user, post }) %>
     </div>
 
-    <hr>
-
-    <h3 class="m-0"> Reactions </h3>
+    <h2> Comments </h2>
 
     <%- include('../partials/post-form', { action: 'comment', user, post }) %>
     <%- include('../partials/post-list', { pagination: post.getChildrenPagination(pageIndex), user }) %>
