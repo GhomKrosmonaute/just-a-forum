@@ -6,6 +6,7 @@
 
   &-list {
     > .post {
+      margin-bottom: 0;
       margin-top: 40px;
       &:nth-child(even) {
         margin-left: 40px;
@@ -22,6 +23,23 @@
     transform: translate(-40px, 30px);
     > :last-child {
       border-top-right-radius: 0 !important;
+    }
+  }
+
+  &-form {
+    textarea {
+      font-family: var(--font-family);
+      font-weight: var(--text-normal);
+      font-size: var(--half);
+      padding: var(--half);
+      margin: var(--half) 0;
+      width: 100%;
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button[type="submit"] {
+      border-top-left-radius: 0;
     }
   }
 }

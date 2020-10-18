@@ -20,38 +20,6 @@
 }
 
 .input {
-  &-group {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-
-    > * {
-      &:not(:last-child) {
-        border-bottom: 0;
-      }
-    }
-
-    > .input-round {
-      border-radius: 0;
-
-      &:last-child {
-        border-radius: 0 0 20px 20px;
-        &:hover,
-        &:focus {
-          border-radius: 0;
-        }
-      }
-
-      &:first-child {
-        border-radius: 20px 20px 0 0;
-        &:hover,
-        &:focus {
-          border-radius: 0;
-        }
-      }
-    }
-  }
-
   &-round {
     border-radius: 20px;
 

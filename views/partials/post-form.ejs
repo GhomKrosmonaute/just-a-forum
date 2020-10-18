@@ -3,28 +3,26 @@
 <% const comment = action === "comment" %>
 <% const route = edit ? ("/post/edit/" + post.id) : "/post" %>
 
-<form action="<%= route %>" method="POST" id="post" class="p-none m-none flex-grow-1">
+<form action="<%= route %>" method="POST" id="post" class="post-form">
 
     <% if (comment) { %>
         <input type="hidden" name="parent_id" value="<%= post.id %>">
     <% } %>
 
-    <div class="form-group">
-        <textarea
-                autofocus
-                id="text-area"
-                name="content"
-                class="input-text"
-                maxlength="1024"
-                placeholder="<%= edit ? post.content : (comment ? 'Reply to post...' : 'Post your advice...') %>"
-                form="post"><%= edit ? post.content : "" %></textarea>
-    </div>
+    <textarea
+        autofocus
+        id="text-area"
+        name="content"
+        maxlength="1024"
+        class="shadow-inset rect-hover"
+        placeholder="<%= edit ? post.content : (comment ? 'Reply to post...' : 'Post a topic...') %>"
+        form="post"><%= edit ? post.content : "" %></textarea>
 
     <div class="d-flex justify-content-between align-items-start">
 
         <%- include('shortcuts', { target: 'text-area' }) %>
 
-        <button type="submit" class="btn text-nowrap">
+        <button type="submit" class="btn text-nowrap round">
             <% if(edit){ %>
                 Save
             <% } else { %>
