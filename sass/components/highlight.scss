@@ -6,13 +6,13 @@ pre.hljs {
   padding: var(--quart);
   margin-top: var(--quart);
   margin-bottom: var(--quart);
+  border-radius: var(--quart);
   background-color: var(--thin-layer);
   box-shadow: inset 0 0 var(--quart) var(--thin-layer);
 
   > code {
-    font-family: var(--font-mono);
-    font-weight: var(--text-light);
-    text-space: 20px;
+    background-color: unset;
+    padding: 0;
 
     .hljs {
       &-keyword,
