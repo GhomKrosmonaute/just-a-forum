@@ -55,9 +55,9 @@ export function parseAdministrators() {
 }
 
 export function addLineNumbersTo(code: string): string {
-  return code
-    .trim()
-    .split("\n")
+  const lines = code.trim().split("\n")
+  if (lines.length < 5) return code
+  return lines
     .map((line, index) => {
       //`<span class="hljs-line"><span class="hljs-line-number">${index}</span><span class="hljs-line-code">${line}</span></span>`
       return `<span class="hljs-line-number">${index}</span>${line}`
