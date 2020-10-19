@@ -1,9 +1,11 @@
 <%- include('../partials/header', { options: { user }, title: 'Topic' }); %>
 
 <div class="flex-grow-1">
-    <h1> Topic </h1>
+    <div class="d-flex align-items-center justify-content-between">
+        <h1> Topic </h1>
 
-    <%- include('../partials/post-breadcrumb', { post }) %>
+        <%- include('../partials/post-breadcrumb', { post }) %>
+    </div>
 
     <div class="d-flex">
         <%- include('../partials/post', { user, post }) %>

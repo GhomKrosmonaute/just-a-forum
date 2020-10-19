@@ -11,7 +11,7 @@ if(fullPath.length > 1){
         })
     }
 %>
-    <nav aria-label="breadcrumb" role="navigation" class="mt-2">
+    <nav>
         <ol class="breadcrumb">
             <% path.forEach((part, i) => { %>
                 <li class="breadcrumb-item <%= (i === path.length - 1) ? "active" : "" %>">

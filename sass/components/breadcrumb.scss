@@ -1,0 +1,15 @@
+.breadcrumb {
+  display: flex;
+
+  &-item {
+    &:not(.active):after {
+      margin-left: var(--half);
+      margin-right: var(--half);
+      content: "/";
+    }
+
+    &.active {
+      color: var(--muted);
+    }
+  }
+}
