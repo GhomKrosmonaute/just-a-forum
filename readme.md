@@ -54,5 +54,4 @@
 - make possible user slugs in routes and show slugs on displayed url
 - allow tabulation in textarea
 - replace error embed title by null
-- fix topics breadcrumb
 - fix even username undefined bug
