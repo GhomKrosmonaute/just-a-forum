@@ -56,7 +56,7 @@
 - allow tabulation in textarea
 - replace error embed title by null
 - fix even username undefined bug
-- add font-family Ubuntu Mono to simple <code> tags like \`code\`
+- add font-family Ubuntu Mono to simple \<code> tags like \`code\`  
 - auto reduce breadcrumb for responsive (start by reduce margin and breadcrumb max item length)
 - limit size of post images (max-height & max-width)
 - replace all links to `/feed/:user_id` by `/posts/:user_id`
