@@ -56,3 +56,4 @@
 - replace error embed title by null
 - fix even username undefined bug
 - add font-family Ubuntu Mono to simple <code> tags like \`code\`
+- auto reduce breadcrumb for responsive (start by reduce margin and breadcrumb max item length)
