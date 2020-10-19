@@ -1,15 +1,4 @@
-@mixin sizes($property) {
-  #{$property}: var(--space);
-  &-half {
-    #{$property}: var(--half);
-  }
-  &-quart {
-    #{$property}: var(--quart);
-  }
-  &-none {
-    #{$property}: 0;
-  }
-}
+@import "size";
 
 .p {
   @include sizes(padding);

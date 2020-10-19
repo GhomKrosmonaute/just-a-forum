@@ -1,0 +1,45 @@
+$sizes: "quart", "half", "space";
+$default: "half";
+
+@mixin size-hover($property, $size, $not: false) {
+  $value: var(--#{$size});
+  &-hover {
+    #{$property}: if($not, $value, 0);
+    &:hover,
+    &:focus {
+      #{$property}: if($not, 0, $value);
+    }
+  }
+}
+
+@mixin size-variant($property, $size, $not: false) {
+  $value: var(--#{$size});
+  &-#{$size} {
+    #{$property}: if($not, 0, $value);
+    @include size-hover($property, $size, $not);
+  }
+}
+
+@mixin all-sizes($property, $not: false) {
+  $value: var(--#{$default});
+  #{$property}: if($not, 0, $value);
+  &-none {
+    #{$property}: if($not, $value, 0);
+  }
+  @include size-hover($property, $default, $not);
+  @each $size in $sizes {
+    @include size-variant($property, $size, $not);
+  }
+}
+
+@mixin sizes($property) {
+  #{$property}: var(--#{$default});
+  &-none {
+    #{$property}: 0;
+  }
+  @each $size in $sizes {
+    &-#{$size} {
+      #{$property}: var(--#{$size});
+    }
+  }
+}

@@ -28,3 +28,7 @@
 .text {
   @include colors(color);
 }
+
+.border {
+  @include colors(border-color);
+}

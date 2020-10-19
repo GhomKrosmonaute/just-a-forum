@@ -1,18 +1,17 @@
-@import "../shortcuts/list";
-
 .user {
   display: flex;
   justify-content: space-between;
   height: var(--space);
   width: 220px;
 
-  @include list();
-
   &-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
     justify-content: start;
     > * {
-      margin-left: 0 !important;
-      margin-right: 40px !important;
+      margin-left: 0;
+      margin-right: 40px;
     }
   }
 

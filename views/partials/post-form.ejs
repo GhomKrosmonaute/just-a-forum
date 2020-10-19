@@ -14,7 +14,7 @@
         id="text-area"
         name="content"
         maxlength="1024"
-        class="shadow-inset rect-hover"
+        class="shadow-inset rect-hover corner-bottom-right"
         placeholder="<%= edit ? post.content : (comment ? 'Reply to post...' : 'Post a topic...') %>"
         form="post"><%= edit ? post.content : "" %></textarea>
 
@@ -22,7 +22,7 @@
 
         <%- include('shortcuts', { target: 'text-area' }) %>
 
-        <button type="submit" class="btn text-nowrap round">
+        <button type="submit" class="btn text-nowrap d-block corner-top-left">
             <% if(edit){ %>
                 Save
             <% } else { %>

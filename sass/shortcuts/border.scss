@@ -1,42 +1,25 @@
-@import "colors";
-
-.border {
-  border: 1px solid var(--dark);
-
-  @include colors(border-color);
-
-  &-none {
-    border: none;
-  }
-}
+@import "size";
 
 .round {
-  border-radius: 20px;
-
-  &-hover {
-    border-radius: 0;
-    &:hover,
-    &:focus {
-      border-radius: 20px;
-    }
-  }
+  @include all-sizes(border-radius);
 }
 
 .rect {
-  border-radius: 0;
-
-  &-hover {
-    border-radius: 20px;
-    &:hover,
-    &:focus {
-      border-radius: 0;
-    }
-  }
+  @include all-sizes(border-radius, true);
 }
 
 .shadow {
   box-shadow: var(--transparent) 0 0 10px;
+
   &-inset {
     box-shadow: inset var(--transparent) 0 0 10px;
+  }
+}
+
+.border {
+  border: 1px solid var(--dark);
+
+  &-none {
+    border: none;
   }
 }

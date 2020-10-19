@@ -1,0 +1,35 @@
+@import "size";
+
+$corners: top-left, top-right, bottom-left, bottom-right;
+
+@mixin corner($corner, $size, $rect: true) {
+  $value: var(--#{$size});
+
+  border-#{$corner}-radius: if($rect, 0, $value) !important;
+
+  @each $corner-not in $corners {
+    @if $corner-not != $corner {
+      border-#{$corner-not}-radius: if($rect, $value, 0);
+    }
+  }
+}
+
+@mixin corners($rect: true) {
+  @each $corner in $corners {
+    &-#{$corner} {
+      @include corner($corner, "half", $rect);
+      @each $size in $sizes {
+        &-#{$size} {
+          @include corner($corner, $size, $rect);
+        }
+      }
+    }
+  }
+}
+
+.corner {
+  @include corners();
+  &-round {
+    @include corners($rect: false);
+  }
+}
