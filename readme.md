@@ -55,3 +55,4 @@
 - allow tabulation in textarea
 - replace error embed title by null
 - fix even username undefined bug
+- add font-family Ubuntu Mono to simple <code> tags like \`code\`
