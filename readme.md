@@ -58,6 +58,5 @@
 - fix even username undefined bug
 - auto reduce breadcrumb for responsive (start by reduce margin and breadcrumb max item length)
 - limit size of post images (max-height & max-width)
-- replace all links to `/feed/:user_id` by `/posts/:user_id`
 - add post edited date (and edit author if it is an administrator)
 - add about page with changelogs and todo-list (fetched on github)
