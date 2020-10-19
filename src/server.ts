@@ -16,6 +16,7 @@ app.locals.site = {
   url: "https://www.just-a-forum.tk",
   discord: "https://discord.gg/3vC2XWK",
   github: "https://github.com/CamilleAbella/just-a-forum",
+  administrators: utils.parseAdministrators(),
   deployedAt: Date.now(),
   deployedSince() {
     return utils.dayjs(this.deployedAt).fromNow()
@@ -40,8 +41,7 @@ app.use(
 app.listen(process.env.PORT ?? 2834)
 
 console.table({
-  ADMIN_USERNAME: process.env.ADMIN_USERNAME,
-  ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+  ADMINISTRATORS: process.env.ADMINISTRATORS?.split(","),
   SESSION_SECRET: process.env.SESSION_SECRET,
   HASH_SALT: process.env.HASH_SALT,
   PORT: process.env.PORT ?? 2834,

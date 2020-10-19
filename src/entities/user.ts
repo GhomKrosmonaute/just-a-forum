@@ -12,7 +12,7 @@ export interface UserData {
 export class User implements UserData {
   static db = new Enmap<string, UserData>({ name: "users" })
 
-  public admin = false
+  public admin: boolean
   public id: string
   public username: string
   public password: string
@@ -23,6 +23,7 @@ export class User implements UserData {
     this.username = data.username
     this.password = data.password
     this.shortcuts = data.shortcuts?.slice(0) ?? []
+    this.admin = utils.parseAdministrators().includes(data.id)
   }
 
   get data(): UserData {

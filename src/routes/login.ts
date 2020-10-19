@@ -13,7 +13,7 @@ app.post("/login", async function (req, res) {
     return utils.error(res, "Please enter an username and a password")
   }
 
-  const { username, hash, admin } = body
+  const { username, hash } = body
 
   const user = entities.User.find((data) => {
     return data.username === username && data.password === hash
@@ -23,7 +23,7 @@ app.post("/login", async function (req, res) {
     return utils.error(res, "Incorrect Username and/or Password!")
   }
 
-  utils.logUser(req, user, admin)
+  utils.logUser(req, user)
 
   res.redirect("/feed")
 })

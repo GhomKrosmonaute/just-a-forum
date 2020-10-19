@@ -32,7 +32,7 @@ app.post("/profile/:user_id", function (req, res) {
 
     // check user permission
 
-    if (user.id !== target.id && !utils.isUserAdmin(req)) {
+    if (user.id !== target.id && !user.admin) {
       return utils.error(res, "Permission error.")
     }
 
@@ -42,7 +42,7 @@ app.post("/profile/:user_id", function (req, res) {
     const old_password = await utils.hash(req.body.old_password)
     const new_password = await utils.hash(req.body.new_password)
 
-    if (!utils.isUserAdmin(req)) {
+    if (!user.admin) {
       if (!old_password || old_password !== target.password) {
         return utils.error(res, "Incorrect password! Please retry.")
       }

@@ -22,9 +22,8 @@
 - Make a **.env** file with this lines inside:
     - `HASH_SALT=...`
     - `SESSION_SECRET=...`
-    - `PORT=...`
-    - `ADMIN_USERNAME=...`
-    - `ADMIN_PASSWORD=...`
+    - `PORT=4242`
+    - `ADMINISTRATORS=id1,id2,id3`
 - Run as dev with `npm run start` or `npm run watch`.
 - Run on prod with `npm run build && <your_process_manager> dist/server.js`.
 

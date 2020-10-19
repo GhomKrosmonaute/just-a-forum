@@ -50,6 +50,10 @@ export const md: Markdown = new Markdown({
   },
 })
 
+export function parseAdministrators() {
+  return process.env.ADMINISTRATORS?.split(",") ?? []
+}
+
 export function addLineNumbersTo(code: string): string {
   return code
     .trim()
@@ -117,16 +121,7 @@ export function isUserLogged(req: any): boolean {
   return !!req.session?.logged
 }
 
-export function isUserAdmin(req: any): boolean {
-  return !!req.session?.admin
-}
-
-export function logUser(
-  req: any,
-  user: entities.User | string,
-  admin: boolean
-) {
-  req.session.admin = admin
+export function logUser(req: any, user: entities.User | string) {
   req.session.logged = true
   req.session.user_id = typeof user === "string" ? user : user.id
 }
@@ -169,23 +164,17 @@ export async function parseLogin(
 ): Promise<{
   username: string
   hash: string
-  admin: boolean
 } | null> {
   const username: string = req.body.username?.trim()
   const password: string = req.body.password
 
   if (!username || !password) return null
 
-  const admin =
-    password === process.env.ADMIN_PASSWORD &&
-    username === process.env.ADMIN_USERNAME
-
   const _hash = await hash(password)
 
   return {
     username,
     hash: _hash,
-    admin,
   }
 }
 
@@ -210,7 +199,6 @@ export function checkoutSession(
   if (isUserLogged(req)) {
     const user = entities.User.fromId(loggedUserId(req))
     if (user) {
-      user.admin = isUserAdmin(req)
       sessions.set(user.id, Date.now())
       callback(user)
     } else {
