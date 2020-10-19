@@ -23,14 +23,14 @@ export const md: Markdown = new Markdown({
     if (lang && hljs.getLanguage(lang)) {
       try {
         // remove multiline comments
-        const regex = /\/\*(?:[\s\S]*?)\*\//g
-        let match
-        while ((match = regex.exec(str)) !== null) {
-          const comment = match[0]
-          if (comment && comment.includes("\n")) {
-            str = str.replace(comment, "")
-          }
-        }
+        // const regex = /\/\*(?:[\s\S]*?)\*\//g
+        // let match
+        // while ((match = regex.exec(str)) !== null) {
+        //   const comment = match[0]
+        //   if (comment && comment.includes("\n")) {
+        //     str = str.replace(comment, "/* aborted comment */")
+        //   }
+        // }
 
         // parse code
         const code = hljs.highlight(lang, str, true).value
@@ -59,7 +59,8 @@ export function addLineNumbersTo(code: string): string {
     .trim()
     .split("\n")
     .map((line, index) => {
-      return `<span class="hljs-line"><span class="hljs-line-number">${index}</span><span class="hljs-line-code">${line}</span></span>`
+      //`<span class="hljs-line"><span class="hljs-line-number">${index}</span><span class="hljs-line-code">${line}</span></span>`
+      return `<span class="hljs-line-number">${index}</span>${line}`
     })
     .join("\n")
 }
