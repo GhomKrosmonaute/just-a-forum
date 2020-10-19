@@ -46,7 +46,8 @@
 - add a js tool page (regex tester, css selector tester, color picker, etc...)
 - adapt for mobile
 - on profile of other user, show mutual friends
-- make a deploy script on gulpfile: send a Discord webhook with deployed branch/commit links and deployed site url
+- make a deploy script on gulpfile:
+    - send a Discord webhook with deployed branch/commit links and deployed site url
 - add dropdowns on header
 - add fixed side-bar with friend list
 - add fixed chat-boxes (facebook-like) on bottom-right of viewport
@@ -57,3 +58,7 @@
 - fix even username undefined bug
 - add font-family Ubuntu Mono to simple <code> tags like \`code\`
 - auto reduce breadcrumb for responsive (start by reduce margin and breadcrumb max item length)
+- limit size of post images (max-height & max-width)
+- replace all links to `/feed/:user_id` by `/posts/:user_id`
+- add post edited date (and edit author if it is an administrator)
+- add about page with changelogs and todo-list (fetched on github)
