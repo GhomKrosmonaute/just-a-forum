@@ -86,7 +86,7 @@ export class User implements UserData {
   }
 
   getHTMLAnchor(): string {
-    return `<a href='/feed/${this.id}' class="decoration-none" title="Visit user profile">@${this.username}</a>`
+    return `<a href='/profile/${this.id}' class="decoration-none" title="Visit user profile">@${this.username}</a>`
   }
 
   /** max 25 per user */
