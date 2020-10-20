@@ -1,5 +1,26 @@
 <%- include('../partials/header', { options: { user }, title: 'Admin' }); %>
 
-<h1> Admin </h1>
+<h1 style="margin-bottom: 40px"> Admin </h1>
+
+<div class="d-flex flex-wrap">
+    <table class="p-half shadow" style="margin-right: 40px">
+        <% for(const entity of ["User", "Post", "Like", "Link", "Shortcut"]){ %>
+            <tr>
+                <th> <%- entity %> </th><td style="padding-left: 20px"> <%- entities[entity].db.size %> </td>
+            </tr>
+        <% } %>
+    </table>
+    <form action="/fake" method="post" class="form shadow">
+        <h2>Faker</h2>
+        <div class="group-column">
+            <input class="input-text rect-hover shadow-inset" type="number" name="users" placeholder="User count" required>
+            <input class="input-text rect-hover shadow-inset" type="number" name="posts" placeholder="Post count per user" required>
+        </div>
+        <div class="group">
+            <a href="/clean" class="btn rect-hover bg-red-hover">Clean</a>
+            <input type="submit" class="btn rect-hover" value="Run">
+        </div>
+    </form>
+</div>
 
 <%- include('../partials/footer'); %>

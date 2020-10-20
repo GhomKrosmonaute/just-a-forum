@@ -1,6 +1,5 @@
-
 {
-  function test(){
+  function test() {
     // todo
   }
 }
