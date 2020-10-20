@@ -7,7 +7,7 @@ app.get("/login", function (req, res) {
 })
 
 app.post("/login", async function (req, res) {
-  const body = await utils.parseLogin(req)
+  const body = await utils.parseLogin(res, req)
 
   if (!body) {
     return utils.error(res, "Please enter an username and a password")

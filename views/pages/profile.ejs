@@ -13,8 +13,8 @@
         <form action="/profile/<%= target.id %>" method="post" class="form shadow">
             <h2> Edit profile </h2>
             <div class="group-column" style="margin-bottom: 20px">
-                <input class="input-text rect-hover shadow-inset" type="text" name="username" value="<%= target.username %>" placeholder="New username">
-                <input class="input-text rect-hover shadow-inset" type="password" name="new_password" placeholder="New password">
+                <input class="input-text rect-hover shadow-inset" maxlength="20" type="text" name="username" value="<%= target.username %>" placeholder="New username">
+                <input class="input-text rect-hover shadow-inset" minlength="5" type="password" name="new_password" placeholder="New password">
             </div>
             <input class="input-text rect-hover shadow-inset" type="password" name="old_password" placeholder="Current password" <%= user.admin ? '' : 'required' %>>
             <div class="group">

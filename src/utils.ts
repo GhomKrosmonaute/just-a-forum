@@ -138,7 +138,11 @@ export function loggedUserId(req: any): string {
   return req.session.user_id
 }
 
-export function hash(password: string): Promise<string> {
+export async function hash(res: any, password: string): Promise<string | null> {
+  if (password.trim().length < 5) {
+    error(res, "The password must be contains minimum 5 chars.")
+    return null
+  }
   return argon.hash(password, {
     salt: Buffer.from(process.env.HASH_SALT as string),
   })
@@ -161,6 +165,7 @@ export function validateUsername(
 }
 
 export async function parseLogin(
+  res: any,
   req: any
 ): Promise<{
   username: string
@@ -171,7 +176,9 @@ export async function parseLogin(
 
   if (!username || !password) return null
 
-  const _hash = await hash(password)
+  const _hash = await hash(res, password)
+
+  if (!_hash) return null
 
   return {
     username,

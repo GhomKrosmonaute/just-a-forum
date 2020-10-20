@@ -39,8 +39,8 @@ app.post("/profile/:user_id", function (req, res) {
     // check form data
 
     const username = req.body.username
-    const old_password = await utils.hash(req.body.old_password)
-    const new_password = await utils.hash(req.body.new_password)
+    const old_password = await utils.hash(res, req.body.old_password)
+    const new_password = req.body.new_password
 
     if (!user.admin) {
       if (!old_password || old_password !== target.password) {
@@ -48,14 +48,24 @@ app.post("/profile/:user_id", function (req, res) {
       }
     }
 
-    utils.validateUsername(res, username, () => {
+    utils.validateUsername(res, username, async () => {
+      // validate password
+
+      let hash
+      if (new_password) {
+        hash = await utils.hash(res, new_password)
+        if (!hash) return
+      } else {
+        hash = target.password
+      }
+
       // patch
 
       target.patch({
         id: target.id,
         username: username ?? target.username,
-        password: new_password ?? target.password,
         shortcuts: target.shortcuts,
+        password: hash,
       })
 
       // render
