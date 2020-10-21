@@ -6,8 +6,7 @@
   border: 0;
   outline: none;
   box-sizing: border-box;
-  transition: color 200ms ease-in-out, background-color 200ms ease-in-out,
-    border-radius 1s ease-in-out, width 500ms ease-in-out;
+  transition: var(--transitions);
 }
 
 body {

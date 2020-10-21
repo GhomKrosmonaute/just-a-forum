@@ -17,4 +17,6 @@
   --space: 40px;
   --half: 20px;
   --quart: 10px;
+  --transitions: color 200ms ease-in-out, background-color 200ms ease-in-out,
+    border-radius 1s ease-in-out;
 }

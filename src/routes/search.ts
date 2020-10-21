@@ -49,7 +49,7 @@ function searching(req: any, res: any, user: entities.User, search: string) {
 
   const users = entities.User.sort((a, b) => {
     return sorter(b.username) - sorter(a.username)
-  }, 20)
+  }, 22)
 
   const posts =
     strategy === "strict"
@@ -70,6 +70,10 @@ function searching(req: any, res: any, user: entities.User, search: string) {
     user,
     search,
     pageIndex,
-    results: { posts: postPagination, users },
+    results: {
+      posts: postPagination,
+      users: users.slice(0, 21),
+      moreUsers: users.length === 22,
+    },
   })
 }

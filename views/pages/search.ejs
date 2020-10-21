@@ -2,14 +2,14 @@
 
 <div class="flex-grow-1">
     <div class="d-flex align-items-center">
-        <h1 style="margin-right: 40px"> Results </h1>
+        <h1 style="margin-right: var(--space)"> Results </h1>
 
         <%- include('../partials/search-bar', { options: { search, classes: 'bg-white bg-white-hover text-dark text-dark-blue-hover rect-hover shadow' } }) %>
 
-        <div class="d-flex justify-content-center text-bold" style="margin-left: 40px">
-            <div style="margin-right: 40px">
+        <div class="d-flex justify-content-center text-bold" style="margin-left: var(--space)">
+            <div style="margin-right: var(--space)">
                 <i class="fa fa-user"></i>
-                <%= results.users.length %>
+                <%= results.users.length + (results.moreUsers ? "+" : "") %>
                 <span>users</span>
             </div>
             <div>
@@ -22,7 +22,9 @@
 
     <div>
         <% if(results.users.length > 0){ %>
-            <%- include('../partials/user-list', { users: results.users, user }) %>
+            <div style="margin-top: var(--space)">
+                <%- include('../partials/user-list', { users: results.users, user }) %>
+            </div>
         <% } %>
 
         <% if(results.posts.page.length > 0){ %>
