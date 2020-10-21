@@ -52,7 +52,6 @@
 - add fixed chat-boxes (facebook-like) on bottom-right of viewport
 - make possible user slugs in routes and show slugs on displayed url
 - allow tabulation in textarea
-- replace error embed title by null
 - fix even username undefined bug
 - auto reduce breadcrumb for responsive (start by reduce margin and breadcrumb max item length)
 - add post edited date (and edit author if it is an administrator)
