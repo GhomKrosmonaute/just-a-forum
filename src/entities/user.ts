@@ -111,9 +111,19 @@ export class User implements UserData {
   }
 
   getPosts(): entities.Post[] {
-    return entities.Post.db
-      .filterArray((data) => data.author_id === this.id && !data.parent_id)
-      .map((data) => new entities.Post(data))
+    return entities.Post.filter(
+      (data) => data.author_id === this.id && !data.parent_id
+    )
+  }
+
+  getComments(): entities.Post[] {
+    return entities.Post.filter(
+      (data) => data.author_id === this.id && !!data.parent_id
+    )
+  }
+
+  getAllPosts(): entities.Post[] {
+    return entities.Post.filter((data) => data.author_id === this.id)
   }
 
   getPostsPagination(pageIndex: number): utils.Pagination<entities.Post> {
@@ -194,7 +204,7 @@ export class User implements UserData {
       }
     })
     this.getLikes().forEach((like) => like.delete())
-    this.getPosts().forEach((post) => post.delete())
+    this.getAllPosts().forEach((post) => post.delete())
     User.db.delete(this.id)
     this.getShortcuts().forEach((shortcut) => {
       if (shortcut.getUsers().length === 0) shortcut.delete()
