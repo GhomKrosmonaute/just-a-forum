@@ -19,7 +19,7 @@ app.get("/clean", function (req, res) {
     }
 
     entities.User.db.forEach((data) => {
-      if (data.id !== user.id) {
+      if (data.id.endsWith("-fake")) {
         new entities.User(data).delete()
       }
     })
@@ -40,7 +40,7 @@ app.post("/fake", function (req, res) {
     const password = await utils.hash(res, "password")
 
     for (let u = 0; u < userCount; u++) {
-      const user_id = utils.makeId()
+      const user_id = utils.makeId() + "-fake"
 
       entities.User.add({
         id: user_id,
@@ -50,7 +50,7 @@ app.post("/fake", function (req, res) {
       })
 
       for (let p = 0; p < postCountPerUser; p++) {
-        const post_id = utils.makeId()
+        const post_id = utils.makeId() + "-fake"
 
         let parent_id = null
         if (Math.random() < 0.5) {
