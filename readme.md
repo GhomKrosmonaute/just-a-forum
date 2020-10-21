@@ -53,7 +53,6 @@
 - make possible user slugs in routes and show slugs on displayed url
 - allow tabulation in textarea
 - fix even username undefined bug
-- auto reduce breadcrumb for responsive (start by reduce margin and breadcrumb max item length)
 - add post edited date (and edit author if it is an administrator)
 - add about page with changelogs and todo-list (fetched on github)
 - allow auto scroll to focused list item on page reload
