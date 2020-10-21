@@ -3,8 +3,8 @@ const fullPath = post.getPath()
 
 if(fullPath.length > 1){
     var path = fullPath.slice(0)
-    if(fullPath.length > 5) {
-        path = fullPath.slice(fullPath.length - 6)
+    if(fullPath.length > 3) {
+        path = fullPath.slice(fullPath.length - 4)
         path.unshift({
             ...fullPath[0],
             content: "..."
