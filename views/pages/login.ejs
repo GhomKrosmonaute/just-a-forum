@@ -1,13 +1,13 @@
 <%- include('../partials/header', { options: { user: null }, title: 'Home | Login' }); %>
 
-<form action="/login" method="POST" class="form shadow">
+<form action="/login?redirect=<%= redirect %>" method="POST" class="form shadow">
     <h1> Login </h1>
     <div class="group-column">
         <input class="input-text rect-hover shadow-inset" type="text" maxlength="20" autofocus name="username" placeholder="Username" required>
         <input class="input-text rect-hover shadow-inset" type="password" minlength="5" name="password" placeholder="Password" required>
     </div>
     <div class="group">
-        <a href="/sign-in" class="btn rect-hover">Sign-in</a>
+        <a href="/sign-in?redirect=<%= redirect %>" class="btn rect-hover">Sign-in</a>
         <input type="submit" class="btn rect-hover" value="Login">
     </div>
 </form>

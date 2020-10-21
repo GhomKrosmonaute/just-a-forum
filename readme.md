@@ -58,4 +58,3 @@
 - add about page with changelogs and todo-list (fetched on github)
 - allow auto scroll to focused list item on page reload
 - allow sorting choice for all lists
-- redirect to target page when the login requested

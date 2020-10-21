@@ -7,7 +7,7 @@ app.get("/login", function (req, res) {
 })
 
 app.post("/login", async function (req, res) {
-  const body = await utils.parseLogin(res, req)
+  const body = await utils.parseLogin(req, res)
 
   if (!body) {
     return utils.error(res, "Please enter an username and a password")
@@ -25,5 +25,5 @@ app.post("/login", async function (req, res) {
 
   utils.logUser(req, user)
 
-  res.redirect("/feed")
+  utils.turnAround(req, res, "/feed")
 })

@@ -1,13 +1,14 @@
 import * as entities from "../entities"
 import * as utils from "../utils"
 import app from "../server"
+import { isSessionActive } from "../utils"
 
 app.get("/sign-in", function (req, res) {
   res.render("pages/sign-in")
 })
 
 app.post("/sign-in", async function (req, res) {
-  const body = await utils.parseLogin(res, req)
+  const body = await utils.parseLogin(req, res)
 
   if (!body) {
     return utils.error(res, "Please enter an username and a password")
@@ -31,7 +32,7 @@ app.post("/sign-in", async function (req, res) {
 
     if (req.session) {
       utils.logUser(req, data.id)
-      return res.redirect("/feed")
+      return utils.turnAround(req, res, "/feed")
     } else {
       return utils.error(res, "Session system error...")
     }
@@ -39,7 +40,7 @@ app.post("/sign-in", async function (req, res) {
 })
 
 app.get("/unsubscribe/:user_id", function (req, res) {
-  utils.checkoutSession(req, res, (user) => {
+  utils.checkoutSession(req, res, (user, req) => {
     const target_id = req.params.user_id
     const target = entities.User.fromId(target_id)
 
