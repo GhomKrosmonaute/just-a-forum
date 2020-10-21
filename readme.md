@@ -43,7 +43,6 @@
 - make a "get" button on public shortcuts to get it
 - allow searching of shortcuts in search page
 - add a js tool page (regex tester, css selector tester, color picker, etc...)
-- adapt for mobile
 - on profile of other user, show mutual friends
 - make a deploy script on gulpfile:
     - send a Discord webhook with deployed branch/commit links and deployed site url
@@ -57,3 +56,7 @@
 - add about page with changelogs and todo-list (fetched on github)
 - allow auto scroll to focused list item on page reload
 - allow sorting choice for all lists
+- keep base query properties on login/subscribe redirection (like page number or sorting options)
+- adapt for mobile
+    - convert some pages and partials views for mobile (prefix it with "m-")
+    - detect device with [express-device](https://www.npmjs.com/package/express-device) for switch between mobile and desktop views
