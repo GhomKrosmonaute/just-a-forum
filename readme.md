@@ -57,6 +57,13 @@
 - allow auto scroll to focused list item on page reload
 - allow sorting choice for all lists
 - keep base query properties on login/subscribe redirection (like page number or sorting options)
-- adapt for mobile
+- adapt for mobile:
     - convert some pages and partials views for mobile (prefix it with "m-")
     - detect device with [express-device](https://www.npmjs.com/package/express-device) for switch between mobile and desktop views
+- generate scss class variants for landscape and portrait
+- move all scss variables and lists inside a config.scss file
+- display db weight, uptime and 21 last created users on admin page
+- faker:
+    - randomly add likes and links
+    - fake accounts auto-accepts friend requests
+    
