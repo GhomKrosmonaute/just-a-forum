@@ -1,5 +1,5 @@
 <div align="center">
-    <a href="https://just-a-forum.tk"><img src="./brand/logo_dark-blurple-blurple.png" width="200" alt="just-a-forum-logo" /></a>
+    <a href="https://just-a-forum.tk"><img src="./brand/logo_dark-blurple-white.png" width="200" alt="just-a-forum-logo" /></a>
     <h1> Just a Forॐ </h1>
   <p>
     <a href="https://discord.gg/3vC2XWK">
@@ -29,8 +29,11 @@
 
 ## Todo list
 
-- paginate admin page ⚠️
 - mail confirmation using [nodemailer](https://nodemailer.com/about/) ⚠️
+- send custom visual captcha to email using node-canvas ⚠
+- limit post publishing (10 posts per day) ⚠️
+- paginate admin page ⚠️
+- fix sign-in page error (`redirect` is not defined)
 - implement socket.io for mention notifications (using mention API)
 - implement a live private chat between members (using socket.io too)
 - add report button on posts and on users profile
@@ -48,6 +51,7 @@
     - send a Discord webhook with deployed branch/commit links and deployed site url
 - add dropdowns on header
 - add fixed side-bar with friend list
+- convert all bootstrap-style classes on forms by scss in form component
 - add fixed chat-boxes (facebook-like) on bottom-right of viewport
 - make possible user slugs in routes and show slugs on displayed url
 - allow tabulation in textarea
