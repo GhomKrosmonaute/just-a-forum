@@ -24,6 +24,7 @@
     "@types/gulp": "^4.0.7",
     "@types/highlightjs": "^9.12.0",
     "@types/markdown-it": "^10.0.2",
+    "@types/mysql": "^2.15.15",
     "@types/node": "^14.11.2",
     "@types/string-similarity": "^3.0.0",
     "@types/uuid": "^8.3.0",
