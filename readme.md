@@ -30,9 +30,10 @@
 ## Todo list
 
 - mail confirmation using [nodemailer](https://nodemailer.com/about/) and [direct-transport](https://www.npmjs.com/package/nodemailer-direct-transport) ⚠️
-- send custom visual captcha to email using node-canvas ⚠
+- send custom visual captcha to email using node-canvas ⚠️
 - limit post publishing (10 posts per day) ⚠️
-- paginate admin page ⚠️
+- paginate all lists ⚠️
+- replace Enmap by some SQL based database ⚠️
 - fix sign-in page error (`redirect` is not defined)
 - implement socket.io for mention notifications (using mention API)
 - implement a live private chat between members (using socket.io too)
