@@ -1,12 +1,6 @@
 import Enmap from "enmap"
 import * as entities from "../entities"
 
-export interface ShortcutData {
-  id: string
-  input: string
-  output: string
-}
-
 export class Shortcut implements ShortcutData {
   static db = new Enmap<string, ShortcutData>({ name: "shortcuts" })
 

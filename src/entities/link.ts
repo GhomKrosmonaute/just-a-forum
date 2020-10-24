@@ -2,12 +2,6 @@ import Enmap from "enmap"
 import * as entities from "../entities"
 import { FavoriteData } from "../entities"
 
-export interface LinkData {
-  id: string
-  author_id: string
-  target_id: string
-}
-
 export class Link implements LinkData {
   static db = new Enmap<string, LinkData>({ name: "links" })
 

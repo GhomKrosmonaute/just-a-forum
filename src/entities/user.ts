@@ -1,13 +1,5 @@
-import Enmap from "enmap"
 import * as entities from "../entities"
 import * as utils from "../utils"
-
-export interface UserData {
-  id: string
-  username: string
-  password: string
-  shortcuts?: string[]
-}
 
 export class User implements UserData {
   static db = new Enmap<string, UserData>({ name: "users" })

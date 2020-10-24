@@ -1,21 +1,14 @@
 import * as database from "../database"
 import * as entities from "../entities"
 
-export type FavoriteDataOnly = Omit<entities.FavoriteData, "id">
-
-export interface FavoriteData {
-  id: number
-  user_id: string
-  post_id: string
-  created_timestamp: number
-}
+type FavoriteData = database.TableData["favorite"]
 
 export class Favorite implements FavoriteData {
   static db = new database.Database("favorite")
 
   public id: number
-  public user_id: string
-  public post_id: string
+  public user_id: number
+  public post_id: number
   public created_timestamp: number
 
   constructor(data: FavoriteData) {

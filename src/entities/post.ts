@@ -1,14 +1,5 @@
-import Enmap from "enmap"
 import * as entities from "../entities"
 import * as utils from "../utils"
-
-export interface PostData {
-  id: string
-  author_id: string
-  parent_id: string | null
-  content: string
-  date: number
-}
 
 export class Post implements PostData {
   static db = new Enmap<string, PostData>({ name: "posts" })
