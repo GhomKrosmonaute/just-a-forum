@@ -157,10 +157,10 @@ export class User implements UserData {
       .map((data) => new User(data))
   }
 
-  getLikes(): entities.Like[] {
-    return entities.Like.db
+  getLikes(): entities.Favorite[] {
+    return entities.Favorite.db
       .filterArray((data) => data.user_id === this.id)
-      .map((data) => new entities.Like(data))
+      .map((data) => new entities.Favorite(data))
   }
 
   getLinks(): entities.Link[] {

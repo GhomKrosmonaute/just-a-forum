@@ -4,7 +4,7 @@
 
 <div class="d-flex flex-wrap">
     <table class="p-half shadow" style="margin-right: 40px">
-        <% for(const entity of ["User", "Post", "Like", "Link", "Shortcut"]){ %>
+        <% for(const entity of ["User", "Post", "Favorite", "Link", "Shortcut"]){ %>
             <tr>
                 <th> <%- entity %> </th><td style="padding-left: 20px"> <%- entities[entity].db.size %> </td>
             </tr>

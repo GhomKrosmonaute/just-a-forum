@@ -127,10 +127,10 @@ export class Post implements PostData {
     return formattedContent
   }
 
-  getLikes(): entities.Like[] {
-    return entities.Like.db
+  getLikes(): entities.Favorite[] {
+    return entities.Favorite.db
       .filterArray((data) => data.post_id === this.id)
-      .map((data) => new entities.Like(data))
+      .map((data) => new entities.Favorite(data))
   }
 
   getChildren(): Post[] {

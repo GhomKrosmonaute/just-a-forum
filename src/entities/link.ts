@@ -1,6 +1,6 @@
 import Enmap from "enmap"
 import * as entities from "../entities"
-import { LikeData } from "../entities"
+import { FavoriteData } from "../entities"
 
 export interface LinkData {
   id: string

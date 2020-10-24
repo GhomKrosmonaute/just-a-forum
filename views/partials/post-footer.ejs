@@ -7,7 +7,7 @@
         <div class="group post-reactions">
             <a
                 <% if(likes.length === 0) { %>
-                    <%- include('popover', { content: 'Like this topic' }) %>
+                    <%- include('popover', { content: 'Favorite this topic' }) %>
                 <% } else if (likes.length > 20) { %>
                     <%- include('popover', { content: likes.length + ' likes' }) %>
                 <% } else { %>
