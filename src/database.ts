@@ -11,7 +11,7 @@ connection.connect()
 
 export function query<T = mysql.FieldInfo>(
   sql: string,
-  values: any
+  values?: any
 ): Promise<Results<T>> {
   return new Promise((resolve, reject) => {
     connection.query(sql, values, (error, results) => {
@@ -24,7 +24,7 @@ export function query<T = mysql.FieldInfo>(
 export class Database<N extends TableName> {
   constructor(public table: N) {}
 
-  query(sql: string, values: any) {
+  query(sql: string, values?: any) {
     return query<TableData[N]>(sql, values)
   }
 
@@ -42,6 +42,10 @@ export class Database<N extends TableName> {
     return this.query(`INSERT INTO ${this.table} SET ?`, data).then(
       (results) => results.insertId
     )
+  }
+
+  async patch(data: Omit<TableData[N], "created_timestamp">): Promise<void> {
+    await this.query(`UPDATE ${this.table} SET ? WHERE id = ?`, [data, data.id])
   }
 
   find(filter: string, values?: any): Promise<TableData[N] | undefined> {
@@ -130,3 +134,19 @@ export interface TableData {
 }
 
 export type TableName = keyof TableData
+
+export const tableNames = {
+  FAVORITE: "favorite",
+  MESSAGE: "message",
+  FRIEND_REQUEST: "friend_request",
+  NOTIFICATION: "notification",
+  POST: "post",
+  REPORT: "report",
+  SHORTCUT: "shortcut",
+  USER: "user",
+}
+
+export const areFriendsQuery =
+  "fr.author_id = u.id AND fr.target_id = ? AND fr.author_id = ? AND fr.target_id = u.id"
+export const selectUser =
+  "u.id, u.snowflake, u.description, u.display_name, u.created_timestamp"

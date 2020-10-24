@@ -52,7 +52,7 @@ export const md: Markdown = new Markdown({
 })
 
 export function parseAdministrators() {
-  return process.env.ADMINISTRATORS?.split(",") ?? []
+  return process.env.ADMINISTRATORS?.split(",").map((id) => Number(id)) ?? []
 }
 
 export function addLineNumbersTo(code: string): string {
@@ -214,7 +214,7 @@ export async function parseLogin(
 }
 
 /** Contains sessions activity timeouts <user_id, last_activity_time> */
-export const sessions = new Map<string, number>()
+export const sessions = new Map<number, number>()
 export const sessionTimeout = 1000 * 60 * 3 // 3 min
 
 export function refreshSessions() {

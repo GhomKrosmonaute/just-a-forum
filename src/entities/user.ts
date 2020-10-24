@@ -1,29 +1,35 @@
+import * as database from "../database"
 import * as entities from "../entities"
 import * as utils from "../utils"
 
+type UserData = database.TableData["user"]
+
 export class User implements UserData {
-  static db = new Enmap<string, UserData>({ name: "users" })
+  static db = new database.Database("user")
 
   public admin: boolean
-  public id: string
-  public username: string
-  public password: string
-  public shortcuts: string[]
+  public id: number
+  public snowflake: string
+  public description: string
+  public display_name: string
+  public created_timestamp: number
 
   constructor(data: UserData) {
     this.id = data.id
-    this.username = data.username
-    this.password = data.password
-    this.shortcuts = data.shortcuts?.slice(0) ?? []
+    this.snowflake = data.snowflake
+    this.description = data.description
+    this.display_name = data.display_name
+    this.created_timestamp = data.created_timestamp
     this.admin = utils.parseAdministrators().includes(data.id)
   }
 
   get data(): UserData {
     return {
       id: this.id,
-      username: this.username,
-      password: this.password,
-      shortcuts: this.shortcuts.slice(0),
+      snowflake: this.snowflake,
+      description: this.description,
+      display_name: this.display_name,
+      created_timestamp: this.created_timestamp,
     }
   }
 
@@ -35,60 +41,47 @@ export class User implements UserData {
     )
   }
 
-  static fromId(id: string): User | void {
-    const data = this.db.get(id)
+  static async fromId(id: number): Promise<User | void> {
+    const data = await this.db.get(id)
     if (!data) return
     return new User(data)
   }
 
-  static find(finder: (data: UserData) => boolean): User | void {
-    const data = this.db.find(finder)
+  static async find(filter: string, values?: any): Promise<User | void> {
+    const data = await this.db.find(filter, values)
     if (!data) return
     return new User(data)
   }
 
-  static sort(
-    sorter: (d1: UserData, d2: UserData) => number,
-    limit?: number
-  ): User[] {
-    const sorted = this.db.array().sort(sorter)
-    const data = limit ? sorted.slice(0, limit) : sorted
-    return data.map((d) => new User(d))
+  static async filter(filter: string, values?: any): Promise<User[]> {
+    return this.db
+      .filter(filter, values)
+      .then((results) => results.map((data) => new User(data)))
   }
 
-  static filter(filter: (data: UserData) => boolean): User[] {
-    return this.db.filterArray(filter).map((data) => new User(data))
-  }
-
-  static add(data: UserData) {
-    this.db.set(data.id, data)
-  }
-
-  isFriendWith(user: User): boolean {
-    const links = this.getLinks()
-    const userLinks = user.getLinks()
-    return links.some((link) => {
-      return userLinks.some((userLink) => {
-        return (
-          link.target_id === userLink.author_id &&
-          link.author_id === userLink.target_id
-        )
-      })
-    })
+  async isFriendWith(user: User): Promise<boolean> {
+    return entities.Link.db
+      .count(
+        `
+      SELECT * FROM ${database.tableNames.FRIEND_REQUEST} fr
+      WHERE fr.target_id = ? AND fr.author_id = ?
+      OR fr.target_id = ? AND fr.author_id = ?
+    `,
+        [this.id, user.id, user.id, this.id]
+      )
+      .then((count) => count === 2)
   }
 
   getHTMLAnchor(): string {
-    return `<a href='/profile/${this.id}' class="decoration-none" title="Visit user profile">@${this.username}</a>`
+    return `<a href='/profile/${this.id}' class="decoration-none" title="Visit user profile">@${this.display_name}</a>`
   }
 
   /** max 25 per user */
-  getShortcuts(): entities.Shortcut[] {
-    return this.shortcuts
-      .map((id) => entities.Shortcut.fromId(id))
-      .filter((shortcut): shortcut is entities.Shortcut => !!shortcut)
+  getShortcuts(): Promise<entities.Shortcut[]> {
+    return entities.Shortcut.filter("user_id = ?", [this.id])
   }
 
-  getFeed(): entities.Post[] {
+  getFeed(): Promise<entities.Post[]> {
     return this.getPosts()
       .concat(
         this.getFriends()
@@ -98,67 +91,76 @@ export class User implements UserData {
       .sort(utils.sortByDate)
   }
 
-  getFeedPagination(pageIndex: number): utils.Pagination<entities.Post> {
-    return utils.paginate(this.getFeed(), pageIndex)
+  async getFeedPagination(
+    pageIndex: number
+  ): Promise<utils.Pagination<entities.Post>> {
+    return utils.paginate(await this.getFeed(), pageIndex)
   }
 
-  getPosts(): entities.Post[] {
-    return entities.Post.filter(
-      (data) => data.author_id === this.id && !data.parent_id
+  getPosts(): Promise<entities.Post[]> {
+    return entities.Post.filter("author_id = ? AND parent_id IS NULL", [
+      this.id,
+    ])
+  }
+
+  getComments(): Promise<entities.Post[]> {
+    return entities.Post.filter("author_id = ? AND parent_id IS NOT NULL", [
+      this.id,
+    ])
+  }
+
+  getAllPosts(): Promise<entities.Post[]> {
+    return entities.Post.filter("author_id = ?", [this.id])
+  }
+
+  async getPostsPagination(
+    pageIndex: number
+  ): Promise<utils.Pagination<entities.Post>> {
+    return utils.paginate(await this.getPosts(), pageIndex)
+  }
+
+  // getNetwork(): Promise<User[]> {
+  //   return User.db.query(`
+  //     SELECT * FROM ${User.db.table} u
+  //     LEFT JOIN ${database.tableNames.FRIEND_REQUEST} fr
+  //     ON ${database.areFriendQuery}
+  //   `, [this.id]).then()
+  //
+  //   // const friends = this.getFriends()
+  //   // return utils
+  //   //   .removeDuplicate(
+  //   //     friends
+  //   //       .map((friend) =>
+  //   //         friend
+  //   //           .getFriends()
+  //   //           .filter((friend) => friend.id !== this.id)
+  //   //           .map((friend) => friend.id)
+  //   //       )
+  //   //       .flat()
+  //   //   )
+  //   //   .filter((id) => !friends.some((friend) => friend.id === id))
+  //   //   .map((id) => User.fromId(id) as User)
+  // }
+
+  getFriends(): Promise<User[]> {
+    return entities.Link.db.query(
+      `
+      SELECT ${database.selectUser} 
+      FROM ${entities.Link.db.table} fr
+      LEFT JOIN ${User.db.table} u
+      ON target_id = u.id AND
+      WHERE arefriends????
+    `,
+      [this.id]
     )
   }
 
-  getComments(): entities.Post[] {
-    return entities.Post.filter(
-      (data) => data.author_id === this.id && !!data.parent_id
-    )
+  getFavorites(): Promise<entities.Favorite[]> {
+    return entities.Favorite.filter("user_id = ?", [this.id])
   }
 
-  getAllPosts(): entities.Post[] {
-    return entities.Post.filter((data) => data.author_id === this.id)
-  }
-
-  getPostsPagination(pageIndex: number): utils.Pagination<entities.Post> {
-    return utils.paginate(this.getPosts(), pageIndex)
-  }
-
-  getNetwork(): User[] {
-    const friends = this.getFriends()
-    return utils
-      .removeDuplicate(
-        friends
-          .map((friend) =>
-            friend
-              .getFriends()
-              .filter((friend) => friend.id !== this.id)
-              .map((friend) => friend.id)
-          )
-          .flat()
-      )
-      .filter((id) => !friends.some((friend) => friend.id === id))
-      .map((id) => User.fromId(id) as User)
-  }
-
-  getFriends(): User[] {
-    return User.db
-      .filterArray((data) => {
-        const user = User.fromId(data.id)
-        if (!user) return false
-        return this.isFriendWith(user)
-      })
-      .map((data) => new User(data))
-  }
-
-  getLikes(): entities.Favorite[] {
-    return entities.Favorite.db
-      .filterArray((data) => data.user_id === this.id)
-      .map((data) => new entities.Favorite(data))
-  }
-
-  getLinks(): entities.Link[] {
-    return entities.Link.db
-      .filterArray((data) => data.author_id === this.id)
-      .map((data) => new entities.Link(data))
+  getLinks(): Promise<entities.Link[]> {
+    return entities.Link.filter("author_id = ?", [this.id])
   }
 
   getPending(): User[] {
@@ -184,31 +186,19 @@ export class User implements UserData {
   }
 
   deleteShortcut(shortcut_id: string) {
-    const data = this.data
-    data.shortcuts = data?.shortcuts?.filter((id) => id !== shortcut_id) ?? []
-    this.patch(data)
+    return entities.Shortcut.db.delete(shortcut_id)
   }
 
   delete() {
-    entities.Link.forEach((link) => {
-      if (link.target_id === this.id || link.author_id === this.id) {
-        link.delete()
-      }
-    })
-    this.getLikes().forEach((like) => like.delete())
-    this.getAllPosts().forEach((post) => post.delete())
-    User.db.delete(this.id)
-    this.getShortcuts().forEach((shortcut) => {
-      if (shortcut.getUsers().length === 0) shortcut.delete()
-    })
+    return User.db.delete(this.id)
   }
 
-  patch(data: UserData) {
+  async patch(data: Omit<UserData, "created_timestamp">) {
     if (data.id !== this.id) {
       throw new Error("oops")
     }
-    this.username = data.username
-    this.password = data.password
-    User.db.set(data.id, data)
+    this.display_name = data.display_name
+    this.description = data.description
+    await User.db.patch(data)
   }
 }

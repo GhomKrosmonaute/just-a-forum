@@ -52,7 +52,7 @@ export class Favorite implements FavoriteData {
   }
 
   async getPost(): Promise<entities.Post | void> {
-    const post = await entities.Post.fromId(this.user_id)
+    const post = await entities.Post.fromId(this.post_id)
     if (!post) return this.delete()
     return post
   }
