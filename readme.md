@@ -22,6 +22,8 @@
 - Make a **.env** file with this lines inside:
     - `HASH_SALT=...`
     - `SESSION_SECRET=...`
+    - `DATABASE_USERNAME=...`
+    - `DATABASE_PASSWORD=...`
     - `PORT=4242`
     - `ADMINISTRATORS=id1,id2,id3`
 - Run as dev with `npm run start` or `npm run watch`.
@@ -29,23 +31,22 @@
 
 ## Todo list
 
-- mail confirmation using [nodemailer](https://nodemailer.com/about/) and [direct-transport](https://www.npmjs.com/package/nodemailer-direct-transport) ⚠️
-- send custom visual captcha to email using node-canvas ⚠️
 - limit post publishing (10 posts per day) ⚠️
 - paginate all lists ⚠️
-- replace Enmap by some SQL based database ⚠️
+- replace Enmap by MySQL database ⚠️
 - fix sign-in page error (`redirect` is not defined)
 - implement socket.io for mention notifications (using mention API)
 - implement a live private chat between members (using socket.io too)
 - add report button on posts and on users profile
 - show a preview of post content in post-card
 - make settings page (CRUD & RGPD, themes dark/light & theme color)
-- allow user own custom shortcuts
+- shortcuts:
+    - allow user to create own custom shortcuts
+    - allow shortcuts to be public or private
+    - make a "get" button on public shortcuts to get it
+    - allow searching of shortcuts in search page
 - implement right click on items (copy url, edit, delete, share, send to DM, copy ID)
 - implement right click on blank (open compact version of settings)
-- allow shortcuts to be public and private
-- make a "get" button on public shortcuts to get it
-- allow searching of shortcuts in search page
 - add a js tool page (regex tester, css selector tester, color picker, etc...)
 - on profile of other user, show mutual friends
 - make a deploy script on gulpfile:
