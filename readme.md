@@ -29,7 +29,7 @@
 
 ## Todo list
 
-- mail confirmation using a [smtp server](https://youtu.be/iNX8wFqmk0Y) and [nodemailer](https://nodemailer.com/about/) ⚠️
+- mail confirmation using [nodemailer](https://nodemailer.com/about/) and [direct-transport](https://www.npmjs.com/package/nodemailer-direct-transport) ⚠️
 - send custom visual captcha to email using node-canvas ⚠
 - limit post publishing (10 posts per day) ⚠️
 - paginate admin page ⚠️
