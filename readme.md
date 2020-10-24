@@ -70,6 +70,11 @@
 - generate scss class variants for landscape and portrait
 - move all scss variables and lists inside a config.scss file
 - display db weight, uptime and 21 last created users on admin page
+- to remove scroll bar shift on content:
+    - group main and footer in scrollable div
+    - div position fixed to [0,0]
+    - div size fixed to [100vw,100vh]
+    - div overflow-y: scroll
 - faker:
     - randomly add likes and links
     - fake accounts auto-accepts friend requests
