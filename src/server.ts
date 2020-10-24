@@ -41,6 +41,8 @@ app.use(
 app.listen(process.env.PORT ?? 2834)
 
 console.table({
+  DATABASE_USERNAME: process.env.DATABASE_USERNAME,
+  DATABASE_PASSWORD: process.env.DATABASE_PASSWORD,
   ADMINISTRATORS: process.env.ADMINISTRATORS?.split(","),
   SESSION_SECRET: process.env.SESSION_SECRET,
   HASH_SALT: process.env.HASH_SALT,
