@@ -58,10 +58,6 @@ function cleanTypescript() {
   return cleanByGlob("dist")
 }
 
-function cleanDatabase() {
-  return cleanByGlob("data")
-}
-
 function cleanSass() {
   return cleanByGlob("public/sass")
 }
@@ -80,13 +76,11 @@ function copyAssets() {
   return gulp.src("brand/**/*.png").pipe(gulp.dest("public/brand/"))
 }
 
-const safeClean = gulp.series(cleanAssets, cleanSass, cleanTypescript)
-const build = gulp.series(safeClean, copyAssets, buildSass, buildTypescript)
+const cleanAll = gulp.series(cleanAssets, cleanSass, cleanTypescript)
+const build = gulp.series(cleanAll, copyAssets, buildSass, buildTypescript)
 const watch = gulp.series(build, watching)
 
 exports.start = start
-exports.reset = cleanDatabase
-exports.clean = safeClean
 exports.build = build
 exports.sass = buildSass
 exports.tsc = buildTypescript
