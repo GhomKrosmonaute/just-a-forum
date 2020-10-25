@@ -62,14 +62,10 @@ export class User implements UserData {
   async isFriendWith(user: User): Promise<boolean> {
     return entities.Link.db
       .count(
-        `
-      SELECT * FROM ${database.tableNames.FRIEND_REQUEST} fr
-      WHERE fr.target_id = ? AND fr.author_id = ?
-      OR fr.target_id = ? AND fr.author_id = ?
-    `,
+        `target_id = ? AND fr.author_id = ? OR fr.target_id = ? AND fr.author_id = ?`,
         [this.id, user.id, user.id, this.id]
       )
-      .then((count) => count === 2)
+      .then((count) => count > 1)
   }
 
   getHTMLAnchor(): string {
@@ -143,16 +139,23 @@ export class User implements UserData {
   // }
 
   getFriends(): Promise<User[]> {
-    return entities.Link.db.query(
-      `
-      SELECT ${database.selectUser} 
-      FROM ${entities.Link.db.table} fr
-      LEFT JOIN ${User.db.table} u
-      ON target_id = u.id AND
-      WHERE arefriends????
-    `,
-      [this.id]
-    )
+    return database
+      .query<UserData>(
+        `
+      select u.*
+      from ${User.db.table} u
+      where (
+          select count(*)
+          from ${entities.Link.db.table} fr
+          where (fr.author_id = ? and fr.target_id = u.id)
+          or (fr.author_id = u.id and fr.target_id = ?)
+      ) > 1
+      `,
+        [this.id]
+      )
+      .then((results) => {
+        return results.map((data) => new User(data))
+      })
   }
 
   getFavorites(): Promise<entities.Favorite[]> {
