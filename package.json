@@ -10,7 +10,7 @@
     "build.tsc": "gulp tsc",
     "build.css": "gulp sass",
     "build.sass": "gulp sass",
-    "deploy": "git pull && npm i && yarn build && pm2 restart forum && pm2 save"
+    "deploy": "git pull && npm i && gulp build && pm2 restart forum && pm2 save"
   },
   "prettier": {
     "semi": false
@@ -39,7 +39,6 @@
     "pm2": "^4.5.0",
     "prettier": "^2.1.2",
     "typescript": "^4.0.3",
-    "yarn": "^1.22.10"
   },
   "dependencies": {
     "argon2": "^0.27.0",
