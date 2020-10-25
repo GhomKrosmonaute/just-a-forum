@@ -6,6 +6,8 @@ type FavoriteData = database.TableData["favorite"]
 export class Favorite implements FavoriteData {
   static db = new database.Database("favorite")
 
+  public db = Favorite.db
+
   public id: number
   public user_id: number
   public post_id: number
@@ -58,6 +60,6 @@ export class Favorite implements FavoriteData {
   }
 
   async delete() {
-    await Favorite.db.delete(this.id)
+    await this.db.delete(this.id)
   }
 }

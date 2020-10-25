@@ -1,21 +1,28 @@
+import * as database from "../database"
 import * as entities from "../entities"
 import * as utils from "../utils"
 
-export class Post implements PostData {
-  static db = new Enmap<string, PostData>({ name: "posts" })
+type PostData = database.TableData["post"]
 
-  public id: string
-  public author_id: string
-  public parent_id: string | null
+export class Post implements PostData {
+  static db = new database.Database("post")
+
+  public db = Post.db
+
+  public id: number
+  public author_id: number
+  public parent_id: number | null
   public content: string
-  public date: number
+  public edited_timestamp: number | null
+  public created_timestamp: number
 
   constructor(data: PostData) {
     this.id = data.id
     this.author_id = data.author_id
     this.parent_id = data.parent_id ?? null
     this.content = data.content
-    this.date = data.date
+    this.edited_timestamp = data.edited_timestamp ?? null
+    this.created_timestamp = data.created_timestamp
   }
 
   get data(): PostData {
@@ -24,88 +31,77 @@ export class Post implements PostData {
       author_id: this.author_id,
       parent_id: this.parent_id,
       content: this.content,
-      date: this.date,
+      edited_timestamp: this.edited_timestamp,
+      created_timestamp: this.created_timestamp,
     }
   }
 
   get since(): string {
-    return utils.dayjs(this.date).fromNow()
+    return utils.dayjs(this.created_timestamp).fromNow()
   }
 
-  static fromId(id: string | null): Post | undefined {
-    if (!id) return undefined
-    const data = this.db.get(id)
+  static async fromId(id: number | null): Promise<Post | void> {
+    if (!id) return
+    const data = await this.db.get(id)
     if (!data) return undefined
     return new Post(data)
   }
 
-  static find(finder: (data: PostData) => boolean): Post | void {
-    const data = this.db.find(finder)
+  static async find(filter: string, values?: any): Promise<Post | void> {
+    const data = await this.db.find(filter, values)
     if (!data) return
     return new Post(data)
   }
 
-  static sort(
-    sorter: (d1: PostData, d2: PostData) => number,
-    limit?: number
-  ): Post[] {
-    const sorted = this.db.array().sort(sorter)
-    const data = limit ? sorted.slice(0, limit) : sorted
-    return data.map((d) => new Post(d))
+  static async filter(filter: string, values?: any): Promise<Post[]> {
+    return this.db
+      .filter(filter, values)
+      .then((results) => results.map((data) => new Post(data)))
   }
 
-  static filter(filter: (data: PostData) => boolean): Post[] {
-    return this.db.filterArray(filter).map((data) => new Post(data))
+  getAuthor(): Promise<entities.User | void> {
+    return entities.User.fromId(this.author_id)
   }
 
-  static add(data: PostData) {
-    this.db.set(data.id, data)
-  }
-
-  getAuthor(): entities.User | void {
-    const user = entities.User.fromId(this.author_id)
-    if (!user) return this.delete()
-    return user
-  }
-
-  getParent(): Post | void {
+  async getParent(): Promise<Post | void> {
     if (!this.parent_id) return
-    const post = Post.fromId(this.parent_id)
-    if (!post) return this.delete()
-    return post
+    return Post.fromId(this.parent_id)
   }
 
-  getFormattedContent(): string {
-    const mentions = this.getMentions()
+  async getFormattedContent(): Promise<string> {
+    const mentions = await this.getMentions()
     let formattedContent = utils.md.render(this.content)
     let cache = formattedContent
 
-    const parent = this.getParent()
-
-    if (parent) {
-      const you = parent.getAuthor()
-      if (you) {
-        while (cache.includes("@you")) {
-          cache = cache.replace("@you", "")
-          formattedContent = formattedContent.replace(
-            "@you",
-            you.getHTMLAnchor()
-          )
+    if (cache.includes("@you")) {
+      const parent = await this.getParent()
+      if (parent) {
+        const you = await parent.getAuthor()
+        if (you) {
+          while (cache.includes("@you")) {
+            cache = cache.replace("@you", "")
+            formattedContent = formattedContent.replace(
+              "@you",
+              you.getHTMLAnchor()
+            )
+          }
         }
       }
     }
 
-    const me = this.getAuthor()
+    if (cache.includes("@me")) {
+      const me = await this.getAuthor()
 
-    if (me) {
-      while (cache.includes("@me")) {
-        cache = cache.replace("@me", "")
-        formattedContent = formattedContent.replace("@me", me.getHTMLAnchor())
+      if (me) {
+        while (cache.includes("@me")) {
+          cache = cache.replace("@me", "")
+          formattedContent = formattedContent.replace("@me", me.getHTMLAnchor())
+        }
       }
     }
 
     for (const user of mentions) {
-      const mention = "@" + user.username
+      const mention = "@" + user.display_name
       while (cache.includes(mention)) {
         cache = cache.replace(mention, "")
         formattedContent = formattedContent.replace(
@@ -118,67 +114,56 @@ export class Post implements PostData {
     return formattedContent
   }
 
-  getLikes(): entities.Favorite[] {
-    return entities.Favorite.db
-      .filterArray((data) => data.post_id === this.id)
-      .map((data) => new entities.Favorite(data))
+  getLikes(): Promise<entities.Favorite[]> {
+    return entities.Favorite.filter("post_id = ?", [this.id])
   }
 
-  getChildren(): Post[] {
-    return Post.db
-      .filterArray((data) => !!data.parent_id && data.parent_id === this.id)
-      .map((data) => new Post(data))
-      .sort(utils.sortByDate)
+  getChildren(): Promise<Post[]> {
+    return Post.filter("parent_id = ?", this.id)
   }
 
-  getChildrenPagination(pageIndex: number): utils.Pagination<Post> {
-    return utils.paginate(this.getChildren(), pageIndex)
-  }
-
-  getAllChildren(): Post[] {
+  getAllChildren(): Promise<Post[]> {
     return this.getChildren()
-      .map((child) => [child, ...child.getAllChildren()])
-      .flat()
+      .then((children) =>
+        Promise.all(children.map((child) => child.getAllChildren()))
+      )
+      .then((children) => children.flat())
   }
 
-  getPath(): Post[] {
+  async getChildrenPagination(
+    pageIndex: number
+  ): Promise<utils.Pagination<Post>> {
+    return utils.paginate(await this.getChildren(), pageIndex)
+  }
+
+  async getPath(): Promise<Post[]> {
     const path: Post[] = []
     let current: Post | void = this
     while (current) {
       path.push(current)
-      current = current.getParent()
+      current = await current.getParent()
     }
     return path.reverse()
   }
 
-  getMentions(): entities.User[] {
-    const shortcuts: string[] = []
+  async getMentions(): Promise<entities.User[]> {
+    const mentions: number[] = []
 
     if (this.content.includes("@you")) {
-      const parent = this.getParent()
+      const parent = await this.getParent()
       if (parent) {
-        shortcuts.push(parent.author_id)
+        mentions.push(parent.author_id)
       }
     }
 
     if (this.content.includes("@me")) {
-      shortcuts.push(this.author_id)
+      mentions.push(this.author_id)
     }
 
-    return utils
-      .removeDuplicate(
-        entities.User.db
-          .filterArray((data) => {
-            return this.content.includes("@" + data.username)
-          })
-          .map((data) => data.id)
-      )
-      .map((id) => entities.User.fromId(id) as entities.User)
+    return []
   }
 
   delete() {
-    this.getLikes().forEach((like) => like.delete())
-    this.getChildren().forEach((child) => child.delete())
-    Post.db.delete(this.id)
+    return this.db.delete(this.id)
   }
 }

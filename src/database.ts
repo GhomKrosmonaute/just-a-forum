@@ -95,7 +95,7 @@ export interface TableData {
     author_id: number
     parent_id: number | null
     content: string
-    edited_timestamp: number
+    edited_timestamp: number | null
   }
   notification: Data & {
     target_id: number
@@ -111,7 +111,7 @@ export interface TableData {
     author_id: number
     target_id: number
     content: string
-    edited_timestamp: number
+    edited_timestamp: number | null
   }
   report: Data & {
     author_id: number
@@ -129,24 +129,8 @@ export interface TableData {
   user: Data & {
     snowflake: string
     description: string
-    display_name: string
+    display_name: string | null
   }
 }
 
 export type TableName = keyof TableData
-
-export const tableNames = {
-  FAVORITE: "favorite",
-  MESSAGE: "message",
-  FRIEND_REQUEST: "friend_request",
-  NOTIFICATION: "notification",
-  POST: "post",
-  REPORT: "report",
-  SHORTCUT: "shortcut",
-  USER: "user",
-}
-
-export const areFriendsQuery =
-  "fr.author_id = u.id AND fr.target_id = ? AND fr.author_id = ? AND fr.target_id = u.id"
-export const selectUser =
-  "u.id, u.snowflake, u.description, u.display_name, u.created_timestamp"

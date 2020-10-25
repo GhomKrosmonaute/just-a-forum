@@ -13,7 +13,7 @@ export class User implements UserData {
   public id: number
   public snowflake: string
   public description: string
-  public display_name: string
+  public display_name: string | null
   public created_timestamp: number
 
   constructor(data: UserData) {
