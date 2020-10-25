@@ -7,6 +7,8 @@ type UserData = database.TableData["user"]
 export class User implements UserData {
   static db = new database.Database("user")
 
+  public db = User.db
+
   public admin: boolean
   public id: number
   public snowflake: string
@@ -139,53 +141,54 @@ export class User implements UserData {
   // }
 
   getFriends(): Promise<User[]> {
-    return database
-      .query<UserData>(
-        `
-      select u.*
-      from ${User.db.table} u
-      where (
-          select count(*)
-          from ${entities.Link.db.table} fr
-          where (fr.author_id = ? and fr.target_id = u.id)
-          or (fr.author_id = u.id and fr.target_id = ?)
-      ) > 1
-      `,
-        [this.id]
-      )
-      .then((results) => {
-        return results.map((data) => new User(data))
-      })
+    return User.filter(
+      `(
+          SELECT COUNT(fr.id)
+          FROM ${entities.Link.db.table} fr
+          WHERE (fr.author_id = ? AND fr.target_id = ${this.db.table}.id)
+          OR (fr.author_id = ${this.db.table}.id AND fr.target_id = ?)
+        ) > 1
+        `,
+      [this.id]
+    )
   }
 
   getFavorites(): Promise<entities.Favorite[]> {
     return entities.Favorite.filter("user_id = ?", [this.id])
   }
 
-  getLinks(): Promise<entities.Link[]> {
-    return entities.Link.filter("author_id = ?", [this.id])
+  /** vos demandes d'ami en attente */
+  getPending(): Promise<User[]> {
+    return User.filter(
+      `(
+        select count(fr.id)
+        from ${entities.Link.db.table} fr
+        where fr.author_id = ? and fr.target_id = ${this.db.table}.id
+      ) = 1
+      and (
+        select count(fr.id)
+        from ${entities.Link.db.table} fr
+        where fr.author_id = ${this.db.table}.id and fr.target_id = ?
+      ) = 0`,
+      [this.id]
+    )
   }
 
-  getPending(): User[] {
-    return entities.Link.db
-      .filterArray((data) => {
-        if (data.author_id !== this.id) return false
-        const user = User.fromId(data.target_id)
-        if (!user || this.isFriendWith(user)) return false
-        return true
-      })
-      .map((data) => User.fromId(data.target_id) as User)
-  }
-
-  getRequests(): User[] {
-    return entities.Link.db
-      .filterArray((data) => {
-        if (data.target_id !== this.id) return false
-        const user = User.fromId(data.author_id)
-        if (!user || this.isFriendWith(user)) return false
-        return true
-      })
-      .map((data) => User.fromId(data.author_id) as User)
+  /** les demandes d'autre utilisateurs que vous n'avez pas accepté */
+  getRequests(): Promise<User[]> {
+    return User.filter(
+      `(
+        select count(fr.id)
+        from ${entities.Link.db.table} fr
+        where fr.author_id = ? and fr.target_id = ${this.db.table}.id
+      ) = 0
+      and (
+        select count(fr.id)
+        from ${entities.Link.db.table} fr
+        where fr.author_id = ${this.db.table}.id and fr.target_id = ?
+      ) = 1`,
+      [this.id]
+    )
   }
 
   deleteShortcut(shortcut_id: string) {
@@ -193,7 +196,7 @@ export class User implements UserData {
   }
 
   delete() {
-    return User.db.delete(this.id)
+    return this.db.delete(this.id)
   }
 
   async patch(data: Omit<UserData, "created_timestamp">) {
