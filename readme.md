@@ -20,6 +20,9 @@
     - `DATABASE_PASSWORD=...`
     - `PORT=4242`
     - `ADMINISTRATORS=id1,id2,id3`
+    - `DISCORD_CLIENT_ID=...`
+    - `DISCORD_CLIENT_SECRET=...`
+    - `SITE_BASE_URL=https://www.just-a-forum.tk`
 - Run as dev with `npm run start` or `npm run watch`.
 - Run on prod with `npm run build && <your_process_manager> dist/server.js`.
 

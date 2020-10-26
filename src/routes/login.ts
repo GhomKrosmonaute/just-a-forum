@@ -1,29 +1,13 @@
-import * as entities from "../entities"
-import * as utils from "../utils"
+import passport from "passport"
 import app from "../server"
 
-app.get("/login", function (req, res) {
-  utils.page(req, res, "login")
-})
-
-app.post("/login", async function (req, res) {
-  const body = await utils.parseLogin(req, res)
-
-  if (!body) {
-    return utils.error(res, "Please enter an username and a password")
+app.get("/auth/discord", passport.authenticate("discord"))
+app.get(
+  "/auth/discord/callback",
+  passport.authenticate("discord", {
+    failureRedirect: "/",
+  }),
+  function (req, res) {
+    res.redirect("/feed")
   }
-
-  const { username, hash } = body
-
-  const user = entities.User.find((data) => {
-    return data.username === username && data.password === hash
-  })
-
-  if (!user) {
-    return utils.error(res, "Incorrect Username and/or Password!")
-  }
-
-  utils.logUser(req, user)
-
-  utils.turnAround(req, res, "/feed")
-})
+)

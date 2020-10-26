@@ -128,7 +128,7 @@ export interface TableData {
   }
   user: Data & {
     snowflake: string
-    description: string
+    description: string | null
     display_name: string | null
   }
 }

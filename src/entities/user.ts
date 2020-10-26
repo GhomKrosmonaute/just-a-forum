@@ -49,6 +49,12 @@ export class User implements UserData {
     return new User(data)
   }
 
+  static async fromSnowflake(snowflake: string): Promise<User | void> {
+    const data = await this.db.find("snowflake = ?", [snowflake])
+    if (!data) return
+    return new User(data)
+  }
+
   static async find(filter: string, values?: any): Promise<User | void> {
     const data = await this.db.find(filter, values)
     if (!data) return
