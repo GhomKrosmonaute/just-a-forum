@@ -29,7 +29,7 @@
 ## Todo list
 
 - limit post publishing (10 posts per day) ⚠️
-- implement connexion by [passport-discord](https://www.npmjs.com/package/passport-discord) ⚠️
+- implement connexion by [passport-discord](https://www.npmjs.com/package/passport-discord) using this [example](https://github.com/nicholastay/passport-discord/blob/master/example/server.js) ⚠️
 - paginate all lists ⚠️
 - replace Enmap by MySQL database ⚠️
 - fix sign-in page error (`redirect` is not defined)
