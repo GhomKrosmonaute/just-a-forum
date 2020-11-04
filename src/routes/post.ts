@@ -1,42 +1,39 @@
+import express from "express"
 import app from "../server"
 import * as utils from "../utils"
 import * as entities from "../entities"
 
-const message = "This post no longer exists or the given ID is incorrect."
-
 app.get("/post", utils.back)
 
 app.post("/post", function (req, res) {
-  utils.checkoutSession(req, res, (user) => {
-    const data: entities.PostData = {
-      id: utils.makeId(),
-      author_id: user.id,
-      parent_id: req.body.parent_id,
-      content: req.body.content?.trim(),
-      date: Date.now(),
-    }
+  utils.checkoutSession(req, res, async (user) => {
+    const content = req.body.content?.trim()
 
-    if (!data.content) {
+    if (!content) {
       return utils.error(res, "Your post is empty...")
     }
 
-    if (data.content.length > 1024) {
+    if (content.length > 1024) {
       return utils.error(res, "Your post is too large")
     }
 
-    entities.Post.add(data)
+    await entities.Post.db.push({
+      author_id: user.id,
+      parent_id: req.body.parent_id,
+      content,
+      created_timestamp: Date.now(),
+      edited_timestamp: Date.now(),
+    })
 
     utils.back(req, res)
   })
 })
 
 app.get("/post/:post_id", function (req, res) {
-  utils.checkoutSession(req, res, (user) => {
-    const post = entities.Post.fromId(req.params.post_id)
+  utils.checkoutSession(req, res, async (user) => {
+    const post = await utils.getEntityFromParam<entities.Post>(req, res, "Post")
 
-    if (!post) {
-      return utils.error(res, message)
-    }
+    if (!post) return
 
     const pageIndex = Number(req.query.page ?? 0)
 
@@ -45,42 +42,36 @@ app.get("/post/:post_id", function (req, res) {
 })
 
 app.get("/post/delete/:post_id", function (req, res) {
-  utils.checkoutSession(req, res, (user) => {
-    const post = entities.Post.fromId(req.params.post_id)
+  utils.checkoutSession(req, res, async (user) => {
+    const post = await utils.getEntityFromParam<entities.Post>(req, res, "Post")
 
-    if (!post) {
-      return utils.error(res, message)
-    }
+    if (!post) return
 
     if (post.author_id !== user.id && !user.admin) {
       return utils.error(res, "Permission error.")
     }
 
-    post.delete()
+    await post.delete()
 
     utils.back(req, res)
   })
 })
 
 app.get("/post/edit/:post_id", (req, res) => {
-  utils.checkoutSession(req, res, (user) => {
-    const post = entities.Post.fromId(req.params.post_id)
+  utils.checkoutSession(req, res, async (user) => {
+    const post = await utils.getEntityFromParam<entities.Post>(req, res, "Post")
 
-    if (!post) {
-      return utils.error(res, message)
-    }
+    if (!post) return
 
     utils.page(req, res, "post-editor", { post, user })
   })
 })
 
 app.post("/post/edit/:post_id", (req, res) => {
-  utils.checkoutSession(req, res, (user) => {
-    const post = entities.Post.fromId(req.params.post_id)
+  utils.checkoutSession(req, res, async (user) => {
+    const post = await utils.getEntityFromParam<entities.Post>(req, res, "Post")
 
-    if (!post) {
-      return utils.error(res, message)
-    }
+    if (!post) return
 
     if (post.author_id !== user.id && !user.admin) {
       return utils.error(res, "Permission error.")
@@ -92,19 +83,21 @@ app.post("/post/edit/:post_id", (req, res) => {
       return utils.error(res, "Your post is empty...")
     }
 
-    entities.Post.add(post.data)
+    await entities.Post.db.push(post.data)
 
     res.redirect("/post/" + post.id)
   })
 })
 
 app.get("/posts/:user_id", function (req, res) {
-  utils.checkoutSession(req, res, (user) => {
-    const target = entities.User.fromId(req.params.user_id)
+  utils.checkoutSession(req, res, async (user) => {
+    const target = await utils.getEntityFromParam<entities.User>(
+      req,
+      res,
+      "User"
+    )
 
-    if (!target) {
-      return utils.error(res, "Invalid target user")
-    }
+    if (!target) return
 
     const pageIndex = Number(req.query.page ?? 0)
 

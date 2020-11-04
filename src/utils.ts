@@ -51,6 +51,42 @@ export const md: Markdown = new Markdown({
   },
 })
 
+export function checkParamId(
+  req: express.Request,
+  entityName: string
+): number | void {
+  const value =
+    req.params[entityName[0].toLowerCase() + entityName.slice(1) + "_id"]
+
+  if (!/^\d+$/.test(value)) return
+
+  return Number(value)
+}
+
+export async function getEntityFromParam<T>(
+  req: express.Request,
+  res: express.Response,
+  entityName: string
+): Promise<T | void> {
+  const id = checkParamId(req, entityName)
+
+  if (!id) return error(res, `Invalid ${entityName} ID parameter.`)
+
+  // @ts-ignore
+  const entity = await entities[entityName].fromId(id)
+
+  if (!entity) {
+    return error(
+      res,
+      `This ${
+        entity[0].toLowerCase() + entity.slice(1)
+      } no longer exists or the given ID is incorrect.`
+    )
+  }
+
+  return entity as T
+}
+
 export function parseAdministrators() {
   return process.env.ADMINISTRATORS?.split(",").map((id) => Number(id)) ?? []
 }
