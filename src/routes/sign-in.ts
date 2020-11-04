@@ -16,7 +16,7 @@ app.post("/sign-in", async function (req, res) {
 
   const { username, hash } = body
 
-  utils.validateUsername(res, username, () => {
+  utils.validateDisplayName(res, username, () => {
     if (entities.User.db.some((data) => data.username === username)) {
       return utils.error(res, "Username already used...")
     }

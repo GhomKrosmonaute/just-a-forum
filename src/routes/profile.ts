@@ -9,12 +9,14 @@ app.get("/profile", function (req, res) {
 })
 
 app.get("/profile/:user_id", function (req, res) {
-  utils.checkoutSession(req, res, (user) => {
-    const target = entities.User.fromId(req.params.user_id)
+  utils.checkoutSession(req, res, async (user) => {
+    const target = await utils.getEntityFromParam<entities.User>(
+      req,
+      res,
+      "User"
+    )
 
-    if (!target) {
-      return utils.error(res, "Invalid target user")
-    }
+    if (!target) return
 
     utils.page(req, res, "profile", { user, target })
   })
@@ -22,13 +24,15 @@ app.get("/profile/:user_id", function (req, res) {
 
 app.post("/profile/:user_id", function (req, res) {
   utils.checkoutSession(req, res, async (user) => {
-    const target = entities.User.fromId(req.params.user_id)
+    const target = await utils.getEntityFromParam<entities.User>(
+      req,
+      res,
+      "User"
+    )
 
     // check param
 
-    if (!target) {
-      return utils.error(res, "Invalid target user")
-    }
+    if (!target) return
 
     // check user permission
 
@@ -38,34 +42,18 @@ app.post("/profile/:user_id", function (req, res) {
 
     // check form data
 
-    const username = req.body.username
-    const old_password = await utils.hash(res, req.body.old_password)
-    const new_password = req.body.new_password
+    const display_name = req.body.display_name ?? null
+    const description = req.body.description ?? null
 
-    if (!user.admin) {
-      if (!old_password || old_password !== target.password) {
-        return utils.error(res, "Incorrect password! Please retry.")
-      }
-    }
-
-    utils.validateUsername(res, username, async () => {
-      // validate password
-
-      let hash
-      if (new_password) {
-        hash = await utils.hash(res, new_password)
-        if (!hash) return
-      } else {
-        hash = target.password
-      }
-
+    utils.validateDisplayName(res, display_name, async () => {
       // patch
 
-      target.patch({
+      await target.patch({
         id: target.id,
-        username: username ?? target.username,
-        shortcuts: target.shortcuts,
-        password: hash,
+        fake: target.fake,
+        snowflake: target.snowflake,
+        display_name,
+        description,
       })
 
       // render

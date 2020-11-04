@@ -211,17 +211,17 @@ export async function hash(
   })
 }
 
-export function validateUsername(
+export function validateDisplayName(
   res: express.Response,
   username: string,
   callback: () => unknown
 ): void {
   if (/\s/.test(username)) {
-    return error(res, "Username mustn't contains spaces.")
+    return error(res, "Display name mustn't contains spaces.")
   }
 
   if (username.length > 20) {
-    return error(res, "Username is too large (20 char max)")
+    return error(res, "Display name is too large (20 char max)")
   }
 
   callback()
