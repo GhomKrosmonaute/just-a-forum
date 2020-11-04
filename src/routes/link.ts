@@ -3,36 +3,34 @@ import * as entities from "../entities"
 import * as utils from "../utils"
 
 app.get("/link/:user_id", function (req: any, res: any) {
-  utils.checkoutSession(req, res, (user) => {
+  utils.checkoutSession(req, res, async (user) => {
     const target_id = req.params.user_id
-    const target = entities.User.fromId(target_id)
+    const target = await entities.User.fromId(target_id)
 
     if (!target) {
       return utils.error(res, "Unknown target...")
     }
 
-    const userLink = entities.FriendRequest.find(
-      (data) => data.author_id === user.id && data.target_id === target.id
+    const userLink = await entities.FriendRequest.find(
+      "author_id = ? AND target_id = ?",
+      [user.id, target.id]
     )
-    const targetLink = entities.FriendRequest.find(
-      (data) => data.author_id === target.id && data.target_id === user.id
+    const targetLink = await entities.FriendRequest.find(
+      "author_id = ? AND target_id = ?",
+      [target.id, user.id]
     )
 
     if (userLink && targetLink) {
-      userLink.delete()
-      targetLink.delete()
+      await userLink.delete()
+      await targetLink.delete()
     } else if (userLink) {
-      userLink.delete()
+      await userLink.delete()
     } else {
-      const id = utils.makeId()
-
-      const link: entities.LinkData = {
-        id,
+      await entities.FriendRequest.db.push({
         author_id: user.id,
         target_id: target.id,
-      }
-
-      entities.FriendRequest.add(link)
+        created_timestamp: Date.now(),
+      })
     }
 
     utils.back(req, res)
