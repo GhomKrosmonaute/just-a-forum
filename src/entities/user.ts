@@ -10,7 +10,9 @@ export class User implements UserData {
   public db = User.db
 
   public admin: boolean
+
   public id: number
+  public fake: boolean
   public snowflake: string
   public description: string | null
   public display_name: string | null
@@ -18,6 +20,7 @@ export class User implements UserData {
 
   constructor(data: UserData) {
     this.id = data.id
+    this.fake = data.fake
     this.snowflake = data.snowflake
     this.description = data.description
     this.display_name = data.display_name
@@ -28,6 +31,7 @@ export class User implements UserData {
   get data(): UserData {
     return {
       id: this.id,
+      fake: this.fake,
       snowflake: this.snowflake,
       description: this.description,
       display_name: this.display_name,

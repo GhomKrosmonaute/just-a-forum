@@ -28,7 +28,7 @@ export class Shortcut implements ShortcutData {
       user_id: this.user_id,
       input: this.input,
       output: this.output,
-      created_timestamp: this.created_timestamp
+      created_timestamp: this.created_timestamp,
     }
   }
 

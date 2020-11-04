@@ -32,6 +32,10 @@ export class Database<N extends TableName> {
     await this.query(`DELETE FROM ${this.table} WHERE id = ?`, [id])
   }
 
+  async deleteFilter(filter: string, values?: any): Promise<void> {
+    await this.query(`DELETE FROM ${this.table} WHERE ${filter}`, values)
+  }
+
   get(id: number): Promise<TableData[N] | undefined> {
     return this.query(`SELECT * FROM ${this.table} WHERE id = ? LIMIT 1`, [
       id,
@@ -48,8 +52,17 @@ export class Database<N extends TableName> {
     await this.query(`UPDATE ${this.table} SET ? WHERE id = ?`, [data, data.id])
   }
 
+  random(): Promise<TableData[N] | undefined> {
+    return this.query(
+      `SELECT * FROM ${this.table} ORDER BY RAND() LIMIT 1`
+    ).then((results) => results[0])
+  }
+
   find(filter: string, values?: any): Promise<TableData[N] | undefined> {
-    return this.filter(filter, values).then((results) => results[0])
+    return this.query(
+      `SELECT * FROM ${this.table} WHERE ${filter} LIMIT 1`,
+      values
+    ).then((results) => results[0])
   }
 
   filter(filter: string, values?: any): Promise<TableData[N][]> {
@@ -127,6 +140,7 @@ export interface TableData {
     output: string
   }
   user: Data & {
+    fake: boolean
     snowflake: string
     description: string | null
     display_name: string | null

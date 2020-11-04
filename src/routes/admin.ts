@@ -13,16 +13,12 @@ app.get("/admin", function (req, res) {
 })
 
 app.get("/clean", function (req, res) {
-  utils.checkoutSession(req, res, (user) => {
+  utils.checkoutSession(req, res, async (user) => {
     if (!user.admin) {
       return utils.error(res, "Access denied.")
     }
 
-    entities.User.db.forEach((data) => {
-      if (data.id.endsWith("-fake")) {
-        new entities.User(data).delete()
-      }
-    })
+    await entities.User.db.deleteFilter("fake = 1")
 
     res.redirect("/admin")
   })
@@ -37,36 +33,33 @@ app.post("/fake", function (req, res) {
     const userCount = req.body.users ?? 100
     const postCountPerUser = req.body.posts ?? 100
 
-    const password = await utils.hash(res, "password")
-
     for (let u = 0; u < userCount; u++) {
-      const user_id = utils.makeId() + "-fake"
-
-      entities.User.add({
-        id: user_id,
-        username: faker.internet.userName(),
-        password: password as string,
-        shortcuts: [],
+      const insertId = await entities.User.db.push({
+        fake: true,
+        snowflake: utils.makeId(),
+        display_name: faker.internet.userName(),
+        description: faker.lorem.lines(),
+        created_timestamp: faker.date.past().getTime(),
       })
 
-      for (let p = 0; p < postCountPerUser; p++) {
-        const post_id = utils.makeId() + "-fake"
-
-        let parent_id = null
-        if (Math.random() < 0.5) {
-          const parent = entities.Post.db.random()
-          if (parent) {
-            parent_id = parent.id
+      if (insertId) {
+        for (let p = 0; p < postCountPerUser; p++) {
+          let parent_id = null
+          if (Math.random() < 0.5) {
+            const parent = await entities.Post.db.random()
+            if (parent) {
+              parent_id = parent.id
+            }
           }
-        }
 
-        entities.Post.add({
-          id: post_id,
-          author_id: user_id,
-          content: faker.lorem.sentences(),
-          date: faker.date.past().getTime(),
-          parent_id,
-        })
+          await entities.Post.db.push({
+            author_id: insertId,
+            content: faker.lorem.lines(),
+            created_timestamp: faker.date.past().getTime(),
+            edited_timestamp: Date.now(),
+            parent_id,
+          })
+        }
       }
     }
 
