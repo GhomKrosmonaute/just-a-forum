@@ -52,7 +52,7 @@
 - add dropdowns on header
 - add fixed side-bar with friend list
 - convert all bootstrap-style classes on forms by scss in form component
-- add fixed chat-boxes (facebook-like) on bottom-right of viewport
+- add fixed chat-boxes (facebook-favorite) on bottom-right of viewport
 - make possible user slugs in routes and show slugs on displayed url
 - allow tabulation in textarea
 - fix even username undefined bug
@@ -60,7 +60,7 @@
 - add about page with changelogs and todo-list (fetched on github)
 - allow auto scroll to focused list item on page reload
 - allow sorting choice for all lists
-- keep base query properties on login/subscribe redirection (like page number or sorting options)
+- keep base query properties on login/subscribe redirection (favorite page number or sorting options)
 - adapt for mobile:
     - convert some pages and partials views for mobile (prefix it with "m-")
     - detect device with [express-device](https://www.npmjs.com/package/express-device) for switch between mobile and desktop views

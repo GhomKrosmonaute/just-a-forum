@@ -1,40 +1,52 @@
 import app from "../server"
+import * as database from "../database"
 import * as entities from "../entities"
 import * as utils from "../utils"
 
-app.get("/like", utils.back)
+app.get("/favorite", utils.back)
 
-app.get("/like/:post_id", function (req, res) {
+app.get("/favorite/:post_id", function (req, res) {
   utils.checkoutSession(req, res, (user) => {
-    like(req, res, user, req.params.post_id).catch((error) => {
+    if (!/^\d+$/.test(req.params.post_id)) {
+      return utils.error(res, "Invalid ID parameter")
+    }
+
+    const post_id = Number(req.params.post_id)
+
+    favorite(req, res, user, post_id).catch((error) => {
       utils.error(res, "Unknown error...")
       throw error
     })
   })
 })
 
-app.post("/like", function (req, res) {
+app.post("/favorite", function (req, res) {
   utils.checkoutSession(req, res, (user) => {
     if (!req.body.post_id) {
       return utils.error(res, "Invalid request body!")
     }
 
-    like(req, res, user, req.body.post_id).catch((error) => {
+    favorite(req, res, user, req.body.post_id).catch((error) => {
       utils.error(res, "Unknown error...")
       throw error
     })
   })
 })
 
-async function like(req: any, res: any, user: entities.User, post_id: string) {
-  const data: entities.FavoriteDataOnly = {
+async function favorite(
+  req: any,
+  res: any,
+  user: entities.User,
+  post_id: number
+) {
+  const data: Omit<database.TableData["favorite"], "id"> = {
+    post_id,
     user_id: user.id,
-    post_id: post_id,
     created_timestamp: Date.now(),
   }
 
   // post exists?
-  if (!entities.Post.db.has(post_id)) {
+  if (!(await entities.Post.db.has("id = ?", [post_id]))) {
     return utils.error(res, "Incorrect post id!")
   }
 
@@ -45,7 +57,7 @@ async function like(req: any, res: any, user: entities.User, post_id: string) {
 
   // if already liked
   if (similarLike) {
-    similarLike.delete()
+    await similarLike.delete()
   } else {
     await entities.Favorite.db.push(data)
   }

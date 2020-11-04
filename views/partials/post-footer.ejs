@@ -11,9 +11,9 @@
                 <% } else if (likes.length > 20) { %>
                     <%- include('popover', { content: likes.length + ' likes' }) %>
                 <% } else { %>
-                    <%- include('popover', { content: likes.map(like => like.getUser().username).join(', ') }) %>
+                    <%- include('popover', { content: likes.map(favorite => favorite.getUser().username).join(', ') }) %>
                 <% } %>
-                    href="/like/<%= post.id %>" class="btn btn-icon <%= likes.some(like => like.user_id === user.id) ? 'bg-blue bg-dark-blue-hover' : '' %> round text-nowrap">
+                    href="/favorite/<%= post.id %>" class="btn btn-icon <%= likes.some(favorite => favorite.user_id === user.id) ? 'bg-blue bg-dark-blue-hover' : '' %> round text-nowrap">
                 <% if(likes.length > 0){ %>
                     <span class="text-bold"><%= likes.length %></span>
                 <% } else { %>
