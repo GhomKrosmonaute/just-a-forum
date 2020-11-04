@@ -12,7 +12,7 @@ export class User implements UserData {
   public admin: boolean
   public id: number
   public snowflake: string
-  public description: string
+  public description: string | null
   public display_name: string | null
   public created_timestamp: number
 
@@ -195,10 +195,6 @@ export class User implements UserData {
       ) = 1`,
       [this.id]
     )
-  }
-
-  deleteShortcut(shortcut_id: string) {
-    return entities.Shortcut.db.delete(shortcut_id)
   }
 
   delete() {

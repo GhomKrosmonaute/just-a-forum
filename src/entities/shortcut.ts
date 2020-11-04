@@ -1,71 +1,72 @@
-import Enmap from "enmap"
+import * as database from "../database"
 import * as entities from "../entities"
 
-export class Shortcut implements ShortcutData {
-  static db = new Enmap<string, ShortcutData>({ name: "shortcuts" })
+type ShortcutData = database.TableData["shortcut"]
 
-  public id: string
+export class Shortcut implements ShortcutData {
+  static db = new database.Database("shortcut")
+
+  public db = Shortcut.db
+
+  public id: number
+  public user_id: number
   public input: string
   public output: string
+  public created_timestamp: number
 
   constructor(data: ShortcutData) {
     this.id = data.id
+    this.user_id = data.user_id
     this.input = data.input
     this.output = data.output
+    this.created_timestamp = data.created_timestamp
   }
 
   get data(): ShortcutData {
     return {
       id: this.id,
+      user_id: this.user_id,
       input: this.input,
       output: this.output,
+      created_timestamp: this.created_timestamp
     }
   }
 
-  static fromId(id: string): Shortcut | void {
-    const data = this.db.get(id)
+  static async fromId(id: number): Promise<Shortcut | void> {
+    const data = await this.db.get(id)
     if (!data) return
     return new Shortcut(data)
   }
 
-  static find(finder: (data: ShortcutData) => boolean): Shortcut | void {
-    const data = this.db.find(finder)
+  static async find(filter: string, values?: any): Promise<Shortcut | void> {
+    const data = await this.db.find(filter, values)
     if (!data) return
     return new Shortcut(data)
   }
 
-  static sort(
-    sorter: (d1: ShortcutData, d2: ShortcutData) => number,
-    limit?: number
-  ): Shortcut[] {
-    const sorted = this.db.array().sort(sorter)
-    const data = limit ? sorted.slice(0, limit) : sorted
-    return data.map((d) => new Shortcut(d))
+  static async filter(filter: string, values?: any): Promise<Shortcut[]> {
+    return this.db
+      .filter(filter, values)
+      .then((results) => results.map((data) => new Shortcut(data)))
   }
 
-  static filter(filter: (data: ShortcutData) => boolean): Shortcut[] {
-    return this.db.filterArray(filter).map((data) => new Shortcut(data))
-  }
-
-  static add(data: ShortcutData) {
-    this.db.set(data.id, data)
-  }
-
-  getUsers(): entities.User[] {
-    return entities.User.filter((data) => !!data?.shortcuts?.includes(this.id))
+  async getUser(): Promise<entities.User | void> {
+    const user = await entities.User.fromId(this.user_id)
+    if (!user) return this.delete()
+    return user
   }
 
   delete() {
-    this.getUsers().forEach((user) => user.deleteShortcut(this.id))
-    Shortcut.db.delete(this.id)
+    return this.db.delete(this.id)
   }
 
-  patch(data: ShortcutData) {
+  async patch(data: ShortcutData) {
     if (data.id !== this.id) {
       throw new Error("oops")
     }
+    data.user_id = this.user_id
     this.output = data.output
     this.input = data.input
-    Shortcut.db.set(data.id, data)
+    await Shortcut.db.patch(data)
   }
 }

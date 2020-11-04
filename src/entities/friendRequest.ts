@@ -50,10 +50,6 @@ export class FriendRequest implements FriendRequestData {
       .then((results) => results.map((data) => new FriendRequest(data)))
   }
 
-  static add(data: FriendRequestData) {
-    return this.db.push(data)
-  }
-
   async getAuthor(): Promise<entities.User | void> {
     const user = await entities.User.fromId(this.author_id)
     if (!user) return this.delete()
@@ -66,7 +62,7 @@ export class FriendRequest implements FriendRequestData {
     return user
   }
 
-  async delete() {
-    await this.db.delete(this.id)
+  delete() {
+    return this.db.delete(this.id)
   }
 }
