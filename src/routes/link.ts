@@ -11,10 +11,10 @@ app.get("/link/:user_id", function (req: any, res: any) {
       return utils.error(res, "Unknown target...")
     }
 
-    const userLink = entities.Link.find(
+    const userLink = entities.FriendRequest.find(
       (data) => data.author_id === user.id && data.target_id === target.id
     )
-    const targetLink = entities.Link.find(
+    const targetLink = entities.FriendRequest.find(
       (data) => data.author_id === target.id && data.target_id === user.id
     )
 
@@ -32,7 +32,7 @@ app.get("/link/:user_id", function (req: any, res: any) {
         target_id: target.id,
       }
 
-      entities.Link.add(link)
+      entities.FriendRequest.add(link)
     }
 
     utils.back(req, res)

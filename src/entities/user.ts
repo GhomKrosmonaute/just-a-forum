@@ -68,7 +68,7 @@ export class User implements UserData {
   }
 
   async isFriendWith(user: User): Promise<boolean> {
-    return entities.Link.db
+    return entities.FriendRequest.db
       .count(
         `target_id = ? AND fr.author_id = ? OR fr.target_id = ? AND fr.author_id = ?`,
         [this.id, user.id, user.id, this.id]
@@ -150,7 +150,7 @@ export class User implements UserData {
     return User.filter(
       `(
           SELECT COUNT(fr.id)
-          FROM ${entities.Link.db.table} fr
+          FROM ${entities.FriendRequest.db.table} fr
           WHERE (fr.author_id = ? AND fr.target_id = ${this.db.table}.id)
           OR (fr.author_id = ${this.db.table}.id AND fr.target_id = ?)
         ) > 1
@@ -168,12 +168,12 @@ export class User implements UserData {
     return User.filter(
       `(
         select count(fr.id)
-        from ${entities.Link.db.table} fr
+        from ${entities.FriendRequest.db.table} fr
         where fr.author_id = ? and fr.target_id = ${this.db.table}.id
       ) = 1
       and (
         select count(fr.id)
-        from ${entities.Link.db.table} fr
+        from ${entities.FriendRequest.db.table} fr
         where fr.author_id = ${this.db.table}.id and fr.target_id = ?
       ) = 0`,
       [this.id]
@@ -185,12 +185,12 @@ export class User implements UserData {
     return User.filter(
       `(
         select count(fr.id)
-        from ${entities.Link.db.table} fr
+        from ${entities.FriendRequest.db.table} fr
         where fr.author_id = ? and fr.target_id = ${this.db.table}.id
       ) = 0
       and (
         select count(fr.id)
-        from ${entities.Link.db.table} fr
+        from ${entities.FriendRequest.db.table} fr
         where fr.author_id = ${this.db.table}.id and fr.target_id = ?
       ) = 1`,
       [this.id]
