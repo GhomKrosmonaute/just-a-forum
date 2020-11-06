@@ -1,12 +1,14 @@
 <div align="center">
-    <a href="https://just-a-forum.tk"><img src="./brand/logo_dark-blurple-white.png" width="200" alt="just-a-forum-logo" /></a>
-    <h1> Just a Forॐ </h1>
-  <p>
+    <a href="https://just-a-forum.tk">
+        <img src="./brand/logo_dark-blurple-white.png" width="200" alt="just-a-forum-logo" />
+        <h1> Just a Forॐ </h1>
+    </a>
     <a href="https://discord.gg/3vC2XWK">
-      <img src="https://img.shields.io/discord/507389389098188820?color=7289da&logo=discord&logoColor=white" alt="Discord server" /></a>
+      <img src="https://img.shields.io/discord/507389389098188820?color=7289da&logo=discord&logoColor=white" alt="Discord server" />
+    </a>
     <a href="https://david-dm.org/CamilleAbella/just-a-forum">
-      <img src="https://img.shields.io/david/CamilleAbella/just-a-forum.svg?maxAge=3600" alt="Dependencies" /></a>
-  </p>
+      <img src="https://img.shields.io/david/CamilleAbella/just-a-forum.svg?maxAge=3600" alt="Dependencies" />
+    </a>
 </div>
 
 ## How to use it ?
