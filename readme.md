@@ -75,4 +75,9 @@
 - faker:
     - randomly add likes and links
     - fake accounts auto-accepts friend requests
-    
+- implement multi-page posts for tutorials and trainings:
+    - remove post content column in sql table
+    - add page entity in relation with post
+    - place all post pages in same div and slide it with buttons to avoid page refreshing
+- implement JSON routes for statistics GET usage only:
+    - setup IP based cooldown
