@@ -28,7 +28,7 @@ const discordStrategy = new discord.Strategy(
         fake: false,
         snowflake: profile.id,
         display_name: profile.username,
-        avatar_url: profile.avatar ?? "/images/avatar.png",
+        avatar_url: profile.avatar ?? "/images/clyde.png",
         created_timestamp: Date.now(),
         description: null,
       })
