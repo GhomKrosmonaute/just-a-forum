@@ -72,13 +72,10 @@ export class Shortcut implements ShortcutData {
     return this.db.delete(this.id)
   }
 
-  async patch(data: ShortcutData) {
-    if (data.id !== this.id) {
-      throw new Error("oops")
-    }
+  async patch(data: database.PatchingData<ShortcutData>) {
     data.user_id = this.user_id
-    this.output = data.output
-    this.input = data.input
-    await Shortcut.db.patch(data)
+    this.output = data.output ?? this.output
+    this.input = data.input ?? this.input
+    await Shortcut.db.patch(this.id, data)
   }
 }
