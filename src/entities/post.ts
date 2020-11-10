@@ -187,4 +187,8 @@ export class Post implements PostData {
   delete() {
     return this.db.delete(this.id)
   }
+
+  patch(data: database.PatchingData<PostData>) {
+    return this.db.patch(this.id, data)
+  }
 }
