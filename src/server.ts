@@ -20,19 +20,26 @@ const discordStrategy = new discord.Strategy(
   async function (accessToken, refreshToken, profile, cb) {
     // @ts-ignore
     profile.refreshToken = refreshToken
+
     let user = await entities.User.fromSnowflake(profile.id)
+
     if (!user) {
       const id = await entities.User.db.push({
         fake: false,
         snowflake: profile.id,
         display_name: profile.username,
+        avatar_url: profile.avatar ?? "/images/avatar.png",
         created_timestamp: Date.now(),
         description: null,
       })
+
       if (id) {
         user = await entities.User.fromId(id)
       }
+    } else {
+      await user.refresh(profile)
     }
+
     if (user) {
       cb(null, new entities.Profile(user, profile))
     } else {

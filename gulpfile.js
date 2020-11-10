@@ -22,7 +22,7 @@ function watching(cb) {
     gulp.series(cleanSass, buildSass)
   )
   gulp.watch(
-    ["brand/**/*.png"],
+    ["images/**/*.png"],
     { delay: 500 },
     gulp.series(cleanAssets, copyAssets)
   )
@@ -63,7 +63,7 @@ function cleanSass() {
 }
 
 function cleanAssets() {
-  return cleanByGlob(["public/assets/brand"])
+  return cleanByGlob(["public/assets/images"])
 }
 
 function cleanByGlob(globs) {
@@ -73,7 +73,7 @@ function cleanByGlob(globs) {
 }
 
 function copyAssets() {
-  return gulp.src("brand/**/*.png").pipe(gulp.dest("public/brand/"))
+  return gulp.src("images/**/*.png").pipe(gulp.dest("public/images/"))
 }
 
 const cleanAll = gulp.series(cleanAssets, cleanSass, cleanTypescript)

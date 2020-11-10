@@ -48,8 +48,8 @@ export class Database<N extends TableName> {
     )
   }
 
-  async patch(data: Omit<TableData[N], "created_timestamp">): Promise<void> {
-    await this.query(`UPDATE ${this.table} SET ? WHERE id = ?`, [data, data.id])
+  async patch(id: number, data: PatchingData<TableData[N]>): Promise<void> {
+    await this.query(`UPDATE ${this.table} SET ? WHERE id = ?`, [data, id])
   }
 
   random(): Promise<TableData[N] | undefined> {
@@ -121,6 +121,8 @@ export interface Data {
   created_timestamp: number
 }
 
+export type PatchingData<T> = Partial<Omit<T, "created_timestamp" | "id">>
+
 export interface TableData {
   favorite: Data & {
     user_id: number
@@ -168,6 +170,7 @@ export interface TableData {
   user: Data & {
     fake: boolean
     snowflake: string
+    avatar_url: string
     description: string | null
     display_name: string | null
   }

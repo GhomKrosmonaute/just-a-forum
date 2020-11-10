@@ -1,3 +1,4 @@
+import discord from "passport-discord"
 import * as database from "../database"
 import * as entities from "../entities"
 import * as utils from "../utils"
@@ -14,6 +15,7 @@ export class User implements UserData {
   public id: number
   public fake: boolean
   public snowflake: string
+  public avatar_url: string
   public description: string | null
   public display_name: string | null
   public created_timestamp: number
@@ -22,6 +24,7 @@ export class User implements UserData {
     this.id = data.id
     this.fake = data.fake
     this.snowflake = data.snowflake
+    this.avatar_url = data.avatar_url
     this.description = data.description
     this.display_name = data.display_name
     this.created_timestamp = data.created_timestamp
@@ -33,6 +36,7 @@ export class User implements UserData {
       id: this.id,
       fake: this.fake,
       snowflake: this.snowflake,
+      avatar_url: this.avatar_url,
       description: this.description,
       display_name: this.display_name,
       created_timestamp: this.created_timestamp,
@@ -215,12 +219,18 @@ export class User implements UserData {
     return this.db.delete(this.id)
   }
 
-  async patch(data: Omit<UserData, "created_timestamp">) {
-    if (data.id !== this.id) {
-      throw new Error("oops")
-    }
-    this.display_name = data.display_name
-    this.description = data.description
-    await User.db.patch(data)
+  refresh(profile: discord.Profile) {
+    return this.patch({
+      snowflake: profile.id,
+      avatar_url: profile.avatar,
+      display_name: profile.username,
+    })
+  }
+
+  async patch(data: database.PatchingData<UserData>) {
+    this.display_name = data.display_name ?? this.display_name
+    this.description = data.description ?? this.description
+    this.avatar_url = data.avatar_url ?? this.avatar_url
+    await User.db.patch(this.id, data)
   }
 }

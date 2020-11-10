@@ -1,6 +1,6 @@
 <div align="center">
     <a href="https://just-a-forum.tk">
-        <img src="./brand/logo_dark-blurple-white.png" width="200" alt="just-a-forum-logo" />
+        <img src="images/brand/logo_dark-blurple-white.png" width="200" alt="just-a-forum-logo" />
         <h1> Just a Forॐ </h1>
     </a>
     <a href="https://discord.gg/3vC2XWK">
