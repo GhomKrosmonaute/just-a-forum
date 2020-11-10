@@ -53,9 +53,19 @@ export class Post implements PostData {
     return new Post(data)
   }
 
-  static async filter(filter: string, values?: any): Promise<Post[]> {
+  static async all(pagination?: database.PaginationOptions): Promise<Post[]> {
     return this.db
-      .filter(filter, values)
+      .all(pagination)
+      .then((results) => results.map((data) => new Post(data)))
+  }
+
+  static async filter(
+    filter: string,
+    values?: any,
+    pagination?: database.PaginationOptions
+  ): Promise<Post[]> {
+    return this.db
+      .filter(filter, values, pagination)
       .then((results) => results.map((data) => new Post(data)))
   }
 
@@ -130,11 +140,11 @@ export class Post implements PostData {
       .then((children) => children.flat())
   }
 
-  async getChildrenPagination(
-    pageIndex: number
-  ): Promise<utils.Pagination<Post>> {
-    return utils.paginate(await this.getChildren(), pageIndex)
-  }
+  // async getChildrenPagination(
+  //   pageIndex: number
+  // ): Promise<utils.Pagination<Post>> {
+  //   return utils.paginate(await this.getChildren(), pageIndex)
+  // }
 
   async getPath(): Promise<Post[]> {
     const path: Post[] = []

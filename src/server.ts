@@ -23,6 +23,7 @@ const discordStrategy = new discord.Strategy(
     let user = await entities.User.fromSnowflake(profile.id)
     if (!user) {
       const id = await entities.User.db.push({
+        fake: false,
         snowflake: profile.id,
         display_name: profile.username,
         created_timestamp: Date.now(),

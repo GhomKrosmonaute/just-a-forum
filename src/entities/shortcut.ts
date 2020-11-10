@@ -44,9 +44,21 @@ export class Shortcut implements ShortcutData {
     return new Shortcut(data)
   }
 
-  static async filter(filter: string, values?: any): Promise<Shortcut[]> {
+  static async all(
+    pagination?: database.PaginationOptions
+  ): Promise<Shortcut[]> {
     return this.db
-      .filter(filter, values)
+      .all(pagination)
+      .then((results) => results.map((data) => new Shortcut(data)))
+  }
+
+  static async filter(
+    filter: string,
+    values?: any,
+    pagination?: database.PaginationOptions
+  ): Promise<Shortcut[]> {
+    return this.db
+      .filter(filter, values, pagination)
       .then((results) => results.map((data) => new Shortcut(data)))
   }
 

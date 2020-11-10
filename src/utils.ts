@@ -102,18 +102,6 @@ export function addLineNumbersTo(code: string): string {
     .join("\n")
 }
 
-export function sortByDate(a: entities.Post, b: entities.Post): number {
-  const a_recent = Math.max(
-    a.date,
-    ...a.getAllChildren().map((child) => child.date)
-  )
-  const b_recent = Math.max(
-    b.date,
-    ...b.getAllChildren().map((child) => child.date)
-  )
-  return b_recent - a_recent
-}
-
 export function removeDuplicate<T>(array: T[]): T[] {
   return [...new Set(array)]
 }
@@ -190,11 +178,11 @@ export function logout(req: Request, res: express.Response) {
   })
 }
 
-export function loggedUserId(req: Request): string
+export function loggedUserId(req: Request): number
 export function loggedUserId(req: express.Request): undefined
 export function loggedUserId(
   req: express.Request | Request
-): string | undefined {
+): number | undefined {
   return req.session?.user_id
 }
 
@@ -268,13 +256,14 @@ export function checkoutSession(
   callback: (user: entities.User, session: Request) => any
 ) {
   if (isSessionActive(req)) {
-    const user = entities.User.fromId(loggedUserId(req))
-    if (user) {
-      sessions.set(user.id, Date.now())
-      callback(user, req)
-    } else {
-      error(res, "Internal error!")
-    }
+    entities.User.fromId(loggedUserId(req)).then((user) => {
+      if (user) {
+        sessions.set(user.id, Date.now())
+        callback(user, req)
+      } else {
+        error(res, "Internal error!")
+      }
+    })
   } else {
     res.redirect(`/login?redirect=${req.path}`)
   }
@@ -290,35 +279,4 @@ export function turnAround(
       ? req.query.redirect
       : defaultRoute
   )
-}
-
-export interface Pagination<T> {
-  items: T[]
-  pages: T[][]
-  page: T[]
-  index: number
-  next: boolean
-  prev: boolean
-  lastIndex: number
-  active: boolean
-}
-
-export const maxItemPerPage: number = 6
-
-export function paginate<T>(items: T[], pageIndex: number = 0): Pagination<T> {
-  const pages: T[][] = []
-  const pageCount = Math.ceil(items.length / maxItemPerPage)
-  for (let i = 0; i < pageCount; i++) {
-    pages.push(items.slice(maxItemPerPage * i, maxItemPerPage * (i + 1)))
-  }
-  return {
-    items,
-    pages,
-    page: pages[pageIndex] ?? [],
-    index: pageIndex,
-    next: pageIndex < pageCount - 1,
-    prev: pageIndex > 0,
-    lastIndex: pageCount - 1,
-    active: pages.length > 1,
-  }
 }

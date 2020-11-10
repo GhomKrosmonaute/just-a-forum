@@ -1,5 +1,6 @@
 import * as database from "../database"
 import * as entities from "../entities"
+import { promises } from "dns"
 
 type FavoriteData = database.TableData["favorite"]
 
@@ -41,9 +42,21 @@ export class Favorite implements FavoriteData {
     return new Favorite(data)
   }
 
-  static async filter(filter: string, values?: any): Promise<Favorite[]> {
+  static async all(
+    pagination?: database.PaginationOptions
+  ): Promise<Favorite[]> {
     return this.db
-      .filter(filter, values)
+      .all(pagination)
+      .then((results) => results.map((data) => new Favorite(data)))
+  }
+
+  static async filter(
+    filter: string,
+    values?: any,
+    pagination?: database.PaginationOptions
+  ): Promise<Favorite[]> {
+    return this.db
+      .filter(filter, values, pagination)
       .then((results) => results.map((data) => new Favorite(data)))
   }
 

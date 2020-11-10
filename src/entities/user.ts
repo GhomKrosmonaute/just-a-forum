@@ -65,9 +65,19 @@ export class User implements UserData {
     return new User(data)
   }
 
-  static async filter(filter: string, values?: any): Promise<User[]> {
+  static async all(pagination?: database.PaginationOptions): Promise<User[]> {
     return this.db
-      .filter(filter, values)
+      .all(pagination)
+      .then((results) => results.map((data) => new User(data)))
+  }
+
+  static async filter(
+    filter: string,
+    values?: any,
+    pagination?: database.PaginationOptions
+  ): Promise<User[]> {
+    return this.db
+      .filter(filter, values, pagination)
       .then((results) => results.map((data) => new User(data)))
   }
 
@@ -89,21 +99,21 @@ export class User implements UserData {
     return entities.Shortcut.filter("user_id = ?", [this.id])
   }
 
-  getFeed(): Promise<entities.Post[]> {
-    return this.getPosts()
-      .concat(
-        this.getFriends()
-          .map((user) => user.getPosts())
-          .flat()
-      )
-      .sort(utils.sortByDate)
-  }
+  // getFeed(): Promise<entities.Post[]> {
+  //   return this.getPosts()
+  //     .concat(
+  //       this.getFriends()
+  //         .map((user) => user.getPosts())
+  //         .flat()
+  //     )
+  //     .sort(utils.sortByDate)
+  // }
 
-  async getFeedPagination(
-    pageIndex: number
-  ): Promise<utils.Pagination<entities.Post>> {
-    return utils.paginate(await this.getFeed(), pageIndex)
-  }
+  // async getFeedPagination(
+  //   pageIndex: number
+  // ): Promise<utils.Pagination<entities.Post>> {
+  //   return utils.paginate(await this.getFeed(), pageIndex)
+  // }
 
   getPosts(): Promise<entities.Post[]> {
     return entities.Post.filter("author_id = ? AND parent_id IS NULL", [
@@ -121,11 +131,11 @@ export class User implements UserData {
     return entities.Post.filter("author_id = ?", [this.id])
   }
 
-  async getPostsPagination(
-    pageIndex: number
-  ): Promise<utils.Pagination<entities.Post>> {
-    return utils.paginate(await this.getPosts(), pageIndex)
-  }
+  // async getPostsPagination(
+  //   pageIndex: number
+  // ): Promise<utils.Pagination<entities.Post>> {
+  //   return utils.paginate(await this.getPosts(), pageIndex)
+  // }
 
   // getNetwork(): Promise<User[]> {
   //   return User.db.query(`

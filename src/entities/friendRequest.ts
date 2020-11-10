@@ -44,9 +44,21 @@ export class FriendRequest implements FriendRequestData {
     return new FriendRequest(data)
   }
 
-  static async filter(filter: string, values?: any): Promise<FriendRequest[]> {
+  static async all(
+    pagination?: database.PaginationOptions
+  ): Promise<FriendRequest[]> {
     return this.db
-      .filter(filter, values)
+      .all(pagination)
+      .then((results) => results.map((data) => new FriendRequest(data)))
+  }
+
+  static async filter(
+    filter: string,
+    values?: any,
+    pagination?: database.PaginationOptions
+  ): Promise<FriendRequest[]> {
+    return this.db
+      .filter(filter, values, pagination)
       .then((results) => results.map((data) => new FriendRequest(data)))
   }
 

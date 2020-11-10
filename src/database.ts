@@ -65,8 +65,20 @@ export class Database<N extends TableName> {
     ).then((results) => results[0])
   }
 
-  filter(filter: string, values?: any): Promise<TableData[N][]> {
-    return this.query(`SELECT * FROM ${this.table} WHERE ${filter}`, values)
+  filter(
+    filter: string,
+    values?: any,
+    pagination?: PaginationOptions
+  ): Promise<TableData[N][]> {
+    const limit = pagination
+      ? `LIMIT ${pagination.index * pagination.itemPerPage},${
+          pagination.itemPerPage
+        }`
+      : ""
+    return this.query(
+      `SELECT * FROM ${this.table} WHERE ${filter} ${limit}`,
+      values
+    )
   }
 
   count(filter: string, values?: any): Promise<number> {
@@ -76,9 +88,23 @@ export class Database<N extends TableName> {
     ).then((results) => results[0].count ?? 0)
   }
 
+  all(pagination?: PaginationOptions): Promise<TableData[N][]> {
+    const limit = pagination
+      ? `LIMIT ${pagination.index * pagination.itemPerPage},${
+          pagination.itemPerPage
+        }`
+      : ""
+    return this.query(`SELECT * FROM ${this.table} ${limit}`)
+  }
+
   has(filter: string, values?: any): Promise<boolean> {
     return this.count(filter, values).then((count) => count > 0)
   }
+}
+
+export interface PaginationOptions {
+  index: number
+  itemPerPage: number
 }
 
 export type Row<T> = T & {
