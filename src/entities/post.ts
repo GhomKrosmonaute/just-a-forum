@@ -128,23 +128,21 @@ export class Post implements PostData {
     return entities.Favorite.filter("post_id = ?", [this.id])
   }
 
-  getChildren(): Promise<Post[]> {
-    return Post.filter("parent_id = ?", this.id)
+  getChildren(pagination?: database.PaginationOptions): Promise<Post[]> {
+    return Post.filter("parent_id = ?", this.id, pagination)
   }
 
-  getAllChildren(): Promise<Post[]> {
+  getRecursiveChildren(): Promise<Post[]> {
     return this.getChildren()
       .then((children) =>
-        Promise.all(children.map((child) => child.getAllChildren()))
+        Promise.all(children.map((child) => child.getRecursiveChildren()))
       )
       .then((children) => children.flat())
   }
 
-  // async getChildrenPagination(
-  //   pageIndex: number
-  // ): Promise<utils.Pagination<Post>> {
-  //   return utils.paginate(await this.getChildren(), pageIndex)
-  // }
+  getChildrenCount(): Promise<number> {
+    return this.db.count("parent_id = ?", this.id)
+  }
 
   async getPath(): Promise<Post[]> {
     const path: Post[] = []
@@ -157,20 +155,33 @@ export class Post implements PostData {
   }
 
   async getMentions(): Promise<entities.User[]> {
-    const mentions: number[] = []
+    const mentions = new Set<number>()
 
-    if (this.content.includes("@you")) {
+    const at = this.content
+      .split(/\s+/)
+      .filter(/^@.+$/i.test)
+      .map((word) => word.slice(1))
+
+    if (at.includes("you")) {
       const parent = await this.getParent()
       if (parent) {
-        mentions.push(parent.author_id)
+        mentions.add(parent.author_id)
       }
     }
 
-    if (this.content.includes("@me")) {
-      mentions.push(this.author_id)
+    if (at.includes("me")) {
+      mentions.add(this.author_id)
     }
 
-    return []
+    // ma requete
+
+    return Promise.all([...mentions].map(entities.User.fromId)).then(
+      (users) => {
+        return users.filter((user): user is entities.User => {
+          return !!user
+        })
+      }
+    )
   }
 
   delete() {
